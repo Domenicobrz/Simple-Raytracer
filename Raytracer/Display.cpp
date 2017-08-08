@@ -1,6 +1,8 @@
 #include "Display.h"
 #include "Shader.h"
+#include <thread>
 #include <GLFW/glfw3.h>
+#include <mutex>
 
 
 Display::Display(int width, int height) {
@@ -10,9 +12,15 @@ Display::Display(int width, int height) {
 
 	RandomData  = new float[width * height * 4];
 	SampledData = new float[width * height * 4];
+	memset(RandomData, 0, width * height * 4 * sizeof(float));
+
 
 	createProgram();
 	createDisplayTexture();
+
+	t1 = std::thread([=] { runRenderThread(); });
+	//t2 = std::thread([=] { runRenderThread(); });
+	//t3 = std::thread([=] { runRenderThread(); });
 }
 
 void Display::createProgram() {
@@ -53,6 +61,8 @@ void Display::createProgram() {
 
 void Display::update() {
 
+	if (!updateRequested) return;
+
 	double currentTime = glfwGetTime();
 	deltaTime = float(currentTime - lastTime);
 
@@ -64,7 +74,6 @@ void Display::update() {
 	glUseProgram(DisplayProgramID);
 
 
-	samples++;
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0, GL_RGBA, GL_FLOAT, RandomData);
 	glUniform1i(uSamples, samples);
 
@@ -75,9 +84,14 @@ void Display::update() {
 	glUniform1i(uDisplayTexture, 0);
 
 
+
 	glBindVertexArray(DisplayProgramVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glBindVertexArray(NULL);
+
+
+
+	updateRequested = false;
 }
 
 void Display::createDisplayTexture() {
@@ -90,4 +104,36 @@ void Display::createDisplayTexture() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0, GL_RGBA, GL_FLOAT, RandomData.data());
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0, GL_RGBA, GL_FLOAT, RandomData);
+}
+
+void Display::runRenderThread() {
+
+	float* buffer = new float[width * height * 4];
+
+	for (;;) {
+		memset(buffer, 0, width * height * 4 * sizeof(float));
+
+		for (int i = 0; i < width * height; i++) {
+			buffer[i * 4 + 0] = (float)rand() / (float)RAND_MAX;
+			buffer[i * 4 + 1] = (float)rand() / (float)RAND_MAX;
+			buffer[i * 4 + 2] = (float)rand() / (float)RAND_MAX;
+			buffer[i * 4 + 3] = 1;
+		}
+
+		/* attach mutex */
+		updateMutex.lock();
+		for (int i = 0; i < width * height * 4; i++) {
+			RandomData[i] += buffer[i];
+		}
+
+		samples++;
+		updateRequested = true;
+		printf("%d \n", samples);
+
+		for (;;) {
+			if (!updateRequested) break;
+		}
+		updateMutex.unlock();
+
+	}
 }

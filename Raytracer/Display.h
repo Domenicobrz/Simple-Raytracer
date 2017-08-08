@@ -2,6 +2,8 @@
 
 #define GLEW_STATIC
 #include <GL/glew.h>
+#include <thread>
+#include <mutex>
 
 class Display {
 
@@ -13,6 +15,11 @@ private:
 	void createProgram();
 	void createDisplayTexture();
 	
+	void runRenderThread();
+	std::thread t1;
+	std::thread t2;
+	std::thread t3;
+
 	GLuint DisplayProgramID;
 	GLuint DisplayProgramVAO;
 	GLuint DisplayProgramVBO;
@@ -26,6 +33,8 @@ private:
 	float* SampledData;
 
 	int samples = 0;
+	bool updateRequested = false;
+	std::mutex updateMutex;
 
 	int width;
 	int height;

@@ -151,10 +151,12 @@
   <ItemGroup>
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TileManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="TileManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="displayf.glsl" />

@@ -58,7 +58,7 @@ int main() {
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
 	do{
-		displayProgram.update();
+		 displayProgram.update();
 
 		// Swap buffers
 		glfwSwapBuffers(window);
