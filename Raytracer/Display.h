@@ -1,4 +1,5 @@
-#pragma once
+#ifndef DISPLAY_h
+#define DISPLAY_h
 
 #define GLEW_STATIC
 #include <GL/glew.h>
@@ -47,3 +48,5 @@ private:
 	float lastTime;
 	float deltaTime;
 };
+
+#endif

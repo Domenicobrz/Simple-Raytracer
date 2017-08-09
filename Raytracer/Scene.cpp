@@ -1,3 +1,5 @@
+#include "common_math.h"
+#include "Camera.h"
 #include "Scene.h"
 
 Scene::Scene() {
@@ -5,5 +7,7 @@ Scene::Scene() {
 };
 
 vec3 Scene::compute(int index) {
-	return camera.getCameraRayFromIndex(index);
+	Ray ray = camera.getCameraRayFromIndex(index);
+
+	return ray.d;
 }

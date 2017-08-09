@@ -1,8 +1,8 @@
-#pragma once
+#ifndef CAMERA_h
+#define CAMERA_h
 
-#include <glm\glm.hpp>
-
-using namespace glm;
+#include "common_math.h"
+#include "Ray.h"
 
 class Camera {
 public:
@@ -10,7 +10,7 @@ public:
 	Camera(int, int);
 
 	/* pixel index is passed in this function */
-	vec3 getCameraRayFromIndex(int index);
+	Ray getCameraRayFromIndex(int index);
 
 	int FOV;
 
@@ -20,3 +20,5 @@ private:
 	float screenRatio;
 
 };
+
+#endif

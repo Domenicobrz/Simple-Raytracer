@@ -1,7 +1,7 @@
+#include "common_math.h"
 #include "Camera.h"
+#include "Ray.h"
 
-#define _USE_MATH_DEFINES
-#include <math.h>
 
 Camera::Camera() {
 
@@ -13,7 +13,7 @@ Camera::Camera(int screenWidth, int screenHeight) : screenWidth(screenWidth),
 	screenRatio = (float)screenWidth / (float)screenHeight;
 }
 
-vec3 Camera::getCameraRayFromIndex(int index) {
+Ray Camera::getCameraRayFromIndex(int index) {
 	// 0 ... 0.999 ( 'left side' of the last pixel square)
 	float s = (index % screenWidth) / (float)screenWidth;
 	float t = (index / screenWidth) / (float)screenHeight;
@@ -29,6 +29,9 @@ vec3 Camera::getCameraRayFromIndex(int index) {
 	float x = ns * hwwz1;
 	float y = nt * hwhz1;
 	float z = 1;
+	
+	vec3 dir(x, y, z);
+	vec3 origin(0.0f, 0.0f, 0.0f);
 
-	return vec3(x, y, z);
+	return Ray(origin, dir);
 }

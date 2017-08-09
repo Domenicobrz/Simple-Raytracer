@@ -1,9 +1,8 @@
-#pragma once
+#ifndef SCENE_h
+#define SCENE_h
 
-#include <glm/glm.hpp>
+#include "common_math.h"
 #include "Camera.h"
-
-using namespace glm;
 
 class Scene {
 public:
@@ -15,3 +14,5 @@ public:
 	/* public members */
 	Camera camera;
 };
+
+#endif
