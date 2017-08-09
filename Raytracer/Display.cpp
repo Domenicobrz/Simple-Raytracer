@@ -3,7 +3,9 @@
 #include <thread>
 #include <GLFW/glfw3.h>
 #include <mutex>
+#include <glm/glm.hpp>
 
+using namespace glm;
 
 Display::Display(int width, int height) {
 	this->width  = width;
@@ -14,6 +16,8 @@ Display::Display(int width, int height) {
 	SampledData = new float[width * height * 4];
 	memset(RandomData, 0, width * height * 4 * sizeof(float));
 
+	Camera camera(width, height);
+	scene.camera = camera;
 
 	createProgram();
 	createDisplayTexture();
@@ -114,9 +118,12 @@ void Display::runRenderThread() {
 		memset(buffer, 0, width * height * 4 * sizeof(float));
 
 		for (int i = 0; i < width * height; i++) {
-			buffer[i * 4 + 0] = (float)rand() / (float)RAND_MAX;
-			buffer[i * 4 + 1] = (float)rand() / (float)RAND_MAX;
-			buffer[i * 4 + 2] = (float)rand() / (float)RAND_MAX;
+			vec3 color = scene.compute(i);
+			color = normalize(color) * 0.5f + 0.5f;
+
+			buffer[i * 4 + 0] = color.r;
+			buffer[i * 4 + 1] = color.g;
+			buffer[i * 4 + 2] = color.b;
 			buffer[i * 4 + 3] = 1;
 		}
 

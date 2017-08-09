@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <thread>
 #include <mutex>
+#include "Scene.h"
 
 class Display {
 
@@ -38,6 +39,10 @@ private:
 
 	int width;
 	int height;
+
+
+	Scene scene;
+
 
 	float lastTime;
 	float deltaTime;
