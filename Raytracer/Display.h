@@ -17,6 +17,8 @@ private:
 	void createProgram();
 	void createDisplayTexture();
 	
+	void buildScene();
+	
 	void runRenderThread();
 	std::thread t1;
 	std::thread t2;

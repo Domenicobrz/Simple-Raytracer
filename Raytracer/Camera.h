@@ -17,8 +17,8 @@ public:
 private:
 	int screenWidth;
 	int screenHeight;
-	float screenRatio;
 
+	float screenRatio;
 };
 
 #endif

@@ -18,6 +18,9 @@ Ray Camera::getCameraRayFromIndex(int index) {
 	float s = (index % screenWidth) / (float)screenWidth;
 	float t = (index / screenWidth) / (float)screenHeight;
 
+	s += ((float)rand() / (float)RAND_MAX) / screenWidth;
+	t += ((float)rand() / (float)RAND_MAX) / screenHeight;
+
 	// hwh at z == 1
 	float hwhz1 = tan((45.0f / 2.0f) * M_PI / 180.0f);
 	float hwwz1 = hwhz1 * (screenRatio);

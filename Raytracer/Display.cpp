@@ -5,6 +5,8 @@
 #include <mutex>
 #include <glm/glm.hpp>
 
+#include "Sphere.h"
+
 using namespace glm;
 
 Display::Display(int width, int height) {
@@ -16,8 +18,7 @@ Display::Display(int width, int height) {
 	SampledData = new float[width * height * 4];
 	memset(RandomData, 0, width * height * 4 * sizeof(float));
 
-	Camera camera(width, height);
-	scene.camera = camera;
+	buildScene();
 
 	createProgram();
 	createDisplayTexture();
@@ -143,4 +144,15 @@ void Display::runRenderThread() {
 		updateMutex.unlock();
 
 	}
+}
+
+
+void Display::buildScene() {
+	Camera camera(width, height);
+	scene.camera = camera;
+
+	Sphere* sphere1  = new Sphere(vec3(0, 0, 50), 10);
+	Primitive* prim1 = sphere1;
+
+	scene.addPrimitive(prim1);
 }

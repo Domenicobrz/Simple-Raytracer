@@ -6,5 +6,5 @@ class Primitive {
 public:
 	Primitive();
 
-	virtual void intersect(Ray);
+	virtual float intersect(Ray);
 };
