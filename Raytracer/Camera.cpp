@@ -1,4 +1,3 @@
-#include "common_math.h"
 #include "Camera.h"
 #include "Ray.h"
 
@@ -9,7 +8,7 @@ Camera::Camera() {
 
 Camera::Camera(int screenWidth, int screenHeight) : screenWidth(screenWidth), 
 													screenHeight(screenHeight),
-													FOV(45) {
+													FOV(45.0f) {
 	screenRatio = (float)screenWidth / (float)screenHeight;
 }
 
@@ -36,5 +35,5 @@ Ray Camera::getCameraRayFromIndex(int index) {
 	vec3 dir(x, y, z);
 	vec3 origin(0.0f, 0.0f, 0.0f);
 
-	return Ray(origin, dir);
+	return Ray(origin, normalize(dir));
 }

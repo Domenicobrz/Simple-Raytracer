@@ -6,6 +6,8 @@
 #include <glm/glm.hpp>
 
 #include "Sphere.h"
+#include "Material.h"
+#include "Lambert.h"
 
 using namespace glm;
 
@@ -24,8 +26,8 @@ Display::Display(int width, int height) {
 	createDisplayTexture();
 
 	t1 = std::thread([=] { runRenderThread(); });
-	//t2 = std::thread([=] { runRenderThread(); });
-	//t3 = std::thread([=] { runRenderThread(); });
+	t2 = std::thread([=] { runRenderThread(); });
+	t3 = std::thread([=] { runRenderThread(); });
 }
 
 void Display::createProgram() {
@@ -66,9 +68,11 @@ void Display::createProgram() {
 
 void Display::update() {
 
-	if (!updateRequested) return;
+	//if (!updateRequested) return;
 
 	double currentTime = glfwGetTime();
+	if (float(currentTime - lastTime) < 0.5) return;
+
 	deltaTime = float(currentTime - lastTime);
 
 
@@ -120,7 +124,6 @@ void Display::runRenderThread() {
 
 		for (int i = 0; i < width * height; i++) {
 			vec3 color = scene.compute(i);
-			color = normalize(color) * 0.5f + 0.5f;
 
 			buffer[i * 4 + 0] = color.r;
 			buffer[i * 4 + 1] = color.g;
@@ -138,9 +141,9 @@ void Display::runRenderThread() {
 		updateRequested = true;
 		printf("%d \n", samples);
 
-		for (;;) {
-			if (!updateRequested) break;
-		}
+		//for (;;) {
+		//	if (!updateRequested) break;
+		//}
 		updateMutex.unlock();
 
 	}
@@ -151,8 +154,20 @@ void Display::buildScene() {
 	Camera camera(width, height);
 	scene.camera = camera;
 
-	Sphere* sphere1  = new Sphere(vec3(0, 0, 50), 10);
+	Sphere* sphere1  = new Sphere(vec3(0, 0, 50), 10.0f);
+	sphere1->material = new LambertMaterial(vec3(0.5f, 0.5f, 0.5f));
 	Primitive* prim1 = sphere1;
 
+	Sphere* sphere2 = new Sphere(vec3(0, -105, 50), 100);
+	sphere2->material = new LambertMaterial(vec3(0.3, 0.3, 0.3));
+	Primitive* prim2 = sphere2;
+
 	scene.addPrimitive(prim1);
-}
+	scene.addPrimitive(prim2);
+
+	for (int i = 0; i < 17; i++) {
+		Sphere* sphere = new Sphere(vec3(rnd() * 25.0f - 12.5f, rnd() * 10.0f, 50.0f - rnd() * 10.0f), rnd() * 5.0f);
+		sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
+		scene.addPrimitive(sphere);
+	}
+} 

@@ -18,23 +18,34 @@ float Sphere::intersect(Ray ray)  {
 	float discriminant = b*b - 4*a*c;
 
 
+
 	/* no intersection */
 	if (discriminant <= 0) return INFINITY;
 	
 
 
 	if (discriminant > 0) {
-		float t = (-b - sqrt(discriminant)) / (2.0f * a);
-		if (t > 0.000001f) {
-			return t;
+		float t1 = (-b - sqrt(discriminant)) / (2.0f * a);
+		if (t1 > 0.0000001f) {
+			return t1;
 		}
 
-		t = (-b + sqrt(discriminant)) / (2.0f * a);
-		if (t > 0.000001f) {
-			return t;
+		float t2 = (-b + sqrt(discriminant)) / (2.0f * a);
+		if (t2 > 0.0000001f) {
+			int y = 0;
+
+			return t2;
 		}
 
 		/* backward intersection */
-		if (t < 0.0f) return INFINITY;
+		return INFINITY;
 	}
+}
+
+vec3 Sphere::normalAtPoint(vec3 point)  {
+	return normalize(point - center);
+}
+
+Material* Sphere::getMaterial()  {
+	return material;
 }

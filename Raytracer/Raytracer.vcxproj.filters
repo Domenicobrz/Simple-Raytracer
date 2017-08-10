@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{e8969631-d3ee-4568-8232-8d9246faad18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BSDFs">
+      <UniqueIdentifier>{49536a0e-9ce5-4633-a861-43f310fec26b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -38,6 +41,12 @@
     </ClCompile>
     <ClCompile Include="Sphere.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Lambert.cpp">
+      <Filter>BSDFs</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>BSDFs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +76,12 @@
     </ClInclude>
     <ClInclude Include="Sphere.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lambert.h">
+      <Filter>BSDFs</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>BSDFs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

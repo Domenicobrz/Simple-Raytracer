@@ -12,7 +12,7 @@ public:
 	/* pixel index is passed in this function */
 	Ray getCameraRayFromIndex(int index);
 
-	int FOV;
+	float FOV;
 
 private:
 	int screenWidth;
