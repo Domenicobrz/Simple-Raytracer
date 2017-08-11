@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Glossy.cpp" />
     <ClCompile Include="Lambert.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Primitive.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="common_math.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Glossy.h" />
     <ClInclude Include="Lambert.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Primitive.h" />

@@ -8,6 +8,7 @@
 #include "Sphere.h"
 #include "Material.h"
 #include "Lambert.h"
+#include "Glossy.h"
 
 using namespace glm;
 
@@ -155,7 +156,7 @@ void Display::buildScene() {
 	scene.camera = camera;
 
 	Sphere* sphere1  = new Sphere(vec3(0, 0, 50), 10.0f);
-	sphere1->material = new LambertMaterial(vec3(0.5f, 0.5f, 0.5f));
+	sphere1->material = new GlossyMaterial(vec3(0.5f, 0.5f, 0.5f), 0.23f);
 	Primitive* prim1 = sphere1;
 
 	Sphere* sphere2 = new Sphere(vec3(0, -105, 50), 100);
@@ -166,8 +167,8 @@ void Display::buildScene() {
 	scene.addPrimitive(prim2);
 
 	for (int i = 0; i < 17; i++) {
-		Sphere* sphere = new Sphere(vec3(rnd() * 25.0f - 12.5f, rnd() * 10.0f, 50.0f - rnd() * 10.0f), rnd() * 5.0f);
-		sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
+		Sphere* sphere = new Sphere(vec3(rnd() * 30.0f - 15.0f, rnd() * 15.0f, 45.0f - rnd() * 10.0f), rnd() * 4.0f);
+		sphere->material = new GlossyMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()), rnd() * 0.75);
 		scene.addPrimitive(sphere);
 	}
 } 

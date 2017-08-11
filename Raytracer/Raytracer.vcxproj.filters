@@ -48,6 +48,9 @@
     <ClCompile Include="Material.cpp">
       <Filter>BSDFs</Filter>
     </ClCompile>
+    <ClCompile Include="Glossy.cpp">
+      <Filter>BSDFs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -81,6 +84,9 @@
       <Filter>BSDFs</Filter>
     </ClInclude>
     <ClInclude Include="Material.h">
+      <Filter>BSDFs</Filter>
+    </ClInclude>
+    <ClInclude Include="Glossy.h">
       <Filter>BSDFs</Filter>
     </ClInclude>
   </ItemGroup>

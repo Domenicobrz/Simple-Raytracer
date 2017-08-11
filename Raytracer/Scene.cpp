@@ -48,7 +48,12 @@ vec3 Scene::compute(int index) {
 			float g = (1.0f - ty) * 1.0f + ty * 0.0f; //* 0.7f;
 			float b = (1.0f - ty) * 1.0f + ty * 0.2f; //* 1.0f;
 
-			radiance.push_back(vec3(r,g,b));
+			//float dott = pow(max(dot(ray.d, vec3(-1.0f, 1.0f, 0.0f)), 0.0f), 3.0f);
+			//vec3 col = vec3(1.0f, 0.5f, 0.5f) * dott;
+			vec3 col = vec3(r,g,b);
+
+
+			radiance.push_back(col);
 			break;
 		}
 	}
