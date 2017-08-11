@@ -152,11 +152,15 @@ void Display::runRenderThread() {
 
 
 void Display::buildScene() {
-	Camera camera(width, height);
+
+	vec3 eye = vec3(20.0f, 10.0f, 20.0f);
+	vec3 lookAt = vec3(0.0f, 0.0f, 50.0f);
+	Camera camera(width, height, eye, lookAt);
+
 	scene.camera = camera;
 
 	Sphere* sphere1  = new Sphere(vec3(0, 0, 50), 10.0f);
-	sphere1->material = new GlossyMaterial(vec3(0.5f, 0.5f, 0.5f), 0.23f);
+	sphere1->material = new GlossyMaterial(vec3(0.5f, 0.5f, 0.5f), 0.1);
 	Primitive* prim1 = sphere1;
 
 	Sphere* sphere2 = new Sphere(vec3(0, -105, 50), 100);
@@ -168,7 +172,7 @@ void Display::buildScene() {
 
 	for (int i = 0; i < 17; i++) {
 		Sphere* sphere = new Sphere(vec3(rnd() * 30.0f - 15.0f, rnd() * 15.0f, 45.0f - rnd() * 10.0f), rnd() * 4.0f);
-		sphere->material = new GlossyMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()), rnd() * 0.75);
+		sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
 		scene.addPrimitive(sphere);
 	}
 } 
