@@ -105,7 +105,7 @@ vec3 Scene::compute2(int index) {
 			accucolor += mask * material->emissive();
 
 			mask *= material->compute(primitives[primIndex], hitPoint, ray);
-			mask *= 1.2f; //fudge factor
+			mask *= 1.0f; //fudge factor
 		}
 
 		if (minT == INFINITY || b == BOUNCES - 1) {
