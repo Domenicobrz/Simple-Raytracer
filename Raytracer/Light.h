@@ -5,14 +5,15 @@
 #include "Primitive.h"
 #include "Ray.h"
 
-class LambertMaterial : public Material {
+class LightMaterial : public Material {
 public:
-	LambertMaterial();
-	LambertMaterial(vec3);
+	LightMaterial();
+	LightMaterial(vec3);
 
 	/* returns a color and changes the ray direction */
 	vec3 compute(Primitive*, vec3, Ray&);
 	vec3 emissive();
+
 
 	vec3 color;
 };

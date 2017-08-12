@@ -12,6 +12,7 @@ public:
 
 	/* computes pixel color from index */
 	vec3 compute(int);
+	vec3 compute2(int);
 	void addPrimitive(Primitive*);
 
 	/* public members */

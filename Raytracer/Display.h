@@ -23,6 +23,8 @@ private:
 	std::thread t1;
 	std::thread t2;
 	std::thread t3;
+	std::thread t4;
+	
 
 	GLuint DisplayProgramID;
 	GLuint DisplayProgramVAO;

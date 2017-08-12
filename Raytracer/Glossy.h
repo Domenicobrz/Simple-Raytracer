@@ -9,7 +9,8 @@ class GlossyMaterial : public Material {
 public:
 	GlossyMaterial();
 	GlossyMaterial(vec3 color, float factor);
-	virtual vec3 compute(Primitive* prim, vec3 hitPoint, Ray& ray);
+	vec3 compute(Primitive* prim, vec3 hitPoint, Ray& ray);
+	vec3 emissive();
 
 private:
 	float factor;

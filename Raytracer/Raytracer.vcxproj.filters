@@ -51,6 +51,12 @@
     <ClCompile Include="Glossy.cpp">
       <Filter>BSDFs</Filter>
     </ClCompile>
+    <ClCompile Include="Glass.cpp">
+      <Filter>BSDFs</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>BSDFs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -87,6 +93,12 @@
       <Filter>BSDFs</Filter>
     </ClInclude>
     <ClInclude Include="Glossy.h">
+      <Filter>BSDFs</Filter>
+    </ClInclude>
+    <ClInclude Include="Glass.h">
+      <Filter>BSDFs</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
       <Filter>BSDFs</Filter>
     </ClInclude>
   </ItemGroup>

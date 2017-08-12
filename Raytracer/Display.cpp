@@ -9,6 +9,8 @@
 #include "Material.h"
 #include "Lambert.h"
 #include "Glossy.h"
+#include "Glass.h"
+#include "Light.h"
 
 using namespace glm;
 
@@ -29,6 +31,7 @@ Display::Display(int width, int height) {
 	t1 = std::thread([=] { runRenderThread(); });
 	t2 = std::thread([=] { runRenderThread(); });
 	t3 = std::thread([=] { runRenderThread(); });
+	t4 = std::thread([=] { runRenderThread(); });
 }
 
 void Display::createProgram() {
@@ -124,7 +127,7 @@ void Display::runRenderThread() {
 		memset(buffer, 0, width * height * 4 * sizeof(float));
 
 		for (int i = 0; i < width * height; i++) {
-			vec3 color = scene.compute(i);
+			vec3 color = scene.compute2(i);
 
 			buffer[i * 4 + 0] = color.r;
 			buffer[i * 4 + 1] = color.g;
@@ -153,14 +156,14 @@ void Display::runRenderThread() {
 
 void Display::buildScene() {
 
-	vec3 eye = vec3(20.0f, 10.0f, 20.0f);
+	vec3 eye = vec3(0.0f, 10.0f, -15.0f);
 	vec3 lookAt = vec3(0.0f, 0.0f, 50.0f);
 	Camera camera(width, height, eye, lookAt);
 
 	scene.camera = camera;
 
 	Sphere* sphere1  = new Sphere(vec3(0, 0, 50), 10.0f);
-	sphere1->material = new GlossyMaterial(vec3(0.5f, 0.5f, 0.5f), 0.1);
+	sphere1->material = new GlassMaterial(vec3(1.0f, 1.0f, 1.0f), 0.0f, 1.25f);
 	Primitive* prim1 = sphere1;
 
 	Sphere* sphere2 = new Sphere(vec3(0, -105, 50), 100);
@@ -170,9 +173,22 @@ void Display::buildScene() {
 	scene.addPrimitive(prim1);
 	scene.addPrimitive(prim2);
 
-	for (int i = 0; i < 17; i++) {
-		Sphere* sphere = new Sphere(vec3(rnd() * 30.0f - 15.0f, rnd() * 15.0f, 45.0f - rnd() * 10.0f), rnd() * 4.0f);
-		sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
+	for (int i = 0; i < 10; i++) {
+		Sphere* sphere = new Sphere(vec3(rnd() * 30.0f - 15.0f, rnd() * 12.0f, 70.0f - rnd() * 10.0f), rnd() * 5.0f);
+		if (i % 2 == 0)
+			sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
+		else
+			sphere->material = new GlassMaterial(vec3(rnd() * 0.2f + 0.8f, rnd() * 0.2f + 0.8f, rnd() * 0.2f + 0.8f), rnd() * 0.25f, 1.2f);
+
+			//if (i == 0)
+			//	sphere->material = new LightMaterial(vec3(2.0f, 0.3f, 0.4f));
+
+			//if (i == 9)
+			//	sphere->material = new LightMaterial(vec3(0.2f, 0.25f, 2.1f));
+
+		sphere->material = new LightMaterial(vec3(rnd() * 3.0f, rnd() * 3.0f, rnd() * 3.0f));
+
+
 		scene.addPrimitive(sphere);
 	}
 } 

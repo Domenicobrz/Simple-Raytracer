@@ -1,10 +1,10 @@
-#include "Lambert.h"
+#include "Light.h"
 
-LambertMaterial::LambertMaterial() : Material() { }; 
-LambertMaterial::LambertMaterial(vec3 color) : Material(), color(color) { };
+LightMaterial::LightMaterial() : Material() { };
+LightMaterial::LightMaterial(vec3 color) : Material(), color(color) { };
 
-vec3 LambertMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
-	
+vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
+
 	vec3 normal = primitive->normalAtPoint(hitPoint);
 
 	vec3 hitplusnormal = hitPoint + normal;
@@ -24,17 +24,17 @@ vec3 LambertMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 		}
 	}
 
-
+	
 	//vec3 randomPointOnUnitSphere = normalize(vec3(x, y, z)) * rnd();
 	ray.o = hitPoint;
 	ray.d = normalize((hitplusnormal + randomPointOnUnitSphere) - hitPoint);
 
-	vec3 mask = color * dot(normal, ray.d);
+	vec3 mask = vec3(1.0) * dot(normal, ray.d);
 
-	//return color;
+	//return vec3(1.0);
 	return mask;
 }
 
-vec3 LambertMaterial::emissive() {
-	return vec3(0.0f);
+vec3 LightMaterial::emissive() {
+	return color;
 }
