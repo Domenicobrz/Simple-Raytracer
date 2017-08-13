@@ -19,6 +19,9 @@
     <Filter Include="BSDFs">
       <UniqueIdentifier>{49536a0e-9ce5-4633-a861-43f310fec26b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BVH">
+      <UniqueIdentifier>{59156f9e-ce37-413a-82ca-b217d067fa3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -56,6 +59,12 @@
     </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>BSDFs</Filter>
+    </ClCompile>
+    <ClCompile Include="naiveBVH.cpp">
+      <Filter>BVH</Filter>
+    </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>BVH</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +109,12 @@
     </ClInclude>
     <ClInclude Include="Light.h">
       <Filter>BSDFs</Filter>
+    </ClInclude>
+    <ClInclude Include="naiveBVH.h">
+      <Filter>BVH</Filter>
+    </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>BVH</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

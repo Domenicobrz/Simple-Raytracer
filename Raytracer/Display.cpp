@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <mutex>
 #include <glm/glm.hpp>
+#include <stdlib.h>
 
 #include "Sphere.h"
 #include "Material.h"
@@ -12,7 +13,8 @@
 #include "Glass.h"
 #include "Light.h"
 
-#include <stdlib.h>
+#include "naiveBVH.h"
+
 
 using namespace glm;
 
@@ -158,7 +160,7 @@ void Display::runRenderThread() {
 
 void Display::buildScene() {
 
-	vec3 eye = vec3(0.0f, 10.0f, -15.0f);
+	vec3 eye = vec3(0.0f, 10.0f, -85.0f);
 	vec3 lookAt = vec3(0.0f, 0.0f, 50.0f);
 	Camera camera(width, height, eye, lookAt);
 
@@ -176,24 +178,27 @@ void Display::buildScene() {
 	scene.addPrimitive(prim1);
 	scene.addPrimitive(prim2);
 
-	for (int i = 0; i < 10; i++) {
-		Sphere* sphere = new Sphere(vec3(rnd() * 30.0f - 15.0f, rnd() * 12.0f, 45.0f - rnd() * 10.0f), rnd() * 5.0f);
+	for (int i = 0; i < 240; i++) {
+		Sphere* sphere = new Sphere(vec3(rnd() * 100.0f - 50.0f, rnd() * 32.0f, 45.0f + rnd() * 450.0f), 3.f + rnd() * 5.0f);
 		//if (i % 2 == 0)
 			sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
 		//else
 			//sphere->material = new GlassMaterial(vec3(rnd() * 0.2f + 0.8f, rnd() * 0.2f + 0.8f, rnd() * 0.2f + 0.8f), rnd() * 0.25f, 1.2f);
 
-			//if (i == 0)
-			//	sphere->material = new LightMaterial(vec3(2.0f, 0.3f, 0.4f));
+		//if (i == 0)
+		//	sphere->material = new LightMaterial(vec3(2.0f, 0.3f, 0.4f));
 
-			//if (i == 9)
-			//	sphere->material = new LightMaterial(vec3(0.2f, 0.25f, 2.1f));
+		//if (i == 9)
+		//	sphere->material = new LightMaterial(vec3(0.2f, 0.25f, 2.1f));
 
-			if (i == 5) {
-				sphere = new Sphere(vec3(1000.0f, 1000.f, -1000.0f), 500.0f);
-				sphere->material = new LightMaterial(vec3(rnd() * 23.0f, rnd() * 23.0f, rnd() * 23.0f));
-			}
+		//if (i == 5) {
+		//	sphere = new Sphere(vec3(1000.0f, 1000.f, -1000.0f), 500.0f);
+		//	sphere->material = new LightMaterial(vec3(rnd() * 23.0f, rnd() * 23.0f, rnd() * 23.0f));
+		//}
 
 		scene.addPrimitive(sphere);
 	}
+
+
+	scene.bvh.createBVH(&scene.primitives);
 } 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Ray.h"
+#include "AABB.h"
 
 class Material;
 class Primitive {
@@ -10,4 +11,5 @@ public:
 	virtual float intersect(Ray);
 	virtual vec3  normalAtPoint(vec3);
 	virtual Material* getMaterial();
+	virtual AABB getAABB();
 };

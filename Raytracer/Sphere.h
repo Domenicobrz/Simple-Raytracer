@@ -15,6 +15,7 @@ public:
 	float intersect(Ray);
 	vec3  normalAtPoint(vec3);
 	Material* getMaterial();
+	AABB getAABB();
 
 
 	vec3 center;

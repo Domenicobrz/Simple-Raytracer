@@ -87,7 +87,7 @@ vec3 Scene::compute2(int index) {
 	/* bounces forloop - filling the radiance array */
 	for (int b = 0; b < BOUNCES; b++) {
 
-		float minT = INFINITY; int primIndex;
+		/*float minT = INFINITY; int primIndex;
 		for (int i = 0; i < primitives.size(); i++) {
 			float t = primitives[i]->intersect(ray);
 
@@ -95,20 +95,22 @@ vec3 Scene::compute2(int index) {
 				minT = t;
 				primIndex = i;
 			}
-		}
+		}*/
 
-		if (minT != INFINITY) {
+		naiveBVHHitRecord rec = bvh.traverse(ray);
+
+		if (rec.t != INFINITY) {
 			/* error bound */
-			vec3 hitPoint = ray.o + ray.d * (minT * 0.9999f);
+			vec3 hitPoint = ray.o + ray.d * (rec.t * 0.9999f);
 
-			Material* material = primitives[primIndex]->getMaterial();
+			Material* material = rec.prim->getMaterial();
 			accucolor += mask * material->emissive();
 
-			mask *= material->compute(primitives[primIndex], hitPoint, ray);
+			mask *= material->compute(rec.prim, hitPoint, ray);
 			mask *= 1.0f; //fudge factor
 		}
 
-		if (minT == INFINITY || b == BOUNCES - 1) {
+		if (rec.t == INFINITY || b == BOUNCES - 1) {
 			float ty = ray.d.y * 0.5f + 0.5f;
 			float tx = ray.d.x * 0.5f + 0.5f;
 			float r = (1.0f - tx) * 1.0f + tx * 0.0f; //* 0.5f;
@@ -117,9 +119,11 @@ vec3 Scene::compute2(int index) {
 			//vec3 col = vec3(r, g, b);
 
 
-			//float dott = pow(max(dot(ray.d, vec3(-1.0f, 1.0f, 0.0f)), 0.0f), 3.0f);
-			//vec3 col = vec3(1.0f, 0.5f, 0.5f) * dott;
-			//accucolor += col * mask;
+			float dott = pow(max(dot(ray.d, vec3(-1.0f, 1.0f, 0.0f)), 0.0f), 3.0f);
+			vec3 col = vec3(1.0f, 0.5f, 0.5f) * dott;
+
+
+			accucolor += col * mask;
 			break;
 		}
 	}

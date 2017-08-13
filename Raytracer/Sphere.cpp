@@ -8,6 +8,15 @@ Sphere::Sphere(vec3 center, float radius) : Primitive(), center(center), radius(
 
 }
 
+AABB Sphere::getAABB() {
+	AABB boundingBox;
+
+	boundingBox.c0 = center - radius;
+	boundingBox.c1 = center + radius;
+
+	return boundingBox;
+}
+
 float Sphere::intersect(Ray ray)  {
 
 	vec3 oc = ray.o - center;
@@ -17,12 +26,9 @@ float Sphere::intersect(Ray ray)  {
 	
 	float discriminant = b*b - 4*a*c;
 
-
-
 	/* no intersection */
 	if (discriminant <= 0) return INFINITY;
 	
-
 
 	if (discriminant > 0) {
 		float t1 = (-b - sqrt(discriminant)) / (2.0f * a);

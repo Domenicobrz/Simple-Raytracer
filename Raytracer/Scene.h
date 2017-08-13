@@ -5,6 +5,7 @@
 #include "common_math.h"
 #include "Camera.h"
 #include "Primitive.h"
+#include "naiveBVH.h"
 
 class Scene {
 public:
@@ -19,6 +20,7 @@ public:
 	Camera camera;
 
 	std::vector<Primitive*> primitives;
+	naiveBVH bvh;
 };
 
 #endif
