@@ -8,6 +8,7 @@ Sphere::Sphere(vec3 center, float radius) : Primitive(), center(center), radius(
 
 }
 
+/* TODO: compute bounding box in the constructor and just return it */
 AABB Sphere::getAABB() {
 	AABB boundingBox;
 

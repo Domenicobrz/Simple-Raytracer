@@ -122,8 +122,11 @@ vec3 Scene::compute2(int index) {
 			float dott = pow(max(dot(ray.d, vec3(-1.0f, 1.0f, 0.0f)), 0.0f), 3.0f);
 			vec3 col = vec3(1.0f, 0.5f, 0.5f) * dott;
 
+			//float dott2 = pow(max(dot(ray.d, vec3(1.0f, 1.0f, 0.0f)), 0.0f), 3.0f);
+			//vec3 col2 = vec3(0.3f, 0.3f, 1.0f) * dott2;
 
-			accucolor += col * mask;
+
+			accucolor += col * mask;// *0.07f + col2 * mask * 0.07f;
 			break;
 		}
 	}

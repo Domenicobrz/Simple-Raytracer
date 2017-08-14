@@ -7,6 +7,8 @@
 #include <stdlib.h>
 
 #include "Sphere.h"
+#include "Triangle.h"
+
 #include "Material.h"
 #include "Lambert.h"
 #include "Glossy.h"
@@ -160,7 +162,7 @@ void Display::runRenderThread() {
 
 void Display::buildScene() {
 
-	vec3 eye = vec3(0.0f, 10.0f, -85.0f);
+	vec3 eye = vec3(0.0f, 35.0f, -60.0f);
 	vec3 lookAt = vec3(0.0f, 0.0f, 50.0f);
 	Camera camera(width, height, eye, lookAt);
 
@@ -168,33 +170,27 @@ void Display::buildScene() {
 
 	Sphere* sphere1  = new Sphere(vec3(0, 0, 50), 10.0f);
 	//sphere1->material = new GlassMaterial(vec3(1.0f, 1.0f, 1.0f), 0.0f, 1.25f);
-	sphere1->material = new GlossyMaterial(vec3(1.0f, 1.0f, 1.0f), 1.0f);
+	sphere1->material = new LambertMaterial(vec3(1.0f, 1.0f, 1.0f));
+	//sphere1->material = new LightMaterial(vec3(40.0f, 5.0f, 5.0f));
 	Primitive* prim1 = sphere1;
 
 	Sphere* sphere2 = new Sphere(vec3(0, -105, 50), 100);
 	sphere2->material = new LambertMaterial(vec3(0.3, 0.3, 0.3));
 	Primitive* prim2 = sphere2;
 
+
+	Triangle* tri1 = new Triangle(vec3(-15, 0, 65), vec3(0, 30, 55), vec3(15, 0, 48));
+	tri1->material = new GlossyMaterial(vec3(0.6, 0.6, 0.6), 0.3f);
+	Primitive* prim3 = tri1;
+
+
 	scene.addPrimitive(prim1);
 	scene.addPrimitive(prim2);
+	scene.addPrimitive(prim3);
 
-	for (int i = 0; i < 240; i++) {
-		Sphere* sphere = new Sphere(vec3(rnd() * 100.0f - 50.0f, rnd() * 32.0f, 45.0f + rnd() * 450.0f), 3.f + rnd() * 5.0f);
-		//if (i % 2 == 0)
-			sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
-		//else
-			//sphere->material = new GlassMaterial(vec3(rnd() * 0.2f + 0.8f, rnd() * 0.2f + 0.8f, rnd() * 0.2f + 0.8f), rnd() * 0.25f, 1.2f);
-
-		//if (i == 0)
-		//	sphere->material = new LightMaterial(vec3(2.0f, 0.3f, 0.4f));
-
-		//if (i == 9)
-		//	sphere->material = new LightMaterial(vec3(0.2f, 0.25f, 2.1f));
-
-		//if (i == 5) {
-		//	sphere = new Sphere(vec3(1000.0f, 1000.f, -1000.0f), 500.0f);
-		//	sphere->material = new LightMaterial(vec3(rnd() * 23.0f, rnd() * 23.0f, rnd() * 23.0f));
-		//}
+	for (int i = 0; i < 50; i++) {
+		Sphere* sphere = new Sphere(vec3(rnd() * 100.0f - 50.0f, rnd() * 23.0f, 45.0f + rnd() * 35.0f), 1.5f + rnd() * 5.0f);
+		sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
 
 		scene.addPrimitive(sphere);
 	}

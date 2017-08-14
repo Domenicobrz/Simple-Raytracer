@@ -18,6 +18,21 @@ AABB AABB::operator+(const AABB& b) const {
 	return newAABB;
 }
 
+AABB AABB::operator+(const vec3& v) const {
+
+	AABB newAABB;
+
+	newAABB.c0.x = min(this->c0.x, v.x);
+	newAABB.c0.y = min(this->c0.y, v.y);
+	newAABB.c0.z = min(this->c0.z, v.z);
+
+	newAABB.c1.x = max(this->c1.x, v.x);
+	newAABB.c1.y = max(this->c1.y, v.y);
+	newAABB.c1.z = max(this->c1.z, v.z);
+
+	return newAABB;
+}
+
 float AABB::intersect(Ray ray) {
 	float tmin = 0.000001f;
 	float tmax = INFINITY;

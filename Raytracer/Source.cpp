@@ -10,7 +10,7 @@
 #include "Display.h"
 
 
-const int WIDTH  = 600;
+const int WIDTH  = 800;
 const int HEIGHT = 600;
 
 // extern is redundant, function declarations have external linkage by default
