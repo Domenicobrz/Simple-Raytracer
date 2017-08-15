@@ -116,11 +116,11 @@ vec3 Scene::compute2(int index) {
 			float r = (1.0f - tx) * 1.0f + tx * 0.0f; //* 0.5f;
 			float g = (1.0f - ty) * 1.0f + ty * 0.0f; //* 0.7f;
 			float b = (1.0f - ty) * 1.0f + ty * 0.2f; //* 1.0f;
-			//vec3 col = vec3(r, g, b);
+			vec3 col = vec3(r, g, b) * 1.4f * 0.0f;
 
 
-			float dott = pow(max(dot(ray.d, vec3(-1.0f, 1.0f, 0.0f)), 0.0f), 3.0f);
-			vec3 col = vec3(1.0f, 0.5f, 0.5f) * dott;
+			// float dott = pow(max(dot(ray.d, vec3(-1.0f, 1.0f, 0.0f)), 0.0f), 3.0f);
+			// vec3 col = vec3(1.0f, 0.5f, 0.5f) * dott;
 
 			//float dott2 = pow(max(dot(ray.d, vec3(1.0f, 1.0f, 0.0f)), 0.0f), 3.0f);
 			//vec3 col2 = vec3(0.3f, 0.3f, 1.0f) * dott2;

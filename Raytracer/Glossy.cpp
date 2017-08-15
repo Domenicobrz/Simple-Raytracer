@@ -5,6 +5,8 @@ GlossyMaterial::GlossyMaterial(vec3 color, float factor) : Material(), color(col
 
 vec3 GlossyMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	vec3 normal = primitive->normalAtPoint(hitPoint);
+	if (dot(normal, ray.d) > 0) normal = -normal;
+
 
 	vec3 reflectionDir = reflect(ray.d, normal);
 	float maxLenght = dot(reflectionDir, normal);

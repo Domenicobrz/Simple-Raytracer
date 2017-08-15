@@ -6,6 +6,7 @@ LightMaterial::LightMaterial(vec3 color) : Material(), color(color) { };
 vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 
 	vec3 normal = primitive->normalAtPoint(hitPoint);
+	if (dot(normal, ray.d) > 0) normal = -normal;
 
 	vec3 hitplusnormal = hitPoint + normal;
 
