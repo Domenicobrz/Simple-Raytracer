@@ -40,8 +40,8 @@ Display::Display(int width, int height) {
 	createDisplayTexture();
 
 	t1 = std::thread([=] { srand(1352523); printf("%f", rnd()); runRenderThread(); });
-	//t2 = std::thread([=] { srand(234);     printf("%f", rnd()); runRenderThread(); });
-	//t3 = std::thread([=] { srand(3134534); printf("%f", rnd()); runRenderThread(); });
+	t2 = std::thread([=] { srand(234);     printf("%f", rnd()); runRenderThread(); });
+	t3 = std::thread([=] { srand(3134534); printf("%f", rnd()); runRenderThread(); });
 	//t4 = std::thread([=] { srand(892308);  printf("%f", rnd()); runRenderThread(); });
 }
 
@@ -186,45 +186,43 @@ void Display::buildScene() {
 	//scene.addPrimitive(prim1);
 	scene.addPrimitive(prim2);
 
-	for (int i = 0; i < 40; i++) {
+	for (int i = 0; i < 10; i++) {
 		Sphere* sphere = new Sphere(vec3(rnd() * 100.0f - 50.0f, rnd() * 11.0f + 20.0f, 45.0f + rnd() * 35.0f), 1.5f + rnd() * 5.0f);
 		sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
-
-		//if (i % 2 == 0) {
-		//	sphere->material = new LightMaterial(vec3(rnd() * 5.5f + 0.5f, rnd() * 5.5f + 0.5f, rnd() * 5.5f + 0.5f));
-		//}
-
 		scene.addPrimitive(sphere);
 	}
 
-	for (int i = 0; i < 40; i++) {
-		Sphere* sphere = new Sphere(vec3(rnd() * 100.0f - 50.0f, rnd() * 21.0f - 10.0f, 77.0f + rnd() * 35.0f), 1.5f + rnd() * 5.0f);
-		sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
 
-		//if (i % 2 == 0) {
-		//	sphere->material = new LightMaterial(vec3(rnd() * 5.5f + 0.5f, rnd() * 5.5f + 0.5f, rnd() * 5.5f + 0.5f));
-		//}
-
-		scene.addPrimitive(sphere);
-	}
-
-	//Sphere* l1 = new Sphere(vec3(1000, 700, 1000), 450);
-	//l1->material = new LightMaterial(vec3(9, 2, 4));
-	//scene.addPrimitive(l1);
-
-	//Sphere* l2 = new Sphere(vec3(1000, 200, 200), 300);
-	//l2->material = new LightMaterial(vec3(2, 4, 9));
-	//scene.addPrimitive(l2);
-
-
-
-	Material* modelMaterial = new GlossyMaterial(vec3(1, 0.8f, 0.8f), 0.4f);// , 1.3f);
+	//Material* modelMaterial = new GlossyMaterial(vec3(1, 0.8f, 0.8f), 0.1f);// , 1.3f);
+	Material* modelMaterial = new LambertMaterial(vec3(0.6, 0.7, 0.8));// , 1.3f);
 	mat4 modelMatrix = mat4();
-	modelMatrix = glm::translate(modelMatrix, vec3(-15, -5, 50));
+	modelMatrix = glm::translate(modelMatrix, vec3(-20, 0, 50));
 	modelMatrix = glm::scale(modelMatrix, vec3(3, 3, 3));
 	modelMatrix = glm::rotate(modelMatrix, 0.7f, vec3(0, 1, 0));
 
-	scene.loadModel("C:\\Users\\Domenico\\desktop\\dragon.obj", modelMatrix, modelMaterial);
+	scene.loadModel("C:\\Users\\Domenico\\desktop\\dragon2.obj", modelMatrix, modelMaterial);
+
+	Sphere* sphere = new Sphere(vec3(20,25,95), 24.0f);
+	sphere->material = new GlossyMaterial(vec3(1, 1, 1), 0.0f);
+	scene.addPrimitive(sphere);
+
+	/* creating a plane */
+	Material* planeMaterial = new LambertMaterial(vec3(1, 1, 1));
+	Triangle* pl1 = new Triangle(
+		vec3(-300, 0,-300),
+		vec3(300,  0,-300),
+		vec3(-300, 0,300)
+	);
+	pl1->material = planeMaterial;
+	scene.addPrimitive(pl1);
+
+	Triangle* pl2 = new Triangle(
+		vec3(-300, 0, 300),
+		vec3(300,  0, 300),
+		vec3(300,  0, -300)
+		);
+	pl2->material = planeMaterial;
+	scene.addPrimitive(pl2);
 
 
 	scene.bvh.createBVH(&scene.primitives);

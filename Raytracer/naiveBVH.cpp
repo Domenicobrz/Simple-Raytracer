@@ -84,7 +84,8 @@ int naiveBVH::box_z_compare(const void* p1, const void* p2) {
 
 naiveBVHHitRecord naiveBVH::traverse(Ray ray) {
 	float t = INFINITY;
-	return traverseRecursive(rootNode, ray);
+	return traverseStack(rootNode, ray);
+	//return traverseRecursive(rootNode, ray);
 }
 
 naiveBVHHitRecord naiveBVH::traverseRecursive(naiveBVHNode* node, Ray ray) {
@@ -124,5 +125,95 @@ naiveBVHHitRecord naiveBVH::traverseRecursive(naiveBVHNode* node, Ray ray) {
 
 	if (l1t < l2t) rec = { l1t, node->left };
 	else           rec = { l2t, node->right };
+	return rec;
+}
+
+
+naiveBVHHitRecord naiveBVH::traverseStack(naiveBVHNode* rootnode, Ray ray) {
+
+	naiveBVHHitRecord rec = { INFINITY, nullptr };
+	
+	std::vector<naiveBVHNode*> toVisit;
+	toVisit.push_back(rootnode);
+	
+	Primitive* closestPrim = nullptr;
+	float mint = INFINITY;
+
+	while (toVisit.size() != 0) {
+		naiveBVHNode* node = toVisit.back();
+
+
+
+		/* vv NOT STRICTLY NEEDED - TEST PERFORMANCE WITH AND WITHOUT vv */
+		/* vv NOT STRICTLY NEEDED - TEST PERFORMANCE WITH AND WITHOUT vv */
+		if (mint != INFINITY && node->boundingBox.intersect(ray) > mint) {
+			toVisit.pop_back();
+			continue;
+		}
+		/* ^^ NOT STRICTLY NEEDED - TEST PERFORMANCE WITH AND WITHOUT ^^ */
+		/* ^^ NOT STRICTLY NEEDED - TEST PERFORMANCE WITH AND WITHOUT ^^ */
+
+
+
+
+
+
+		if (node->flags & NAIVEBVH_INTERNALNODE) {
+			naiveBVHNode* nodeleft = node->nodeleft;
+			naiveBVHNode* noderight = node->noderight;
+			toVisit.pop_back();
+
+
+			float t1 = nodeleft->boundingBox.intersect(ray);
+			float t2 = noderight->boundingBox.intersect(ray);
+
+			if (t1 == INFINITY && t2 == INFINITY) continue;
+			if (t1 != INFINITY && t2 == INFINITY) {
+				if (t1 < mint) toVisit.push_back(nodeleft);
+				continue;
+			}
+			if (t1 == INFINITY && t2 != INFINITY) {
+				if (t2 < mint) toVisit.push_back(noderight);
+				continue;
+			}
+
+			if (t1 < t2) {
+				if (t1 < mint) toVisit.push_back(nodeleft);
+				if (t2 < mint) toVisit.push_back(noderight);
+			} else {
+				if (t2 < mint) toVisit.push_back(noderight);
+				if (t1 < mint) toVisit.push_back(nodeleft);
+			}
+		}
+
+		if (node->flags & NAIVEBVH_LEAFNODE) {
+			Primitive* left = node->left;
+			Primitive* right = node->right;
+			toVisit.pop_back();
+
+			float t1 = left->intersect(ray);
+			float t2 = right->intersect(ray);
+
+			if (t1 == INFINITY && t2 == INFINITY) continue;
+			
+			if (t1 < t2) {
+				if (t1 < mint) {
+					mint = t1;
+					closestPrim = left;
+				}
+			} else {
+				if (t2 < mint) {
+					mint = t2;
+					closestPrim = right;
+				}
+			}
+		}
+	}
+
+	
+	if (mint != INFINITY) {
+		rec = { mint, closestPrim };
+	}
+
 	return rec;
 }

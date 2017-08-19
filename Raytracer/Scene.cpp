@@ -119,9 +119,9 @@ vec3 Scene::compute2(int index) {
 		if (rec.t == INFINITY || b == BOUNCES - 1) {
 			float ty = ray.d.y * 0.5f + 0.5f;
 			float tx = ray.d.x * 0.5f + 0.5f;
-			float r = (1.0f - tx) * 1.0f + tx * 0.0f; //* 0.5f;
-			float g = (1.0f - ty) * 1.0f + ty * 0.0f; //* 0.7f;
-			float b = (1.0f - ty) * 1.0f + ty * 0.2f; //* 1.0f;
+			float r = (1.0f - tx) * 1.0f + tx * 0.5f; //tx * 0.0f;
+			float g = (1.0f - ty) * 1.0f + ty * 0.7f; //ty * 0.0f;
+			float b = (1.0f - ty) * 1.0f + ty * 1.0f; //ty * 0.2f;
 			vec3 col = vec3(r, g, b);
 
 
@@ -155,28 +155,30 @@ void Scene::loadModel(const char* path, mat4 transform, Material* mat) {
 		return;
 	}
 
-	aiMesh* mesh = assscene->mMeshes[0];
-	for (int i = 0; i < mesh->mNumVertices / 3; i++) {
-		float x1 = mesh->mVertices[i * 3 + 0].x;
-		float y1 = mesh->mVertices[i * 3 + 0].y;
-		float z1 = mesh->mVertices[i * 3 + 0].z;
+	for (int i = 0; i < assscene->mNumMeshes; i++) {
+		aiMesh* mesh = assscene->mMeshes[i];
+		for (int i = 0; i < mesh->mNumVertices / 3; i++) {
+			float x1 = mesh->mVertices[i * 3 + 0].x;
+			float y1 = mesh->mVertices[i * 3 + 0].y;
+			float z1 = mesh->mVertices[i * 3 + 0].z;
 
-		float x2 = mesh->mVertices[i * 3 + 1].x;
-		float y2 = mesh->mVertices[i * 3 + 1].y;
-		float z2 = mesh->mVertices[i * 3 + 1].z;
+			float x2 = mesh->mVertices[i * 3 + 1].x;
+			float y2 = mesh->mVertices[i * 3 + 1].y;
+			float z2 = mesh->mVertices[i * 3 + 1].z;
 
-		float x3 = mesh->mVertices[i * 3 + 2].x;
-		float y3 = mesh->mVertices[i * 3 + 2].y;
-		float z3 = mesh->mVertices[i * 3 + 2].z;
+			float x3 = mesh->mVertices[i * 3 + 2].x;
+			float y3 = mesh->mVertices[i * 3 + 2].y;
+			float z3 = mesh->mVertices[i * 3 + 2].z;
 
 
-		Triangle* tri1 = new Triangle(
-			vec3(transform * vec4(x1, y1, z1, 1)),
-			vec3(transform * vec4(x2, y2, z2, 1)),
-			vec3(transform * vec4(x3, y3, z3, 1))
-		);
+			Triangle* tri1 = new Triangle(
+				vec3(transform * vec4(x1, y1, z1, 1)),
+				vec3(transform * vec4(x2, y2, z2, 1)),
+				vec3(transform * vec4(x3, y3, z3, 1))
+				);
 
-		tri1->material = mat;
-		this->addPrimitive(tri1);
+			tri1->material = mat;
+			this->addPrimitive(tri1);
+		}
 	}
 }

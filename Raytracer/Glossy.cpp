@@ -29,6 +29,7 @@ vec3 GlossyMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	ray.o = hitPoint;
 	ray.d = normalize(reflectionDir + randomPointOnUnitSphere);
 
+	//vec3 mask = color * pow(dot(normal, ray.d), 0.1f);
 	vec3 mask = color * dot(normal, ray.d);
 
 	return mask;

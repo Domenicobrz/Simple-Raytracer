@@ -34,6 +34,7 @@ public:
 private:
 	naiveBVHNode* createBVHRecursive(Primitive**, int n);
 	naiveBVHHitRecord traverseRecursive(naiveBVHNode*, Ray);
+	naiveBVHHitRecord traverseStack(naiveBVHNode*, Ray);
 
 	static int box_x_compare(const void* p1, const void* p2);
 	static int box_y_compare(const void* p1, const void* p2);
