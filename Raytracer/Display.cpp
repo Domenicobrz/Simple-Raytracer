@@ -171,6 +171,9 @@ void Display::buildScene() {
 	vec3 lookAt = vec3(-10.0f, 10.0f, 50.0f);
 	Camera camera(width, height, eye, lookAt);
 
+	camera.aperture = 0.6f;
+	camera.focusDistance = length(eye - lookAt) - 17.5f; //80.0f;
+
 	scene.camera = camera;
 
 	Sphere* sphere1  = new Sphere(vec3(0, 0, 50), 10.0f);
@@ -186,9 +189,11 @@ void Display::buildScene() {
 	//scene.addPrimitive(prim1);
 	scene.addPrimitive(prim2);
 
-	for (int i = 0; i < 10; i++) {
-		Sphere* sphere = new Sphere(vec3(rnd() * 100.0f - 50.0f, rnd() * 11.0f + 20.0f, 45.0f + rnd() * 35.0f), 1.5f + rnd() * 5.0f);
+	for (int i = 0; i < 15; i++) {
+		//Sphere* sphere = new Sphere(vec3(rnd() * 1000.0f - 500.0f, rnd() * 500.0f + 500.0f, -1000.0f + rnd() * 500.0f), 150);
+		Sphere* sphere = new Sphere(vec3(rnd() * 100.0f - 50.0f, rnd() * 15.0f + 5.0f, -40.0f + rnd() * 200.0f), 5);
 		sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
+		//sphere->material = new LightMaterial(vec3(rnd() * 9.0f, rnd() * 4.0f, rnd() * 4.0f));
 		scene.addPrimitive(sphere);
 	}
 
@@ -202,9 +207,6 @@ void Display::buildScene() {
 
 	scene.loadModel("C:\\Users\\Domenico\\desktop\\dragon2.obj", modelMatrix, modelMaterial);
 
-	Sphere* sphere = new Sphere(vec3(20,25,95), 24.0f);
-	sphere->material = new GlossyMaterial(vec3(1, 1, 1), 0.0f);
-	scene.addPrimitive(sphere);
 
 	/* creating a plane */
 	Material* planeMaterial = new LambertMaterial(vec3(1, 1, 1));

@@ -15,6 +15,9 @@ public:
 
 	float FOV;
 
+	float aperture;
+	float focusDistance;
+
 	vec3 eye;
 	vec3 lookAt;
 	vec3 w, u, v;
