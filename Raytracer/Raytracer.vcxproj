@@ -106,7 +106,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc120-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc120-mt.lib;sqlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)\dependencies\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -143,13 +143,14 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc120-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc120-mt.lib;sqlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)\dependencies\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Database.cpp" />
     <ClCompile Include="Display.cpp" />
     <ClCompile Include="Glass.cpp" />
     <ClCompile Include="Glossy.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="AABB.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="common_math.h" />
+    <ClInclude Include="Database.h" />
     <ClInclude Include="Display.h" />
     <ClInclude Include="Glass.h" />
     <ClInclude Include="Glossy.h" />

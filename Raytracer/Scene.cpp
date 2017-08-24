@@ -125,14 +125,14 @@ vec3 Scene::compute2(int index) {
 			vec3 col = vec3(r, g, b);
 
 
-			// float dott = pow(max(dot(ray.d, vec3(-1.0f, 1.0f, 0.0f)), 0.0f), 3.0f);
-			// vec3 col = vec3(1.0f, 0.5f, 0.5f) * dott;
+			//float dott = pow(max(dot(ray.d, normalize(vec3(-1.0f, 1.0f, -1.0f))), 0.0f), 17.0f);
+			//vec3 col = vec3(1.0f, 0.25f, 0.25f) * dott * 10.0f;
 
-			//float dott2 = pow(max(dot(ray.d, vec3(1.0f, 1.0f, 0.0f)), 0.0f), 3.0f);
-			//vec3 col2 = vec3(0.3f, 0.3f, 1.0f) * dott2;
+			//float dott2 = pow(max(dot(ray.d, normalize(vec3(1.0f, 1.0f, -0.5f))), 0.0f), 17.0f);
+			//vec3 col2 = vec3(0.3f, 0.3f, 1.0f) * dott2 * 10.0f;
 
 
-			accucolor += col * mask;// *0.07f + col2 * mask * 0.07f;
+			accucolor += col * mask;// +col2 * mask;
 			break;
 		}
 	}

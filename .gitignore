@@ -156,3 +156,5 @@ $RECYCLE.BIN/
 .DS_Store
 
 Raytracer/dependencies
+Raytracer/saved scenes
+/saved scenes/test.db

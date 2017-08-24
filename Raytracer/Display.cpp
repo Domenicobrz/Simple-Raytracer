@@ -22,6 +22,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include "sqlite3.h"
 
 using namespace glm;
 
@@ -38,6 +39,10 @@ Display::Display(int width, int height) {
 
 	createProgram();
 	createDisplayTexture();
+
+
+	Render = Database();
+
 
 	t1 = std::thread([=] { srand(1352523); printf("%f", rnd()); runRenderThread(); });
 	t2 = std::thread([=] { srand(234);     printf("%f", rnd()); runRenderThread(); });
@@ -137,14 +142,14 @@ void Display::runRenderThread() {
 	for (;;) {
 		memset(buffer, 0, width * height * 4 * sizeof(float));
 
-		for (int i = 0; i < width * height; i++) {
+		/*for (int i = 0; i < width * height; i++) {
 			vec3 color = scene.compute2(i);
 
 			buffer[i * 4 + 0] = color.r;
 			buffer[i * 4 + 1] = color.g;
 			buffer[i * 4 + 2] = color.b;
 			buffer[i * 4 + 3] = 1;
-		}
+		}*/
 
 		/* attach mutex */
 		updateMutex.lock();
@@ -161,6 +166,8 @@ void Display::runRenderThread() {
 		//}
 		updateMutex.unlock();
 
+		/* needs to be out of the mutex otherwise deadlock */
+		if (blockRenderThreads) break;
 	}
 }
 
@@ -171,8 +178,8 @@ void Display::buildScene() {
 	vec3 lookAt = vec3(-10.0f, 10.0f, 50.0f);
 	Camera camera(width, height, eye, lookAt);
 
-	camera.aperture = 0.6f;
-	camera.focusDistance = length(eye - lookAt) - 17.5f; //80.0f;
+	camera.aperture = 3.6f;
+	camera.focusDistance = length(eye - lookAt) - 15.5f; //80.0f;
 
 	scene.camera = camera;
 
@@ -229,3 +236,20 @@ void Display::buildScene() {
 
 	scene.bvh.createBVH(&scene.primitives);
 } 
+
+
+
+
+
+
+void Display::saveResult() {
+	blockRenderThreads = true;
+
+	t1.join();
+	t2.join();
+	t3.join();
+	// t4.join();
+
+	/* save result maybe ? */
+	Render.saveResult(width, height, samples, RandomData, width * height * 4 * sizeof(float));
+}

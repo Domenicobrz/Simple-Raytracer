@@ -72,6 +72,9 @@
     <ClCompile Include="Triangle.cpp">
       <Filter>Primitives</Filter>
     </ClCompile>
+    <ClCompile Include="Database.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="Triangle.h">
       <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Database.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

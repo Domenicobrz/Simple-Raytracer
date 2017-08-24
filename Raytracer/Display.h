@@ -6,12 +6,14 @@
 #include <thread>
 #include <mutex>
 #include "Scene.h"
+#include "Database.h"
 
 class Display {
 
 public:
 	Display(int, int);
 	void update();
+	void saveResult();
 
 private:
 	void createProgram();
@@ -24,7 +26,8 @@ private:
 	std::thread t2;
 	std::thread t3;
 	std::thread t4;
-	
+
+	Database Render;
 
 	GLuint DisplayProgramID;
 	GLuint DisplayProgramVAO;
@@ -40,6 +43,7 @@ private:
 
 	int samples = 0;
 	bool updateRequested = false;
+	bool blockRenderThreads = false;
 	std::mutex updateMutex;
 
 	int width;

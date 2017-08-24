@@ -56,8 +56,8 @@ Ray Camera::getCameraRayFromIndex(int index) {
 	/* if DOF is active */
 	if (aperture > 0.0f) {
 		vec3 w = normalize(dir);
-		vec3 u = vec3(1, 0, 0);//cross(vec3(0, 1, 0), w);
-		vec3 v = vec3(0, 1, 0);//cross(w, u);
+		vec3 u = cross(vec3(0, 1, 0), w);
+		vec3 v = cross(w, u);
 
 		u = u * (rnd() * 2.0f - 1.0f) * aperture;
 		v = v * (rnd() * 2.0f - 1.0f) * aperture;

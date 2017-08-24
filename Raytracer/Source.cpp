@@ -13,6 +13,9 @@
 const int WIDTH  = 800;
 const int HEIGHT = 600;
 
+Display* displayProgram;
+void key_callback(GLFWwindow*, int, int, int, int);
+
 // extern is redundant, function declarations have external linkage by default
 //extern int kerneltest2();
 extern void freeCUDAResources();
@@ -50,15 +53,17 @@ int main() {
 
 
 
-	Display displayProgram = Display(WIDTH, HEIGHT);
+	displayProgram = new Display(WIDTH, HEIGHT);
 
 
 
 	// Ensure we can capture the escape key being pressed below
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	// Set callback for keyboard events
+	glfwSetKeyCallback(window, key_callback);
 
-	do{
-		displayProgram.update();
+	do {
+		displayProgram->update();
 
 		// Swap buffers
 		glfwSwapBuffers(window);
@@ -69,4 +74,12 @@ int main() {
 
 
 	return 0;
+}
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_S && action == GLFW_PRESS) {
+		displayProgram->saveResult();
+		glfwSetWindowShouldClose(window, 1);
+	}
 }
