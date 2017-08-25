@@ -5,7 +5,10 @@
 #include <mutex>
 #include <glm/glm.hpp>
 #include "glm/gtc/matrix_transform.hpp"
+
 #include <stdlib.h>
+#include <iostream>
+#include <string>
 
 #include "Sphere.h"
 #include "Triangle.h"
@@ -25,28 +28,38 @@
 #include "sqlite3.h"
 
 using namespace glm;
+extern Display* displayProgram;
 
-Display::Display(int width, int height) {
-	this->width  = width;
-	this->height = height;
+
+Display::Display(int _width, int _height) {
+	this->width = _width;
+	this->height = _height;
 	
 
-	RandomData  = new float[width * height * 4];
-	SampledData = new float[width * height * 4];
-	memset(RandomData, 0, width * height * 4 * sizeof(float));
+
+	Render = Database();
+	if (Database::database_exist(Render.databasePath)) {
+		loadRender();
+	} else {
+		RandomData = new float[_width * _height * 4];
+		SampledData = new float[_width * _height * 4];
+		memset(RandomData, 0, _width * _height * 4 * sizeof(float));
+	}
+
+
 
 	buildScene();
 
+	/* needs to be before any openGL call since we create the context here */
+	createWindow();
 	createProgram();
 	createDisplayTexture();
 
 
-	Render = Database();
 
-
-	t1 = std::thread([=] { srand(1352523); printf("%f", rnd()); runRenderThread(); });
-	t2 = std::thread([=] { srand(234);     printf("%f", rnd()); runRenderThread(); });
-	t3 = std::thread([=] { srand(3134534); printf("%f", rnd()); runRenderThread(); });
+	t1 = std::thread([=] { srand(1352523); printf("%f - ", rnd()); runRenderThread(); });
+	t2 = std::thread([=] { srand(234);     printf("%f - ", rnd()); runRenderThread(); });
+	t3 = std::thread([=] { srand(3134534); printf("%f \n", rnd()); runRenderThread(); });
 	//t4 = std::thread([=] { srand(892308);  printf("%f", rnd()); runRenderThread(); });
 }
 
@@ -84,6 +97,62 @@ void Display::createProgram() {
 		glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	glBindVertexArray(NULL);
+}
+
+bool Display::createWindow() {
+	/* initialize window */
+	if (!glfwInit()) {
+		fprintf(stderr, "failed to initialize GLFW");
+		return false;
+	}
+	else {
+		fprintf(stderr, "GLFW initialized");
+	}
+
+	glfwWindowHint(GLFW_SAMPLES, 1); // 4x antialiasing
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
+
+
+
+
+	// Open a window and create its OpenGL context
+	window = glfwCreateWindow(width, height, "Tutorial 01", NULL, NULL);
+	if (window == NULL){
+		fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
+		glfwTerminate();
+		return false;
+	}
+
+	glfwMakeContextCurrent(window); // Initialize GLEW
+
+	/* initialize openGL */
+	glewExperimental = true; // Needed in core profile
+	if (glewInit() != GLEW_OK) {
+		fprintf(stderr, "Failed to initialize GLEW\n");
+		return false;
+	}
+
+
+
+	// Ensure we can capture the escape key being pressed below
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	// Set callback for keyboard events
+	glfwSetKeyCallback(window, &Display::key_callback);
+}
+
+void Display::runLoop() {
+	do {
+		displayProgram->update();
+
+		// Swap buffers
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+
+	} // Check if the ESC key was pressed or the window was closed
+	while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 }
 
 void Display::update() {
@@ -142,14 +211,14 @@ void Display::runRenderThread() {
 	for (;;) {
 		memset(buffer, 0, width * height * 4 * sizeof(float));
 
-		/*for (int i = 0; i < width * height; i++) {
+		for (int i = 0; i < width * height; i++) {
 			vec3 color = scene.compute2(i);
 
 			buffer[i * 4 + 0] = color.r;
 			buffer[i * 4 + 1] = color.g;
 			buffer[i * 4 + 2] = color.b;
 			buffer[i * 4 + 3] = 1;
-		}*/
+		}
 
 		/* attach mutex */
 		updateMutex.lock();
@@ -170,7 +239,6 @@ void Display::runRenderThread() {
 		if (blockRenderThreads) break;
 	}
 }
-
 
 void Display::buildScene() {
 
@@ -240,9 +308,15 @@ void Display::buildScene() {
 
 
 
+void Display::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_S && action == GLFW_PRESS) {
+		displayProgram->saveRender();
+		glfwSetWindowShouldClose(window, 1);
+	}
+}
 
-
-void Display::saveResult() {
+void Display::saveRender() {
 	blockRenderThreads = true;
 
 	t1.join();
@@ -251,5 +325,19 @@ void Display::saveResult() {
 	// t4.join();
 
 	/* save result maybe ? */
-	Render.saveResult(width, height, samples, RandomData, width * height * 4 * sizeof(float));
+	Render.saveRender(width, height, samples, RandomData, width * height * 4 * sizeof(float));
+}
+
+void Display::loadRender() {
+	// TODO: it makes more sense if Database returns a struct of render options, which will set the members of display instead of
+	// handling display members inside Database since it complicates shit a lot more than it's needed
+	RenderOptions options = Render.loadRenderOptions();
+	width = options.width;
+	height = options.height;
+	samples = options.samples;
+
+	RandomData = new float[width * height * 4];
+	SampledData = new float[width * height * 4];
+
+	Render.loadRenderBlob(RandomData);
 }

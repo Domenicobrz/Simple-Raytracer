@@ -7,18 +7,35 @@
 #include <mutex>
 #include "Scene.h"
 #include "Database.h"
+#include <GLFW/glfw3.h>
+
 
 class Display {
 
 public:
 	Display(int, int);
 	void update();
-	void saveResult();
+	void saveRender();
+	void loadRender();
+	void runLoop();
+
+
+	int width;
+	int height;
+	int samples = 0;
+	float* RandomData;
+	Database Render;
+
+
 
 private:
+
+	bool createWindow();
 	void createProgram();
 	void createDisplayTexture();
 	
+	static void key_callback(GLFWwindow*, int, int, int, int);
+
 	void buildScene();
 	
 	void runRenderThread();
@@ -27,7 +44,9 @@ private:
 	std::thread t3;
 	std::thread t4;
 
-	Database Render;
+
+	GLFWwindow* window;
+
 
 	GLuint DisplayProgramID;
 	GLuint DisplayProgramVAO;
@@ -38,16 +57,11 @@ private:
 
 	
 	GLuint DisplayTexture;
-	float* RandomData;
 	float* SampledData;
 
-	int samples = 0;
 	bool updateRequested = false;
 	bool blockRenderThreads = false;
 	std::mutex updateMutex;
-
-	int width;
-	int height;
 
 
 	Scene scene;
