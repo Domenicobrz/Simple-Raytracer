@@ -181,13 +181,18 @@ vec3 Scene::compute3(int index) {
 			mask *= 1.0f; //fudge factor
 		}
 
+		// didn't reach light
+		//if (hit && b == BOUNCES - 1) {
+			//break;
+		//}
+
 		if (!hit || b == BOUNCES - 1) {
 			float ty = cray.d.y * 0.5f + 0.5f;
 			float tx = cray.d.x * 0.5f + 0.5f;
 
-			float r = (1.0f - tx) * 1.0f + tx * 0.5f; //tx * 0.0f;
-			float g = (1.0f - ty) * 1.0f + ty * 0.7f; //ty * 0.0f;
-			float b = (1.0f - ty) * 1.0f + ty * 1.0f; //ty * 0.2f;
+			float r = (1.0f - tx) * 1.0f + tx * 0.0f; //tx * 0.5f;
+			float g = (1.0f - ty) * 1.0f + ty * 0.0f; //ty * 0.7f;
+			float b = (1.0f - ty) * 1.0f + ty * 0.2f; //ty * 1.0f;
 			vec3 col = vec3(r, g, b);
 
 
@@ -208,7 +213,6 @@ vec3 Scene::compute3(int index) {
 void Scene::addPrimitive(Primitive* prim) {
 	primitives.push_back(prim);
 }
-
 
 void Scene::loadModel(const char* path, mat4 transform, Material* mat) {
 	Assimp::Importer import;

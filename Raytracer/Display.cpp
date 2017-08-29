@@ -11,6 +11,7 @@
 #include <string>
 
 #include "CubeGeometry.h"
+#include "CornellBoxGeometry.h"
 #include "Sphere.h"
 #include "Triangle.h"
 
@@ -242,12 +243,12 @@ void Display::runRenderThread() {
 
 void Display::buildScene() {
 
-	vec3 eye = vec3(0.0f, 15.0f, -20.0f);
-	vec3 lookAt = vec3(0.0f, 15.0f, 0.0f);
+	vec3 eye = vec3(0.0f, 100.0f, -280.0f);
+	vec3 lookAt = vec3(0.0f, 65.0f, 0.0f);
 	Camera camera(width, height, eye, lookAt);
 
-	camera.aperture = 0.0f;
-	camera.focusDistance = length(eye - lookAt) - 15.5f; //80.0f;
+	camera.aperture = 9.f;
+	camera.focusDistance = length(eye - vec3(0,0,-35));
 
 	scene.camera = camera;
 
@@ -278,18 +279,18 @@ void Display::buildScene() {
 
 	Material* modelMaterial = new LambertMaterial(vec3(0.6, 0.7, 0.8));// , 1.3f);
 	mat4 modelMatrix = mat4();
-	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 60));
-	modelMatrix = glm::scale(modelMatrix, vec3(3, 3, 3));
+	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 20));
+	modelMatrix = glm::scale(modelMatrix, vec3(9, 9, 9));
 	modelMatrix = glm::rotate(modelMatrix, 0.7f, vec3(0, 1, 0));
 	scene.loadModel("C:\\Users\\Domenico\\desktop\\dragon2.obj", modelMatrix, modelMaterial);
 
-	{ Material* modelMaterial = new LambertMaterial(vec3(0.2, 0.2, 0.2));// , 1.3f);
-	mat4 modelMatrix = mat4();
-	modelMatrix = glm::translate(modelMatrix, vec3(0, 0, 0));
-	modelMatrix = glm::scale(modelMatrix, vec3(100, 100, 100));
-	modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
-	scene.loadModel("C:\\Users\\Domenico\\desktop\\cub3.obj", modelMatrix, modelMaterial);
-	}
+	//{ Material* modelMaterial = new LambertMaterial(vec3(0.2, 0.2, 0.2));// , 1.3f);
+	//mat4 modelMatrix = mat4();
+	//modelMatrix = glm::translate(modelMatrix, vec3(0, 0, 0));
+	//modelMatrix = glm::scale(modelMatrix, vec3(100, 100, 100));
+	//modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
+	//scene.loadModel("C:\\Users\\Domenico\\desktop\\cub3.obj", modelMatrix, modelMaterial);
+	//}
 
 	/* creating a plane */
 	Material* planeMaterial = new LightMaterial(vec3(2, 2, 2));
@@ -299,7 +300,7 @@ void Display::buildScene() {
 		vec3(-300, 190,300)
 	);
 	pl1->material = planeMaterial;
-	scene.addPrimitive(pl1);
+	//scene.addPrimitive(pl1);
 
 	Triangle* pl2 = new Triangle(
 		vec3(-300, 190, 300),
@@ -307,16 +308,16 @@ void Display::buildScene() {
 		vec3(300,  190, -300)
 		);
 	pl2->material = planeMaterial;
-	scene.addPrimitive(pl2);
+	//scene.addPrimitive(pl2);
 
 
 
 
 
 
-	//Geometry* cube = new CubeGeometry(vec3(0, 80, 90), vec3(145, 145, 145));
-	//cube->setMaterial(new LambertMaterial(vec3(0.2, 0.2, 0.2)));
-	//scene.add(cube);
+	Geometry* cbox = new CornellBoxGeometry(vec3(0, 99, 20), vec3(100, 100, 100));
+	cbox->setMaterial(new LambertMaterial(vec3(0.2, 0.2, 0.2)));
+	scene.add(cbox);
 
 
 

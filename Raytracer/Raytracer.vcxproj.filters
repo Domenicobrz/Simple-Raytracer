@@ -84,6 +84,9 @@
     <ClCompile Include="CubeGeometry.cpp">
       <Filter>Geometries</Filter>
     </ClCompile>
+    <ClCompile Include="CornellBoxGeometry.cpp">
+      <Filter>Geometries</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -144,6 +147,9 @@
       <Filter>Geometries</Filter>
     </ClInclude>
     <ClInclude Include="CubeGeometry.h">
+      <Filter>Geometries</Filter>
+    </ClInclude>
+    <ClInclude Include="CornellBoxGeometry.h">
       <Filter>Geometries</Filter>
     </ClInclude>
   </ItemGroup>
