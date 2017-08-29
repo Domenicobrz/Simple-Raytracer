@@ -25,6 +25,9 @@
     <Filter Include="Primitives">
       <UniqueIdentifier>{06486290-91d7-40a1-abac-babed35eb4fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Geometries">
+      <UniqueIdentifier>{8c396d3c-c247-4939-9d49-c1ae27a98849}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -74,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="Database.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>Geometries</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeGeometry.cpp">
+      <Filter>Geometries</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="Database.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Geometries</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeGeometry.h">
+      <Filter>Geometries</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

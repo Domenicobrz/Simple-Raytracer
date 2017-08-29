@@ -139,6 +139,7 @@ naiveBVHHitRecord naiveBVH::traverseStack(naiveBVHNode* rootnode, Ray ray) {
 	Primitive* closestPrim = nullptr;
 	float mint = INFINITY;
 
+
 	while (toVisit.size() != 0) {
 		naiveBVHNode* node = toVisit.back();
 

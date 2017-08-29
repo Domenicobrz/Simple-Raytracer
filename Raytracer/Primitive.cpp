@@ -17,3 +17,7 @@ AABB Primitive::getAABB() { return AABB(); };
 Material* Primitive::getMaterial() {
 	return nullptr;
 };
+
+vec3 Primitive::getV0() { return vec3(0); }
+vec3 Primitive::getV1() { return vec3(0); }
+vec3 Primitive::getV2() { return vec3(0); }

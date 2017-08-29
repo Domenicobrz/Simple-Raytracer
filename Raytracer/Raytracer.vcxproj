@@ -150,8 +150,10 @@
   <ItemGroup>
     <ClCompile Include="AABB.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CubeGeometry.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Glass.cpp" />
     <ClCompile Include="Glossy.cpp" />
     <ClCompile Include="Lambert.cpp" />
@@ -169,8 +171,10 @@
     <ClInclude Include="AABB.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="common_math.h" />
+    <ClInclude Include="CubeGeometry.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Geometry.h" />
     <ClInclude Include="Glass.h" />
     <ClInclude Include="Glossy.h" />
     <ClInclude Include="Lambert.h" />

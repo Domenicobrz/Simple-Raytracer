@@ -11,8 +11,8 @@
 #include "Database.h"
 
 
-const int WIDTH  = 300;
-const int HEIGHT = 400;
+const int WIDTH  = 800;
+const int HEIGHT = 600;
 
 Display* displayProgram;
 

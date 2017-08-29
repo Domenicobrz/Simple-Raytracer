@@ -2,6 +2,14 @@
 #include "sqlite3.h"
 #include <stdio.h>
 
+/* 
+
+	To load a Render, simply place the database file inside the saved scenes folder, 
+	it will be automatically picked up by the program
+
+*/
+
+
 
 struct RenderOptions {
 	int width;

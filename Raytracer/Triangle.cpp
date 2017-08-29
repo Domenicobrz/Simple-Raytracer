@@ -15,6 +15,22 @@ Triangle::Triangle(vec3 v0, vec3 v1, vec3 v2) : Primitive(), v0(v0), v1(v1), v2(
 	boundingBox = boundingBox + v2;
 }
 
+void Triangle::transform(mat4 transform) {
+	v0 = vec3(transform * vec4(v0.x, v0.y, v0.z, 1));
+	v1 = vec3(transform * vec4(v1.x, v1.y, v1.z, 1));
+	v2 = vec3(transform * vec4(v2.x, v2.y, v2.z, 1));
+	
+	vec3 v1minusv0 = v1 - v0;
+	vec3 v2minusv0 = v2 - v0;
+
+	normal = normalize(cross(v1minusv0, v2minusv0));
+
+	/* TODO: overload += operator for AABB */
+	boundingBox = AABB(v0, v0);
+	boundingBox = boundingBox + v1;
+	boundingBox = boundingBox + v2;
+}
+
 float Triangle::intersect(Ray ray) {
 	
 	// intersection with plane 
@@ -68,4 +84,16 @@ Material* Triangle::getMaterial() {
 
 AABB Triangle::getAABB() {
 	return boundingBox;
+}
+
+vec3 Triangle::getV0() {
+	return v0;
+}
+
+vec3 Triangle::getV1() {
+	return v1;
+}
+
+vec3 Triangle::getV2() {
+	return v2;
 }

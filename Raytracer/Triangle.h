@@ -7,10 +7,16 @@ public:
 	Triangle();
 	Triangle(vec3, vec3, vec3);
 
+	void transform(mat4);
+
 	float intersect(Ray);
 	vec3  normalAtPoint(vec3);
 	Material* getMaterial();
 	AABB getAABB();
+
+	vec3 getV0();
+	vec3 getV1();
+	vec3 getV2();
 
 
 

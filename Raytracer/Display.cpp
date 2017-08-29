@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 
+#include "CubeGeometry.h"
 #include "Sphere.h"
 #include "Triangle.h"
 
@@ -29,7 +30,6 @@
 
 using namespace glm;
 extern Display* displayProgram;
-
 
 Display::Display(int _width, int _height) {
 	this->width = _width;
@@ -212,7 +212,7 @@ void Display::runRenderThread() {
 		memset(buffer, 0, width * height * 4 * sizeof(float));
 
 		for (int i = 0; i < width * height; i++) {
-			vec3 color = scene.compute2(i);
+			vec3 color = scene.compute3(i);
 
 			buffer[i * 4 + 0] = color.r;
 			buffer[i * 4 + 1] = color.g;
@@ -242,67 +242,120 @@ void Display::runRenderThread() {
 
 void Display::buildScene() {
 
-	vec3 eye = vec3(0.0f, 35.0f, -20.0f);
-	vec3 lookAt = vec3(-10.0f, 10.0f, 50.0f);
+	vec3 eye = vec3(0.0f, 15.0f, -20.0f);
+	vec3 lookAt = vec3(0.0f, 15.0f, 0.0f);
 	Camera camera(width, height, eye, lookAt);
 
-	camera.aperture = 3.6f;
+	camera.aperture = 0.0f;
 	camera.focusDistance = length(eye - lookAt) - 15.5f; //80.0f;
 
 	scene.camera = camera;
 
-	Sphere* sphere1  = new Sphere(vec3(0, 0, 50), 10.0f);
-	sphere1->material = new GlassMaterial(vec3(1.0f, 1.0f, 1.0f), 0.0f, 1.3f);
-	//sphere1->material = new LambertMaterial(vec3(1.0f, 1.0f, 1.0f));
-	//sphere1->material = new LightMaterial(vec3(40.0f, 5.0f, 5.0f));
-	Primitive* prim1 = sphere1;
 
-	Sphere* sphere2 = new Sphere(vec3(0, -105, 50), 100);
-	sphere2->material = new LambertMaterial(vec3(0.3, 0.3, 0.3));
-	Primitive* prim2 = sphere2;
 
-	//scene.addPrimitive(prim1);
-	scene.addPrimitive(prim2);
+	Sphere* sphere = new Sphere(vec3(20,40, 100), 20);
+	sphere->material = new LightMaterial(vec3(2,2,2));
+	//scene.addPrimitive(sphere);
 
-	for (int i = 0; i < 15; i++) {
-		//Sphere* sphere = new Sphere(vec3(rnd() * 1000.0f - 500.0f, rnd() * 500.0f + 500.0f, -1000.0f + rnd() * 500.0f), 150);
-		Sphere* sphere = new Sphere(vec3(rnd() * 100.0f - 50.0f, rnd() * 15.0f + 5.0f, -40.0f + rnd() * 200.0f), 5);
+	{
+		Sphere* sphere = new Sphere(vec3(20, 10, 0), 5);
+		sphere->material = new LightMaterial(vec3(1.5, 1.5, 1.5));
+		//scene.addPrimitive(sphere);
+	}
+	
+	
+	for (int i = 0; i < 3; i++) {
+		Sphere* sphere = new Sphere(vec3(rnd() * 100.0f - 50.0f, rnd() * 15.0f + 5.0f, rnd() * 100.0f), 5);
 		sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
-		//sphere->material = new LightMaterial(vec3(rnd() * 9.0f, rnd() * 4.0f, rnd() * 4.0f));
-		scene.addPrimitive(sphere);
+
+	//	if (i % 7 == 0) {
+	//		sphere->material = new LightMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
+	//	}
+
+		//scene.addPrimitive(sphere);
 	}
 
 
-	//Material* modelMaterial = new GlossyMaterial(vec3(1, 0.8f, 0.8f), 0.1f);// , 1.3f);
 	Material* modelMaterial = new LambertMaterial(vec3(0.6, 0.7, 0.8));// , 1.3f);
 	mat4 modelMatrix = mat4();
-	modelMatrix = glm::translate(modelMatrix, vec3(-20, 0, 50));
+	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 60));
 	modelMatrix = glm::scale(modelMatrix, vec3(3, 3, 3));
 	modelMatrix = glm::rotate(modelMatrix, 0.7f, vec3(0, 1, 0));
-
 	scene.loadModel("C:\\Users\\Domenico\\desktop\\dragon2.obj", modelMatrix, modelMaterial);
 
+	{ Material* modelMaterial = new LambertMaterial(vec3(0.2, 0.2, 0.2));// , 1.3f);
+	mat4 modelMatrix = mat4();
+	modelMatrix = glm::translate(modelMatrix, vec3(0, 0, 0));
+	modelMatrix = glm::scale(modelMatrix, vec3(100, 100, 100));
+	modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
+	scene.loadModel("C:\\Users\\Domenico\\desktop\\cub3.obj", modelMatrix, modelMaterial);
+	}
 
 	/* creating a plane */
-	Material* planeMaterial = new LambertMaterial(vec3(1, 1, 1));
+	Material* planeMaterial = new LightMaterial(vec3(2, 2, 2));
 	Triangle* pl1 = new Triangle(
-		vec3(-300, 0,-300),
-		vec3(300,  0,-300),
-		vec3(-300, 0,300)
+		vec3(-300, 190,-300),
+		vec3(300,  190,-300),
+		vec3(-300, 190,300)
 	);
 	pl1->material = planeMaterial;
 	scene.addPrimitive(pl1);
 
 	Triangle* pl2 = new Triangle(
-		vec3(-300, 0, 300),
-		vec3(300,  0, 300),
-		vec3(300,  0, -300)
+		vec3(-300, 190, 300),
+		vec3(300,  190, 300),
+		vec3(300,  190, -300)
 		);
 	pl2->material = planeMaterial;
 	scene.addPrimitive(pl2);
 
 
-	scene.bvh.createBVH(&scene.primitives);
+
+
+
+
+	//Geometry* cube = new CubeGeometry(vec3(0, 80, 90), vec3(145, 145, 145));
+	//cube->setMaterial(new LambertMaterial(vec3(0.2, 0.2, 0.2)));
+	//scene.add(cube);
+
+
+
+
+
+	for (int i = 0; i < scene.primitives.size(); i++) {
+		vec3 v0 = scene.primitives[i]->getV0();
+		vec3 v1 = scene.primitives[i]->getV1();
+		vec3 v2 = scene.primitives[i]->getV2();
+		scene.vertsv.push_back(v0.x);
+		scene.vertsv.push_back(v0.y);
+		scene.vertsv.push_back(v0.z);
+
+		scene.vertsv.push_back(v1.x);
+		scene.vertsv.push_back(v1.y);
+		scene.vertsv.push_back(v1.z);
+
+		scene.vertsv.push_back(v2.x);
+		scene.vertsv.push_back(v2.y);
+		scene.vertsv.push_back(v2.z);
+
+		scene.facesv.push_back(i * 3 + 0);
+		scene.facesv.push_back(i * 3 + 1);
+		scene.facesv.push_back(i * 3 + 2);
+	}
+
+	scene.triangle_mesh = new nanort::TriangleMesh<float>(scene.vertsv.data(), scene.facesv.data(), sizeof(float) * 3);
+	scene.triangle_pred = new nanort::TriangleSAHPred<float>(scene.vertsv.data(), scene.facesv.data(), /* stride */sizeof(float) * 3);
+	//scene.triangle_intersector = new nanort::TriangleIntersector<>(scene.vertsv.data(), scene.facesv.data(), sizeof(float) * 3);
+	bool ret = scene.accel.Build(scene.facesv.size() / 3, *scene.triangle_mesh, *scene.triangle_pred);
+
+	nanort::BVHBuildStatistics stats = scene.accel.GetStatistics();
+
+	printf("  BVH statistics:\n");
+	printf("    # of leaf   nodes: %d\n", stats.num_leaf_nodes);
+	printf("    # of branch nodes: %d\n", stats.num_branch_nodes);
+	printf("  Max tree depth   : %d\n", stats.max_tree_depth);
+	
+	//scene.bvh.createBVH(&scene.primitives);
 } 
 
 

@@ -34,7 +34,8 @@ AABB AABB::operator+(const vec3& v) const {
 }
 
 float AABB::intersect(Ray ray) {
-	float tmin = 0.000001f;
+	//float tmin = 0.000001f;
+	float tmin = 0.0f;
 	float tmax = INFINITY;
 	
 	// implement the intersection test from page 12 - RT:tnw
