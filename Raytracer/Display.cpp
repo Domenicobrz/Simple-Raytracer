@@ -60,7 +60,7 @@ Display::Display(int _width, int _height) {
 
 	t1 = std::thread([=] { srand(1352523); printf("%f - ", rnd()); runRenderThread(); });
 	t2 = std::thread([=] { srand(234);     printf("%f - ", rnd()); runRenderThread(); });
-	t3 = std::thread([=] { srand(3134534); printf("%f \n", rnd()); runRenderThread(); });
+	//t3 = std::thread([=] { srand(3134534); printf("%f \n", rnd()); runRenderThread(); });
 	//t4 = std::thread([=] { srand(892308);  printf("%f", rnd()); runRenderThread(); });
 }
 
@@ -244,10 +244,10 @@ void Display::runRenderThread() {
 void Display::buildScene() {
 
 	vec3 eye = vec3(0.0f, 100.0f, -280.0f);
-	vec3 lookAt = vec3(0.0f, 65.0f, 0.0f);
+	vec3 lookAt = vec3(0.0f, 100.0f, 0.0f);
 	Camera camera(width, height, eye, lookAt);
 
-	camera.aperture = 9.f;
+	camera.aperture = 0.f;
 	camera.focusDistance = length(eye - vec3(0,0,-35));
 
 	scene.camera = camera;
@@ -277,12 +277,13 @@ void Display::buildScene() {
 	}
 
 
-	Material* modelMaterial = new LambertMaterial(vec3(0.6, 0.7, 0.8));// , 1.3f);
+	//Material* modelMaterial = new LambertMaterial(vec3(0.6, 0.7, 0.8));// , 1.3f);
+	Material* modelMaterial = new GlassMaterial(vec3(1.0, 1.0, 1.0), 0.02f, 1.85f);// , 1.3f);
 	mat4 modelMatrix = mat4();
 	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 20));
-	modelMatrix = glm::scale(modelMatrix, vec3(9, 9, 9));
-	modelMatrix = glm::rotate(modelMatrix, 0.7f, vec3(0, 1, 0));
-	scene.loadModel("C:\\Users\\Domenico\\desktop\\dragon2.obj", modelMatrix, modelMaterial);
+	modelMatrix = glm::scale(modelMatrix, vec3(19, 19, 19));
+	modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
+	scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
 
 	//{ Material* modelMaterial = new LambertMaterial(vec3(0.2, 0.2, 0.2));// , 1.3f);
 	//mat4 modelMatrix = mat4();
@@ -293,22 +294,23 @@ void Display::buildScene() {
 	//}
 
 	/* creating a plane */
-	Material* planeMaterial = new LightMaterial(vec3(2, 2, 2));
+	Material* planeMaterial1 = new LightMaterial(vec3(6, 3, 1.5f));
 	Triangle* pl1 = new Triangle(
-		vec3(-300, 190,-300),
-		vec3(300,  190,-300),
-		vec3(-300, 190,300)
+		vec3(-0, 190,  10),
+		vec3(100,  190,10),
+		vec3(-0, 190,  110)
 	);
-	pl1->material = planeMaterial;
-	//scene.addPrimitive(pl1);
+	pl1->material = planeMaterial1;
+	scene.addPrimitive(pl1);
 
+	Material* planeMaterial2 = new LightMaterial(vec3(6, 3, 1.5f));
 	Triangle* pl2 = new Triangle(
-		vec3(-300, 190, 300),
-		vec3(300,  190, 300),
-		vec3(300,  190, -300)
+		vec3(-0, 190,   110),
+		vec3(100,  190, 110),
+		vec3(100,  190, 10)
 		);
-	pl2->material = planeMaterial;
-	//scene.addPrimitive(pl2);
+	pl2->material = planeMaterial2;
+	scene.addPrimitive(pl2);
 
 
 
@@ -375,8 +377,8 @@ void Display::saveRender() {
 
 	t1.join();
 	t2.join();
-	t3.join();
-	// t4.join();
+	//t3.join();
+	//t4.join();
 
 	/* save result maybe ? */
 	Render.saveRender(width, height, samples, RandomData, width * height * 4 * sizeof(float));

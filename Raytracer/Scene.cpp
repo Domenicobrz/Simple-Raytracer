@@ -190,22 +190,26 @@ vec3 Scene::compute3(int index) {
 			float ty = cray.d.y * 0.5f + 0.5f;
 			float tx = cray.d.x * 0.5f + 0.5f;
 
-			float r = (1.0f - tx) * 1.0f + tx * 0.0f; //tx * 0.5f;
-			float g = (1.0f - ty) * 1.0f + ty * 0.0f; //ty * 0.7f;
-			float b = (1.0f - ty) * 1.0f + ty * 0.2f; //ty * 1.0f;
+			//float r = (1.0f - tx) * 1.0f + tx * 0.0f; //tx * 0.5f;
+			//float g = (1.0f - ty) * 1.0f + ty * 0.0f; //ty * 0.7f;
+			//float b = (1.0f - ty) * 1.0f + ty * 0.2f; //ty * 1.0f;
+			float r = (1.0f - tx) * 1.0f + tx * 0.5f; //tx * 0.5f;
+			float g = (1.0f - ty) * 1.0f + ty * 0.7f; //ty * 0.7f;
+			float b = (1.0f - ty) * 1.0f + ty * 1.0f; //ty * 1.0f;
 			vec3 col = vec3(r, g, b);
+			//col = vec3(0, 0, 0);
 
-
-			//float dott = pow(max(dot(ray.d, normalize(vec3(-1.0f, 1.0f, -1.0f))), 0.0f), 17.0f);
-			//vec3 col = vec3(1.0f, 0.25f, 0.25f) * dott * 10.0f;
+			//float dott = pow(max(dot(cray.d, normalize(vec3(1.0f, -0.4f, -1.0f))), 0.0f), 13.0f);
+			//vec3 col = vec3(r, g, b) * dott * 18.0f;
 
 			//float dott2 = pow(max(dot(ray.d, normalize(vec3(1.0f, 1.0f, -0.5f))), 0.0f), 17.0f);
 			//vec3 col2 = vec3(0.3f, 0.3f, 1.0f) * dott2 * 10.0f;
 
-			accucolor += col * mask; // +col2 * mask;
+			//accucolor += col * mask; // +col2 * mask;
 			break;
 		}
 	}
+
 
 	return accucolor;
 }
@@ -226,10 +230,6 @@ void Scene::loadModel(const char* path, mat4 transform, Material* mat) {
 
 	for (int i = 0; i < assscene->mNumMeshes; i++) {
 		aiMesh* mesh = assscene->mMeshes[i];
-
-		if (path == "C:\\Users\\Domenico\\desktop\\dragon2.obj") {
-			if (i == 0) continue;
-		}
 
 		for (int i = 0; i < mesh->mNumVertices / 3; i++) {
 			float x1 = mesh->mVertices[i * 3 + 0].x;
@@ -260,6 +260,3 @@ void Scene::loadModel(const char* path, mat4 transform, Material* mat) {
 void Scene::add(Geometry* geom) {
 	geom->concatGeometry(primitives);
 }
-
-
-
