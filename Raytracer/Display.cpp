@@ -11,6 +11,7 @@
 #include <string>
 
 #include "CubeGeometry.h"
+#include "PlaneGeometry.h"
 #include "CornellBoxGeometry.h"
 #include "Sphere.h"
 #include "Triangle.h"
@@ -60,7 +61,7 @@ Display::Display(int _width, int _height) {
 
 	t1 = std::thread([=] { srand(1352523); printf("%f - ", rnd()); runRenderThread(); });
 	t2 = std::thread([=] { srand(234);     printf("%f - ", rnd()); runRenderThread(); });
-	//t3 = std::thread([=] { srand(3134534); printf("%f \n", rnd()); runRenderThread(); });
+	t3 = std::thread([=] { srand(3134534); printf("%f \n", rnd()); runRenderThread(); });
 	//t4 = std::thread([=] { srand(892308);  printf("%f", rnd()); runRenderThread(); });
 }
 
@@ -278,7 +279,7 @@ void Display::buildScene() {
 
 
 	//Material* modelMaterial = new LambertMaterial(vec3(0.6, 0.7, 0.8));// , 1.3f);
-	Material* modelMaterial = new GlassMaterial(vec3(1.0, 1.0, 1.0), 0.02f, 1.85f);// , 1.3f);
+	Material* modelMaterial = new GlassMaterial(vec3(1.0, 1.0, 1.0), 0.125f, 2.35f);// , 1.3f);
 	mat4 modelMatrix = mat4();
 	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 20));
 	modelMatrix = glm::scale(modelMatrix, vec3(19, 19, 19));
@@ -294,34 +295,15 @@ void Display::buildScene() {
 	//}
 
 	/* creating a plane */
-	Material* planeMaterial1 = new LightMaterial(vec3(6, 3, 1.5f));
-	Triangle* pl1 = new Triangle(
-		vec3(-0, 190,  10),
-		vec3(100,  190,10),
-		vec3(-0, 190,  110)
-	);
-	pl1->material = planeMaterial1;
-	scene.addPrimitive(pl1);
-
-	Material* planeMaterial2 = new LightMaterial(vec3(6, 3, 1.5f));
-	Triangle* pl2 = new Triangle(
-		vec3(-0, 190,   110),
-		vec3(100,  190, 110),
-		vec3(100,  190, 10)
-		);
-	pl2->material = planeMaterial2;
-	scene.addPrimitive(pl2);
-
-
-
+	Geometry* plane = new PlaneGeometry(vec3(-99, 20, 0), vec3(35), vec3(0,0,1), M_PI / 2);
+	plane->setMaterial(new LightMaterial(vec3(20, 12, 4.5)));
+	scene.add(plane);
 
 
 
 	Geometry* cbox = new CornellBoxGeometry(vec3(0, 99, 20), vec3(100, 100, 100));
 	cbox->setMaterial(new LambertMaterial(vec3(0.2, 0.2, 0.2)));
 	scene.add(cbox);
-
-
 
 
 
@@ -377,7 +359,7 @@ void Display::saveRender() {
 
 	t1.join();
 	t2.join();
-	//t3.join();
+	t3.join();
 	//t4.join();
 
 	/* save result maybe ? */
