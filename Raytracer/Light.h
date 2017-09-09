@@ -14,6 +14,5 @@ public:
 	vec3 compute(Primitive*, vec3, Ray&);
 	vec3 emissive();
 
-
-	vec3 color;
+	//vec3 color;
 };

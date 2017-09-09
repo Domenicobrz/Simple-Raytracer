@@ -196,7 +196,7 @@ vec3 Scene::compute3(int index) {
 			float r = (1.0f - tx) * 1.0f + tx * 0.5f; //tx * 0.5f;
 			float g = (1.0f - ty) * 1.0f + ty * 0.7f; //ty * 0.7f;
 			float b = (1.0f - ty) * 1.0f + ty * 1.0f; //ty * 1.0f;
-			vec3 col = vec3(r, g, b);
+			vec3 col = vec3(r, g, b) * 1.0f;
 			//col = vec3(0, 0, 0);
 
 			//float dott = pow(max(dot(cray.d, normalize(vec3(1.0f, -0.4f, -1.0f))), 0.0f), 13.0f);

@@ -1,7 +1,9 @@
 #include "Lambert.h"
 
 LambertMaterial::LambertMaterial() : Material() { }; 
-LambertMaterial::LambertMaterial(vec3 color) : Material(), color(color) { };
+LambertMaterial::LambertMaterial(vec3 color) : Material() {
+	this->color = color;
+};
 
 vec3 LambertMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	

@@ -279,7 +279,7 @@ void Display::buildScene() {
 
 
 	//Material* modelMaterial = new LambertMaterial(vec3(0.6, 0.7, 0.8));// , 1.3f);
-	Material* modelMaterial = new GlassMaterial(vec3(1.0, 1.0, 1.0), 0.125f, 2.35f);// , 1.3f);
+	Material* modelMaterial = new GlassMaterial(vec3(1.0, 1.0, 1.0), 0.05f, 1.4f);// , 1.3f);
 	mat4 modelMatrix = mat4();
 	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 20));
 	modelMatrix = glm::scale(modelMatrix, vec3(19, 19, 19));
@@ -295,9 +295,18 @@ void Display::buildScene() {
 	//}
 
 	/* creating a plane */
-	Geometry* plane = new PlaneGeometry(vec3(-99, 20, 0), vec3(35), vec3(0,0,1), M_PI / 2);
-	plane->setMaterial(new LightMaterial(vec3(20, 12, 4.5)));
+	float m = 2.0f;
+	Geometry* plane = new PlaneGeometry(vec3(-99, 20, 0), vec3(65), vec3(0,0,1), M_PI / 2);
+	plane->setMaterial(new LightMaterial(vec3(10*m, 2.5*m, 2.5*m)));
 	scene.add(plane);
+
+	Geometry* plane2 = new PlaneGeometry(vec3(99, 20, 0), vec3(35), vec3(0, 0, 1), M_PI / 2);
+	plane2->setMaterial(new LightMaterial(vec3(2*m, 2*m, 14*m)));
+	//scene.add(plane2);
+
+	Geometry* plane3 = new PlaneGeometry(vec3(0, 20, 99), vec3(35), vec3(1, 0, 0), M_PI / 2);
+	plane3->setMaterial(new LightMaterial(vec3(8*m, 1*m, 8*m)));
+	//scene.add(plane3);
 
 
 

@@ -17,5 +17,5 @@ public:
 private:
 	float factor;
 	float refractionIndex;
-	vec3 color;
+	//vec3 color;
 };

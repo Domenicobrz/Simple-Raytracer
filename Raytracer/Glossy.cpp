@@ -1,7 +1,9 @@
 #include "Glossy.h"
 
 GlossyMaterial::GlossyMaterial() : Material(), factor(1.0) { }
-GlossyMaterial::GlossyMaterial(vec3 color, float factor) : Material(), color(color), factor(factor) { }
+GlossyMaterial::GlossyMaterial(vec3 color, float factor) : Material(), factor(factor) {
+	this->color = color;
+}
 
 vec3 GlossyMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	vec3 normal = primitive->normalAtPoint(hitPoint);

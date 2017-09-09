@@ -1,7 +1,9 @@
 #include "Light.h"
 
 LightMaterial::LightMaterial() : Material() { };
-LightMaterial::LightMaterial(vec3 color) : Material(), color(color) { };
+LightMaterial::LightMaterial(vec3 color) : Material() {
+	this->color = color;
+};
 
 vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 

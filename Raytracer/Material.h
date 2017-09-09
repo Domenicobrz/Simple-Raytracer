@@ -8,5 +8,8 @@ class Material {
 public:
 	Material();
 	virtual vec3 compute(Primitive* prim, vec3 hitPoint, Ray& ray);
+	//virtual vec3 getColor(vec3 uvr);
 	virtual vec3 emissive();
+
+	vec3 color;
 };

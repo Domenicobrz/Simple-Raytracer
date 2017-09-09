@@ -14,5 +14,5 @@ public:
 
 private:
 	float factor;
-	vec3 color;
+	//vec3 color;
 };
