@@ -9,6 +9,8 @@ class GlassMaterial : public Material {
 public:
 	GlassMaterial();
 	GlassMaterial(vec3 color, float factor, float refractionIndex);
+	GlassMaterial(TextureManager* tm, float factor, float refractionIndex);
+
 	vec3 compute(Primitive* prim, vec3 hitPoint, Ray& ray);
 	vec3 emissive();
 	bool refract(vec3, vec3, float, vec3 &);

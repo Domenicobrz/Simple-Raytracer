@@ -297,7 +297,7 @@ void Display::buildScene() {
 	/* creating a plane */
 	float m = 2.0f;
 	Geometry* plane = new PlaneGeometry(vec3(-99, 20, 0), vec3(65), vec3(0,0,1), M_PI / 2);
-	plane->setMaterial(new LightMaterial(vec3(10*m, 2.5*m, 2.5*m)));
+	plane->setMaterial(new LightMaterial(vec3(0*m, 0.5*m, 20.5*m)));
 	scene.add(plane);
 
 	Geometry* plane2 = new PlaneGeometry(vec3(99, 20, 0), vec3(35), vec3(0, 0, 1), M_PI / 2);

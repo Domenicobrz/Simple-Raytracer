@@ -1,9 +1,11 @@
 #include "Glass.h"
 
 GlassMaterial::GlassMaterial() : Material() { }
-GlassMaterial::GlassMaterial(vec3 color, float factor, float refractionIndex) : Material(), factor(factor), 
-																							refractionIndex(refractionIndex) {
-	this->color = color;
+GlassMaterial::GlassMaterial(vec3 color, float factor, float refractionIndex) : Material(color), factor(factor),
+																								 refractionIndex(refractionIndex) {
+}
+GlassMaterial::GlassMaterial(TextureManager* tm, float factor, float refractionIndex) : Material(tm), factor(factor),
+																								      refractionIndex(refractionIndex) {
 }
 
 vec3 GlassMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
@@ -58,7 +60,7 @@ vec3 GlassMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 		ray.d = normalize(refracted);
 	}
 
-	vec3 mask = color;// *dot(normal, ray.d);
+	vec3 mask = getColor(vec3(0.0f));// *dot(normal, ray.d);
 	return mask;
 }
 

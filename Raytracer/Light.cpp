@@ -1,9 +1,8 @@
 #include "Light.h"
 
 LightMaterial::LightMaterial() : Material() { };
-LightMaterial::LightMaterial(vec3 color) : Material() {
-	this->color = color;
-};
+LightMaterial::LightMaterial(vec3 color) : Material(color) { };
+LightMaterial::LightMaterial(TextureManager* tm) : Material(tm) { };
 
 vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 
@@ -32,6 +31,8 @@ vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	ray.o = hitPoint;
 	ray.d = normalize((hitplusnormal + randomPointOnUnitSphere) - hitPoint);
 
+			// remember: vec3(1.0) means the light didn't "absorb" anything
+			// the color of he light will be decided by the emissive 
 	vec3 mask = vec3(1.0) * dot(normal, ray.d);
 
 	//return vec3(1.0);
@@ -39,5 +40,5 @@ vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 }
 
 vec3 LightMaterial::emissive() {
-	return color;
+	return getColor(vec3());
 }

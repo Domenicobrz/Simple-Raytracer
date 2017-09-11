@@ -166,6 +166,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TileManager.cpp" />
     <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
@@ -190,6 +191,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TileManager.h" />
     <ClInclude Include="Triangle.h" />
   </ItemGroup>

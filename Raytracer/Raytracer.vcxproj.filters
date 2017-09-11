@@ -28,6 +28,9 @@
     <Filter Include="Geometries">
       <UniqueIdentifier>{8c396d3c-c247-4939-9d49-c1ae27a98849}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{3a1df88b-cc49-4757-ba65-47b3a36fb801}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="PlaneGeometry.cpp">
       <Filter>Geometries</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Texture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="PlaneGeometry.h">
       <Filter>Geometries</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

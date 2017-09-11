@@ -1,9 +1,8 @@
 #include "Lambert.h"
 
 LambertMaterial::LambertMaterial() : Material() { }; 
-LambertMaterial::LambertMaterial(vec3 color) : Material() {
-	this->color = color;
-};
+LambertMaterial::LambertMaterial(vec3 color) : Material(color) { };
+LambertMaterial::LambertMaterial(TextureManager* tm) : Material(tm) { };
 
 vec3 LambertMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	
@@ -32,7 +31,7 @@ vec3 LambertMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	ray.o = hitPoint;
 	ray.d = normalize((hitplusnormal + randomPointOnUnitSphere) - hitPoint);
 
-	vec3 mask = color * dot(normal, ray.d);
+	vec3 mask = getColor(vec3(0.0f)) * dot(normal, ray.d);
 
 	//return color;
 	return mask;
