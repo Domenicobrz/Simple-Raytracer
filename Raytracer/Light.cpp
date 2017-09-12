@@ -39,6 +39,6 @@ vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	return mask;
 }
 
-vec3 LightMaterial::emissive() {
-	return getColor(vec3());
+vec3 LightMaterial::emissive(Primitive* prim, vec3 hitPoint, Ray& ray) {
+	return getColor(hitPoint);
 }

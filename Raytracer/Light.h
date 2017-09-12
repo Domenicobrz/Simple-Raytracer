@@ -14,5 +14,5 @@ public:
 
 	/* returns a color and changes the ray direction */
 	vec3 compute(Primitive*, vec3, Ray&);
-	vec3 emissive();
+	vec3 emissive(Primitive* prim, vec3 hitPoint, Ray& ray);
 };

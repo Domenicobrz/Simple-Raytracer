@@ -12,7 +12,6 @@ public:
 	GlossyMaterial(TextureManager* tmp, float factor);
 
 	vec3 compute(Primitive* prim, vec3 hitPoint, Ray& ray);
-	vec3 emissive();
 
 private:
 	float factor;

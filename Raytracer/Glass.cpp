@@ -149,7 +149,3 @@ vec3 GlassMaterial::randomPointOnUnitSphere() {
 
 	return rpous;
 }
-
-vec3 GlassMaterial::emissive() {
-	return vec3(0.0f);
-}

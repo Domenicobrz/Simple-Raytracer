@@ -15,6 +15,6 @@ vec3 Material::getColor(vec3 uvr) {
 	return color;
 }
 
-vec3 Material::emissive() {
+vec3 Material::emissive(Primitive* prim, vec3 hitPoint, Ray& ray) {
 	return vec3(0.0f);
 }

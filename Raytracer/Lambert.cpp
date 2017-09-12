@@ -36,7 +36,3 @@ vec3 LambertMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	//return color;
 	return mask;
 }
-
-vec3 LambertMaterial::emissive() {
-	return vec3(0.0f);
-}

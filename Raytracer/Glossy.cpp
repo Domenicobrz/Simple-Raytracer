@@ -36,7 +36,3 @@ vec3 GlossyMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 
 	return mask;
 }
-
-vec3 GlossyMaterial::emissive() {
-	return vec3(0.0f);
-}
