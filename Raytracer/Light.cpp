@@ -4,7 +4,7 @@ LightMaterial::LightMaterial() : Material() { };
 LightMaterial::LightMaterial(vec3 color) : Material(color) { };
 LightMaterial::LightMaterial(TextureManager* tm) : Material(tm) { };
 
-vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
+vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 uv) {
 
 	vec3 normal = primitive->normalAtPoint(hitPoint);
 	if (dot(normal, ray.d) > 0) normal = -normal;
@@ -32,13 +32,13 @@ vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	ray.d = normalize((hitplusnormal + randomPointOnUnitSphere) - hitPoint);
 
 			// remember: vec3(1.0) means the light didn't "absorb" anything
-			// the color of he light will be decided by the emissive 
+			// the color of he light will be decided by the emissive function
 	vec3 mask = vec3(1.0) * dot(normal, ray.d);
 
 	//return vec3(1.0);
 	return mask;
 }
 
-vec3 LightMaterial::emissive(Primitive* prim, vec3 hitPoint, Ray& ray) {
-	return getColor(hitPoint, prim);
+vec3 LightMaterial::emissive(Primitive* prim, vec3 hitPoint, Ray& ray, vec2 uv) {
+	return getColor(vec3(uv, 0.0f), prim);
 }

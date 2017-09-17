@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Geometry.h"
-#include "Material.h";
+#include "Material.h"
+#include "TextureManager.h"
 
 class PlaneGeometry : public Geometry {
 public:
@@ -15,4 +16,5 @@ public:
 private:
 	mat4 transform;
 	Material* material;
+	TextureManager* tm;
 };

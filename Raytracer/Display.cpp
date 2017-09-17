@@ -11,6 +11,7 @@
 #include <string>
 
 #include "TextureManager.h"
+#include "Texture2D.h"
 
 #include "CubeGeometry.h"
 #include "PlaneGeometry.h"
@@ -298,9 +299,9 @@ void Display::buildScene() {
 
 	/* creating a plane */
 	float m = 2.0f;
-	Geometry* plane = new PlaneGeometry(vec3(-99, 20, 0), vec3(65), vec3(0,0,1), M_PI / 2);
+	Geometry* plane = new PlaneGeometry(vec3(-99, 40, 0), vec3(35), vec3(0,0,1), M_PI / 2);
 	LightMaterial* planeMat = new LightMaterial(vec3(8 * m, 1 * m, 8 * m));
-	planeMat->tm = new TextureManager();
+	planeMat->tm = new Texture2D(nullptr, 1.0f);
 	plane->setMaterial(planeMat);
 	scene.add(plane);
 

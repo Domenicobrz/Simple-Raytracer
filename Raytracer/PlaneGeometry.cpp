@@ -23,8 +23,11 @@ void PlaneGeometry::setMaterial(Material* mat) {
 
 void PlaneGeometry::concatGeometry(std::vector<Primitive*> & primitives) {
 	// negy
-	Triangle* t1 = new Triangle(vec3(-1, 0, -1), vec3(-1, 0, 1), vec3(1, 0, -1));
-	Triangle* t2 = new Triangle(vec3(-1, 0, 1), vec3(1, 0, 1), vec3(1, 0, -1));
+	Triangle* t1 = new Triangle(vec3(-1, 0, -1), vec3(-1, 0, 1), vec3(1, 0, -1), 
+								vec2(0,0),       vec2(0,1),      vec2(1,0));
+	Triangle* t2 = new Triangle(vec3(-1, 0, 1),  vec3(1, 0, 1),  vec3(1, 0, -1),
+								vec2(0, 1),      vec2(1, 1),     vec2(1, 0));
+
 	t1->transform(transform); t2->transform(transform);
 	t1->material = material; t2->material = material;
 	primitives.push_back(t1); primitives.push_back(t2);

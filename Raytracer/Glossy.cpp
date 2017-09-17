@@ -5,7 +5,7 @@ GlossyMaterial::GlossyMaterial(vec3 color, float factor) : Material(color), fact
 GlossyMaterial::GlossyMaterial(TextureManager* tm, float factor) : Material(tm), factor(factor) { }
 
 
-vec3 GlossyMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
+vec3 GlossyMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 uv) {
 	vec3 normal = primitive->normalAtPoint(hitPoint);
 	if (dot(normal, ray.d) > 0) normal = -normal;
 
@@ -32,7 +32,7 @@ vec3 GlossyMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	ray.d = normalize(reflectionDir + randomPointOnUnitSphere);
 
 	//vec3 mask = color * pow(dot(normal, ray.d), 0.1f);
-	vec3 mask = getColor(hitPoint, primitive) * dot(normal, ray.d);
+	vec3 mask = getColor(vec3(uv, 0.0f), primitive) * dot(normal, ray.d);
 
 	return mask;
 }

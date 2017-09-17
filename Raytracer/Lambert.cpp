@@ -4,7 +4,7 @@ LambertMaterial::LambertMaterial() : Material() { };
 LambertMaterial::LambertMaterial(vec3 color) : Material(color) { };
 LambertMaterial::LambertMaterial(TextureManager* tm) : Material(tm) { };
 
-vec3 LambertMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
+vec3 LambertMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 uv) {
 	
 	vec3 normal = primitive->normalAtPoint(hitPoint);
 	if (dot(normal, ray.d) > 0) normal = -normal;
@@ -31,7 +31,8 @@ vec3 LambertMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	ray.o = hitPoint;
 	ray.d = normalize((hitplusnormal + randomPointOnUnitSphere) - hitPoint);
 
-	vec3 mask = getColor(hitPoint, primitive) * dot(normal, ray.d);
+
+	vec3 mask = getColor(vec3(uv, 0.0f), primitive) * dot(normal, ray.d);
 
 	//return color;
 	return mask;

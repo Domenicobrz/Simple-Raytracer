@@ -15,63 +15,64 @@ Scene::Scene() {
 };
 
 vec3 Scene::compute2(int index) {
-	Ray ray = camera.getCameraRayFromIndex(index);
+	//Ray ray = camera.getCameraRayFromIndex(index);
 
-	std::vector<vec3> radiance;
-	vec3 accucolor(0.f, 0.f, 0.f);
-	vec3 mask(1.f, 1.f, 1.f);
+	//std::vector<vec3> radiance;
+	//vec3 accucolor(0.f, 0.f, 0.f);
+	//vec3 mask(1.f, 1.f, 1.f);
 
-	const int BOUNCES = 10;
+	//const int BOUNCES = 10;
 
-	/* bounces forloop - filling the radiance array */
-	for (int b = 0; b < BOUNCES; b++) {
-		
-		/*float minT = INFINITY; int primIndex;
-		for (int i = 0; i < primitives.size(); i++) {
-			float t = primitives[i]->intersect(ray);
+	///* bounces forloop - filling the radiance array */
+	//for (int b = 0; b < BOUNCES; b++) {
+	//	
+	//	/*float minT = INFINITY; int primIndex;
+	//	for (int i = 0; i < primitives.size(); i++) {
+	//		float t = primitives[i]->intersect(ray);
 
-			if (t < minT) {
-				minT = t;
-				primIndex = i;
-			}
-		}*/
+	//		if (t < minT) {
+	//			minT = t;
+	//			primIndex = i;
+	//		}
+	//	}*/
 
-		naiveBVHHitRecord rec = bvh.traverse(ray);
+	//	naiveBVHHitRecord rec = bvh.traverse(ray);
 
-		if (rec.t != INFINITY) {
-			/* error bound */
-			vec3 hitPoint = ray.o + ray.d * (rec.t * 0.9999f);
+	//	if (rec.t != INFINITY) {
+	//		/* error bound */
+	//		vec3 hitPoint = ray.o + ray.d * (rec.t * 0.9999f);
 
-			Material* material = rec.prim->getMaterial();
-			accucolor += mask * material->emissive(rec.prim, hitPoint, ray);
+	//		Material* material = rec.prim->getMaterial();
+	//		accucolor += mask * material->emissive(rec.prim, hitPoint, ray);
 
-			mask *= material->compute(rec.prim, hitPoint, ray);
-			mask *= 1.0f; //fudge factor
-		}
+	//		mask *= material->compute(rec.prim, hitPoint, ray);
+	//		mask *= 1.0f; //fudge factor
+	//	}
 
-		if (rec.t == INFINITY || b == BOUNCES - 1) {
-			float ty = ray.d.y * 0.5f + 0.5f;
-			float tx = ray.d.x * 0.5f + 0.5f;
+	//	if (rec.t == INFINITY || b == BOUNCES - 1) {
+	//		float ty = ray.d.y * 0.5f + 0.5f;
+	//		float tx = ray.d.x * 0.5f + 0.5f;
 
-			float r = (1.0f - tx) * 1.0f + tx * 0.5f; //tx * 0.0f;
-			float g = (1.0f - ty) * 1.0f + ty * 0.7f; //ty * 0.0f;
-			float b = (1.0f - ty) * 1.0f + ty * 1.0f; //ty * 0.2f;
-			vec3 col = vec3(r, g, b);
-
-
-			//float dott = pow(max(dot(ray.d, normalize(vec3(-1.0f, 1.0f, -1.0f))), 0.0f), 17.0f);
-			//vec3 col = vec3(1.0f, 0.25f, 0.25f) * dott * 10.0f;
-
-			//float dott2 = pow(max(dot(ray.d, normalize(vec3(1.0f, 1.0f, -0.5f))), 0.0f), 17.0f);
-			//vec3 col2 = vec3(0.3f, 0.3f, 1.0f) * dott2 * 10.0f;
+	//		float r = (1.0f - tx) * 1.0f + tx * 0.5f; //tx * 0.0f;
+	//		float g = (1.0f - ty) * 1.0f + ty * 0.7f; //ty * 0.0f;
+	//		float b = (1.0f - ty) * 1.0f + ty * 1.0f; //ty * 0.2f;
+	//		vec3 col = vec3(r, g, b);
 
 
-			accucolor += col * mask; // +col2 * mask;
-			break;
-		}
-	}
+	//		//float dott = pow(max(dot(ray.d, normalize(vec3(-1.0f, 1.0f, -1.0f))), 0.0f), 17.0f);
+	//		//vec3 col = vec3(1.0f, 0.25f, 0.25f) * dott * 10.0f;
 
-	return accucolor;
+	//		//float dott2 = pow(max(dot(ray.d, normalize(vec3(1.0f, 1.0f, -0.5f))), 0.0f), 17.0f);
+	//		//vec3 col2 = vec3(0.3f, 0.3f, 1.0f) * dott2 * 10.0f;
+
+
+	//		accucolor += col * mask; // +col2 * mask;
+	//		break;
+	//	}
+	//}
+
+	//return accucolor;
+	return vec3(); // delete this line if you're re-enabling this integrator
 }
 
 vec3 Scene::compute3(int index) {
@@ -104,13 +105,14 @@ vec3 Scene::compute3(int index) {
 		if (hit) {
 			/* error bound */
 			vec3 hitPoint = cray.o + cray.d * (isect.t * 0.9999f);
+			vec2 uv(isect.u, isect.v);
 
 			Primitive* prim = primitives[isect.prim_id];
 
 			Material* material = prim->getMaterial();
-			accucolor += mask * material->emissive(prim, hitPoint, cray);
+			accucolor += mask * material->emissive(prim, hitPoint, cray, uv);
 
-			mask *= material->compute(prim, hitPoint, cray);
+			mask *= material->compute(prim, hitPoint, cray, uv);
 			mask *= 1.0f; //fudge factor
 		}
 

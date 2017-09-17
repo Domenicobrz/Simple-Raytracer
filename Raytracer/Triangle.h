@@ -6,6 +6,8 @@ class Triangle : public Primitive {
 public:
 	Triangle();
 	Triangle(vec3, vec3, vec3);
+	Triangle(vec3, vec3, vec3,
+		     vec2, vec2, vec2);  // uvs
 
 	void transform(mat4);
 

@@ -2,6 +2,11 @@
 #include <glm\gtc\noise.hpp>
 
 Texture2D::Texture2D(const char * path, float multiplier) : TextureManager(), multiplier(multiplier) {
+	return; 
+
+
+
+
 	FIBITMAP *texture = FreeImage_Load(FIF_PNG, path, NULL);
 
 	/*
@@ -32,11 +37,8 @@ Texture2D::Texture2D(const char * path, float multiplier) : TextureManager(), mu
 	}
 };
 
-vec3 Texture2D::getColor(vec3 coord) {
-	float r = pow(glm::perlin(coord * 0.075f + vec3(3462, 363, 224))  * 0.5f + 0.5f, 4.0);
-	float g = pow(glm::perlin(coord * 0.075f + vec3(46322, 13, 5745)) * 0.5f + 0.5f, 4.0);
-	float b = pow(glm::perlin(coord * 0.075f + vec3(994, 146, 3254))  * 0.5f + 0.5f, 4.0);
-	return vec3(r, g, b) * multiplier;
+vec3 Texture2D::getColor(vec3 coord, Primitive* prim) {
+	return vec3(coord.x, coord.y, 0.0f) * multiplier;
 };
 
 vec3 Texture2D::getColor(void* params_struct) {
