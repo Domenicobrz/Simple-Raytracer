@@ -60,7 +60,7 @@ vec3 GlassMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 		ray.d = normalize(refracted);
 	}
 
-	vec3 mask = getColor(vec3(0.0f));// *dot(normal, ray.d);
+	vec3 mask = getColor(hitPoint, primitive);// *dot(normal, ray.d);
 	return mask;
 }
 

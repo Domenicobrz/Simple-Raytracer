@@ -11,6 +11,10 @@
 #include "Database.h"
 
 
+
+#include <FreeImage.h>
+
+
 const int WIDTH  = 800;
 const int HEIGHT = 600;
 

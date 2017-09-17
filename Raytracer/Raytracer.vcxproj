@@ -106,7 +106,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc120-mt.lib;sqlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc120-mt.lib;sqlite.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)\dependencies\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -143,7 +143,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc120-mt.lib;sqlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Opengl32.lib;glfw3.lib;glew32s.lib;assimp-vc120-mt.lib;sqlite.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)\dependencies\libs</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -166,6 +166,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TexturePerlin.cpp" />
     <ClCompile Include="TileManager.cpp" />
@@ -192,9 +193,11 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TexturePerlin.h" />
     <ClInclude Include="TileManager.h" />
+    <ClInclude Include="TODO.h" />
     <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <ItemGroup>

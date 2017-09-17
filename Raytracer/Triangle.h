@@ -11,6 +11,7 @@ public:
 
 	float intersect(Ray);
 	vec3  normalAtPoint(vec3);
+	vec3  uvAtPoint(vec3);
 	Material* getMaterial();
 	AABB getAABB();
 
@@ -27,6 +28,9 @@ private:
 	vec3 v0;
 	vec3 v1;
 	vec3 v2;
+	vec2 uv0;
+	vec2 uv1;
+	vec2 uv2;
 	vec3 normal;
 	AABB boundingBox;
 };

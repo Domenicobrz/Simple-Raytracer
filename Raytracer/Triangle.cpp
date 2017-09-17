@@ -78,6 +78,11 @@ vec3 Triangle::normalAtPoint(vec3 hitPoint) {
 	return normal;
 }
 
+vec3 Triangle::uvAtPoint(vec3 hitPoint) {
+	
+	return normal;
+}
+
 Material* Triangle::getMaterial() {
 	return material;
 }

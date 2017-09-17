@@ -12,6 +12,10 @@ vec3 Primitive::normalAtPoint(vec3 point) {
 	return point;
 };
 
+vec3 Primitive::uvAtPoint(vec3 point) {
+	return point;
+};
+
 AABB Primitive::getAABB() { return AABB(); };
 
 Material* Primitive::getMaterial() {

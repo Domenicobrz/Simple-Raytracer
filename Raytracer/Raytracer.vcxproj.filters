@@ -99,6 +99,9 @@
     <ClCompile Include="TexturePerlin.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -172,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="TexturePerlin.h">
       <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="TODO.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

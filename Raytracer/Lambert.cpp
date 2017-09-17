@@ -31,7 +31,7 @@ vec3 LambertMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray) {
 	ray.o = hitPoint;
 	ray.d = normalize((hitplusnormal + randomPointOnUnitSphere) - hitPoint);
 
-	vec3 mask = getColor(vec3(0.0f)) * dot(normal, ray.d);
+	vec3 mask = getColor(hitPoint, primitive) * dot(normal, ray.d);
 
 	//return color;
 	return mask;

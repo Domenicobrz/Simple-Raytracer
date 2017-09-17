@@ -11,7 +11,7 @@ public:
 	Material(vec3 color);
 	Material(TextureManager* tmp);
 	virtual vec3 compute(Primitive* prim, vec3 hitPoint, Ray& ray);
-	virtual vec3 getColor(vec3 uvr);
+	virtual vec3 getColor(vec3 hitPoint, Primitive* prim);
 	virtual vec3 emissive(Primitive* prim, vec3 hitPoint, Ray& ray);
 
 	vec3 color;

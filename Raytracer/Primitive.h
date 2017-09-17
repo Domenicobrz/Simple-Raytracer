@@ -10,6 +10,7 @@ public:
 
 	virtual float intersect(Ray);
 	virtual vec3  normalAtPoint(vec3);
+	virtual vec3  uvAtPoint(vec3);
 	virtual Material* getMaterial();
 	virtual AABB getAABB();
 
