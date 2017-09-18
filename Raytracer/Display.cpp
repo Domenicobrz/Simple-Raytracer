@@ -299,9 +299,14 @@ void Display::buildScene() {
 
 	/* creating a plane */
 	float m = 2.0f;
-	Geometry* plane = new PlaneGeometry(vec3(-99, 40, 0), vec3(35), vec3(0,0,1), M_PI / 2);
+	mat4 plane_transform = mat4();
+	plane_transform = glm::translate(plane_transform, vec3(-99, 60, 0));
+	plane_transform = glm::scale(plane_transform, vec3(65));
+	plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(1, 0, 0));
+	plane_transform = glm::rotate(plane_transform, (float)AI_MATH_PI / 2.0f, vec3(0, 0, 1));
+	Geometry* plane = new PlaneGeometry(plane_transform);
 	LightMaterial* planeMat = new LightMaterial(vec3(8 * m, 1 * m, 8 * m));
-	planeMat->tm = new Texture2D(nullptr, 1.0f);
+	planeMat->tm = new Texture2D("C:\\Users\\Domenico\\Desktop\\Crystal castle - plague.png", 1.6f);
 	plane->setMaterial(planeMat);
 	scene.add(plane);
 

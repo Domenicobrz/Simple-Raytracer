@@ -15,6 +15,9 @@ public:
 	vec3 getColor(vec3 uvq, Primitive* prim);
 	vec3 getColor(void* params_struct);
 
+	int textureWidth;
+	int textureHeight;
+	int bytesPerPixel;
 	float multiplier;
 	std::vector<BYTE> textureData;
 };
