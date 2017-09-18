@@ -38,7 +38,10 @@ Texture2D::Texture2D(const char * path, float multiplier) : TextureManager(), mu
 };
 
 vec3 Texture2D::getColor(vec3 coord, Primitive* prim) {
-	return vec3(coord.x, coord.y, 0.0f) * multiplier;
+	
+	vec2 uv = prim->getInterpolatedUV(vec2(coord.x, coord.y));
+
+	return vec3(pow((uv.x + uv.y) / 2.0f, 2.2f), 0.0f, 0.0f) * multiplier;
 };
 
 vec3 Texture2D::getColor(void* params_struct) {

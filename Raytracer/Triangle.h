@@ -14,12 +14,19 @@ public:
 	float intersect(Ray);
 	vec3  normalAtPoint(vec3);
 	vec3  uvAtPoint(vec3);
+	// returns interpolated texture uvs from supplied barycentric coordinates
+	vec2  getInterpolatedUV(vec2);
+
 	Material* getMaterial();
 	AABB getAABB();
 
 	vec3 getV0();
 	vec3 getV1();
 	vec3 getV2();
+
+	vec2 getUV0();
+	vec2 getUV1();
+	vec2 getUV2();
 
 
 

@@ -105,6 +105,19 @@ AABB Triangle::getAABB() {
 	return boundingBox;
 }
 
+vec2 Triangle::getInterpolatedUV(vec2 barycentric) {
+	// barycentric refers to the barycentric coordinates of the primitive at hand, they'll be used to interpolate
+	// the uvs stored inside the primitive
+
+	// vector v0 -> v2   defined by  v
+	// vector v0 -> v1   defined by  u
+	float u = barycentric.x;
+	float v = barycentric.y;
+	float w = 1 - u - v;
+
+	return vec2(uv0 * w + uv1 * u + uv2 * v);
+}
+
 vec3 Triangle::getV0() {
 	return v0;
 }
@@ -116,3 +129,7 @@ vec3 Triangle::getV1() {
 vec3 Triangle::getV2() {
 	return v2;
 }
+
+vec2 Triangle::getUV0() { return uv0; }
+vec2 Triangle::getUV1() { return uv1; }
+vec2 Triangle::getUV2() { return uv2; }
