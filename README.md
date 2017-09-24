@@ -1,8 +1,16 @@
-# Simple C++ Raytracer
+Simple C++ Raytracer
+======
 
-## How to build
+#### How to build
 - Work In Progress - 
 
-<img src="/Raytracer/renders/6_f2.png" style="width: 100%; height: auto;"/>
-<img src="/Raytracer/renders/7_f.png"  style="width: 100%; height: auto;"/>
-<img src="/Raytracer/renders/10.PNG"   style="width: 100%; height: auto;"/>
+## Pictures rendered with this simple Raytracer
+
+Refractive BRDF
+<img src="/Raytracer/renders/23_2.png" style="width: 100%;"/>
+
+Depth of Field
+<img src="/Raytracer/renders/17_f.png" style="width: 100%;"/>
+
+Lambertian Spheres
+<img src="/Raytracer/renders/12_f.png" style="width: 100%;"/>
