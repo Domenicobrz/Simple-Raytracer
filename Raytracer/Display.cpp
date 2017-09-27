@@ -62,9 +62,9 @@ Display::Display(int _width, int _height) {
 
 
 
-	t1 = std::thread([=] { srand(1352523); printf("%f - ", rnd()); runRenderThread(); });
-	t2 = std::thread([=] { srand(234);     printf("%f - ", rnd()); runRenderThread(); });
-	t3 = std::thread([=] { srand(3134534); printf("%f \n", rnd()); runRenderThread(); });
+	t1 = std::thread([=] { srand(515383); printf("%f - ", rnd()); runRenderThread(); });
+	t2 = std::thread([=] { srand(57684);     printf("%f - ", rnd()); runRenderThread(); });
+	t3 = std::thread([=] { srand(590776); printf("%f \n", rnd()); runRenderThread(); });
 	//t4 = std::thread([=] { srand(892308);  printf("%f", rnd()); runRenderThread(); });
 }
 
@@ -247,8 +247,10 @@ void Display::runRenderThread() {
 
 void Display::buildScene() {
 
-	vec3 eye = vec3(0.0f, 100.0f, -280.0f);
-	vec3 lookAt = vec3(0.0f, 100.0f, 0.0f);
+	//vec3 eye = vec3(-90.0f, 40.0f, 109.0f);
+	//vec3 lookAt = vec3(0.0f, 50.0f, 70.0f);
+	vec3 eye = vec3(0.0f, 100.0f, -250.0f);
+	vec3 lookAt = vec3(0.0f, 85.0f, 0.0f); 
 	Camera camera(width, height, eye, lookAt);
 
 	camera.aperture = 0.f;
@@ -282,7 +284,7 @@ void Display::buildScene() {
 
 
 	Material* modelMaterial = new LambertMaterial(vec3(1, 1, 1));// , 1.3f);
-	//Material* modelMaterial = new GlassMaterial(vec3(1.0, 1.0, 1.0), 0.05f, 1.4f);// , 1.3f);
+	//Material* modelMaterial = new GlassMaterial(vec3(1.0, 1.0, 1.0), 0.05f, 1.6f);// , 1.3f);
 	mat4 modelMatrix = mat4();
 	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 20));
 	modelMatrix = glm::scale(modelMatrix, vec3(19, 19, 19));
@@ -300,13 +302,13 @@ void Display::buildScene() {
 	/* creating a plane */
 	float m = 2.0f;
 	mat4 plane_transform = mat4();
-	plane_transform = glm::translate(plane_transform, vec3(-99, 60, 0));
+	plane_transform = glm::translate(plane_transform, vec3(-99.8f, 40.0f, 0.0f));
 	plane_transform = glm::scale(plane_transform, vec3(65));
 	plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(1, 0, 0));
-	plane_transform = glm::rotate(plane_transform, (float)AI_MATH_PI / 2.0f, vec3(0, 0, 1));
+	plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(0, 0, 1));
 	Geometry* plane = new PlaneGeometry(plane_transform);
 	LightMaterial* planeMat = new LightMaterial(vec3(8 * m, 1 * m, 8 * m));
-	planeMat->tm = new Texture2D("C:\\Users\\Domenico\\Desktop\\Crystal castle - plague.png", 1.6f);
+	planeMat->tm = new Texture2D("C:\\Users\\Domenico\\Desktop\\Crystal castle - plague.png", 1.95f);
 	plane->setMaterial(planeMat);
 	scene.add(plane);
 
@@ -314,6 +316,7 @@ void Display::buildScene() {
 
 	Geometry* cbox = new CornellBoxGeometry(vec3(0, 99, 20), vec3(100, 100, 100));
 	cbox->setMaterial(new LambertMaterial(vec3(0.2, 0.2, 0.2)));
+	//cbox->setMaterial(new GlossyMaterial(vec3(1.0), 0.0f));
 	scene.add(cbox);
 
 
@@ -370,7 +373,7 @@ void Display::saveRender() {
 
 	t1.join();
 	t2.join();
-	t3.join();
+	//t3.join();
 	//t4.join();
 
 	/* save result maybe ? */

@@ -1,6 +1,7 @@
 #include "CornellBoxGeometry.h"
 #include "Triangle.h"
 #include "Lambert.h"
+#include "Glossy.h"
 
 CornellBoxGeometry::CornellBoxGeometry() : Geometry() {
 	transform = mat4();
@@ -51,7 +52,8 @@ void CornellBoxGeometry::concatGeometry(std::vector<Primitive*> & primitives) {
 	Triangle* t7 = new Triangle(vec3(1, 1, 1), vec3(1, 1, -1), vec3(1, -1, 1));
 	Triangle* t8 = new Triangle(vec3(1, 1, -1), vec3(1, -1, 1), vec3(1, -1, -1));
 	t7->transform(transform); t8->transform(transform);
-	Material* red = new LambertMaterial(vec3(1, 0.25, 0.25));
+	//Material* red = new LambertMaterial(vec3(1, 0.25, 0.25));
+	Material* red = new GlossyMaterial(vec3(1), 0.0f);
 	t7->material = red; t8->material = red;
 	primitives.push_back(t7); primitives.push_back(t8);
 

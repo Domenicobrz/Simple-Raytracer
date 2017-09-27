@@ -84,6 +84,15 @@ vec3 Scene::compute3(int index) {
 
 	const int BOUNCES = 10;
 
+	//if (index > (800 * 385 + 180) && index < (800 * 385 + 200)) {
+	////if (index > (800 * 310 + 245) && index < (800 * 310 + 265)) {
+	//	int debug = 0;
+	//	return vec3(0, 1, 0);
+	//}
+	//else {
+	//	//return vec3();
+	//}
+
 	/* bounces forloop - filling the radiance array */
 	for (int b = 0; b < BOUNCES; b++) {
 		nanort::Ray<float> ray;
@@ -99,7 +108,7 @@ vec3 Scene::compute3(int index) {
 		ray.dir[2] = cray.d.z;
 
 		nanort::TriangleIntersector<> triangle_intersector(vertsv.data(), facesv.data(), sizeof(float) * 3);
-		nanort::TriangleIntersection<> isect;
+		nanort::TriangleIntersection<> isect = nanort::TriangleIntersection<>();
 		bool hit = accel.Traverse(ray, triangle_intersector, &isect);
 
 		if (hit) {
@@ -113,7 +122,7 @@ vec3 Scene::compute3(int index) {
 			accucolor += mask * material->emissive(prim, hitPoint, cray, uv);
 
 			mask *= material->compute(prim, hitPoint, cray, uv);
-			mask *= 1.0f; //fudge factor
+			//mask *= 2.0f; //fudge factor
 		}
 
 		// didn't reach light
@@ -195,3 +204,4 @@ void Scene::loadModel(const char* path, mat4 transform, Material* mat) {
 void Scene::add(Geometry* geom) {
 	geom->concatGeometry(primitives);
 }
+

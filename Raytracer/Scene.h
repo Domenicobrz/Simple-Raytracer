@@ -8,7 +8,7 @@
 #include "naiveBVH.h"
 #include "Material.h"
 #include "Geometry.h"
-#include "nanort.h"
+#include "nanort_modified.h"
 
 class Scene {
 public:

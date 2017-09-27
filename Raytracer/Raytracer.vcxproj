@@ -169,6 +169,7 @@
     <ClCompile Include="Texture2D.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="TexturePerlin.cpp" />
+    <ClCompile Include="TextureSkybox.cpp" />
     <ClCompile Include="TileManager.cpp" />
     <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
@@ -196,6 +197,7 @@
     <ClInclude Include="Texture2D.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TexturePerlin.h" />
+    <ClInclude Include="TextureSkybox.h" />
     <ClInclude Include="TileManager.h" />
     <ClInclude Include="TODO.h" />
     <ClInclude Include="Triangle.h" />
