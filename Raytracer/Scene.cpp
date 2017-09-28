@@ -205,3 +205,6 @@ void Scene::add(Geometry* geom) {
 	geom->concatGeometry(primitives);
 }
 
+void Scene::setSkybox(TextureSkybox* sb) {
+	skybox = sb;
+}

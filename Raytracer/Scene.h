@@ -9,6 +9,7 @@
 #include "Material.h"
 #include "Geometry.h"
 #include "nanort_modified.h"
+#include "TextureSkybox.h"
 
 class Scene {
 public:
@@ -18,6 +19,9 @@ public:
 	vec3 compute(int);
 	vec3 compute2(int);
 	vec3 compute3(int);
+
+	void setSkybox(TextureSkybox*);
+
 	void addPrimitive(Primitive*);
 	void loadModel(const char*, mat4 transform, Material* mat);
 
@@ -31,6 +35,8 @@ public:
 	naiveBVH bvh;
 
 
+
+	TextureSkybox* skybox;
 
 
 

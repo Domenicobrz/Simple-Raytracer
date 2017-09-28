@@ -21,6 +21,7 @@ const int HEIGHT = 600;
 Display* displayProgram;
 
 
+
 int main() {
 
 	displayProgram = new Display(WIDTH, HEIGHT);

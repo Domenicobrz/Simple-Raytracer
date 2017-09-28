@@ -56,11 +56,12 @@ vec3 Texture2D::getColor(vec3 coord, Primitive* prim) {
 	int pixelIndex = (textureY * textureWidth + textureX) * bytesPerPixel;
 
 
-
-	//if (pixelIndex > textureWidth * textureHeight * bytesPerPixel) {
-	//	printf("index out of bounds: %d, max is: %d", pixelIndex, textureWidth * textureHeight * bytesPerPixel + 2);
-	//	printf("at uvs: %f, %f", uv.s, uv.t);
-	//}
+#ifdef DEBUG
+	if (pixelIndex > textureWidth * textureHeight * bytesPerPixel) {
+		printf("index out of bounds: %d, max is: %d", pixelIndex, textureWidth * textureHeight * bytesPerPixel + 2);
+		printf("at uvs: %f, %f", uv.s, uv.t);
+	}
+#endif // DEBUG
 
 
 
