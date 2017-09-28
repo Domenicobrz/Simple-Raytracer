@@ -12,14 +12,16 @@
 
 
 
+#define FREEIMAGE_COLORORDER_BGR 0 
+#define FREEIMAGE_COLORORDER_RGB 1
 #include <FreeImage.h>
-
 
 const int WIDTH  = 800;
 const int HEIGHT = 600;
 
 Display* displayProgram;
 
+std::string AssetsPath = "D:\\Projects\\Raytracer\\Assets\\";
 
 
 int main() {

@@ -11,6 +11,7 @@
 #include <string>
 
 #include "TextureManager.h"
+#include "TextureSkybox.h"
 #include "Texture2D.h"
 
 #include "CubeGeometry.h"
@@ -35,6 +36,7 @@
 
 using namespace glm;
 extern Display* displayProgram;
+extern std::string AssetsPath;
 
 Display::Display(int _width, int _height) {
 	this->width = _width;
@@ -283,8 +285,9 @@ void Display::buildScene() {
 	}
 
 
-	Material* modelMaterial = new LambertMaterial(vec3(1, 1, 1));// , 1.3f);
-	//Material* modelMaterial = new GlassMaterial(vec3(1.0, 1.0, 1.0), 0.05f, 1.6f);// , 1.3f);
+	Material* modelMaterial = new LambertMaterial(vec3(0.8f, 0.8f, 0.8f));// , 1.3f);
+	//Material* modelMaterial = new GlossyMaterial(vec3(1, 1, 1), 0.06f);// , 1.3f);
+	//Material* modelMaterial = new GlassMaterial(vec3(0.94, 0.94, 0.94), 0.08f, 1.4f);// , 1.3f);
 	mat4 modelMatrix = mat4();
 	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 20));
 	modelMatrix = glm::scale(modelMatrix, vec3(19, 19, 19));
@@ -310,14 +313,33 @@ void Display::buildScene() {
 	LightMaterial* planeMat = new LightMaterial(vec3(8 * m, 1 * m, 8 * m));
 	planeMat->tm = new Texture2D("C:\\Users\\Domenico\\Desktop\\Crystal castle - plague.png", 1.95f);
 	plane->setMaterial(planeMat);
-	scene.add(plane);
+	//scene.add(plane);
 
 
 
 	Geometry* cbox = new CornellBoxGeometry(vec3(0, 99, 20), vec3(100, 100, 100));
 	cbox->setMaterial(new LambertMaterial(vec3(0.2, 0.2, 0.2)));
 	//cbox->setMaterial(new GlossyMaterial(vec3(1.0), 0.0f));
-	scene.add(cbox);
+	//scene.add(cbox);
+
+
+
+	Geometry* groundplane = new PlaneGeometry(vec3(0, 0, 0), vec3(360.0f, 180.0f, 180.0f));
+	groundplane->setMaterial(new LambertMaterial(vec3(1.0f, 0.95f, 0.6f)));
+	scene.add(groundplane);
+
+
+
+	TextureSkybox* skybox = new TextureSkybox(1.25f);
+	skybox->loadTexture((AssetsPath + "cubemap1\\posx.jpg").c_str(), TEXTURESKYBOX_posX);
+	skybox->loadTexture((AssetsPath + "cubemap1\\posy.jpg").c_str(), TEXTURESKYBOX_posY);
+	skybox->loadTexture((AssetsPath + "cubemap1\\posz.jpg").c_str(), TEXTURESKYBOX_posZ);
+	skybox->loadTexture((AssetsPath + "cubemap1\\negx.jpg").c_str(), TEXTURESKYBOX_negX);
+	skybox->loadTexture((AssetsPath + "cubemap1\\negy.jpg").c_str(), TEXTURESKYBOX_negY);
+	skybox->loadTexture((AssetsPath + "cubemap1\\negz.jpg").c_str(), TEXTURESKYBOX_negZ);
+	scene.skybox = skybox;
+
+
 
 
 

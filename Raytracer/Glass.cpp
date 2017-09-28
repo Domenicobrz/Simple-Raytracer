@@ -41,11 +41,11 @@ vec3 GlassMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 
 		r0 *= r0;
 		reflect_prob = r0 + (1.0f - r0) * pow((1.0f - cosine), 5);
 
-		//refracted += rp;
+		refracted += rp;
 	}
 	else {
 		reflect_prob = 1.0f;
-		//reflected += rp;
+		reflected += rp;
 	}
 
 	if (rnd() < reflect_prob) {

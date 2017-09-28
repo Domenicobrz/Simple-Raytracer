@@ -131,6 +131,11 @@ vec3 Scene::compute3(int index) {
 		//}
 
 		if (!hit || b == BOUNCES - 1) {
+			if (skybox != nullptr) {
+				accucolor += skybox->getColor(cray.d) * mask;
+				break;
+			}
+
 			float ty = cray.d.y * 0.5f + 0.5f;
 			float tx = cray.d.x * 0.5f + 0.5f;
 
