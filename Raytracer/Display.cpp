@@ -64,9 +64,9 @@ Display::Display(int _width, int _height) {
 
 
 
-	t1 = std::thread([=] { srand(515383); printf("%f - ", rnd()); runRenderThread(); });
-	t2 = std::thread([=] { srand(57684);     printf("%f - ", rnd()); runRenderThread(); });
-	t3 = std::thread([=] { srand(590776); printf("%f \n", rnd()); runRenderThread(); });
+	t1 = std::thread([=] { srand(675376); printf("%f - ", rnd()); runRenderThread(); });
+	t2 = std::thread([=] { srand(2357); printf("%f - ", rnd()); runRenderThread(); });
+	t3 = std::thread([=] { srand(11); printf("%f \n", rnd()); runRenderThread(); });
 	//t4 = std::thread([=] { srand(892308);  printf("%f", rnd()); runRenderThread(); });
 }
 
@@ -255,8 +255,8 @@ void Display::buildScene() {
 	vec3 lookAt = vec3(0.0f, 85.0f, 0.0f); 
 	Camera camera(width, height, eye, lookAt);
 
-	camera.aperture = 0.f;
-	camera.focusDistance = length(eye - vec3(0,0,-35));
+	camera.aperture = 6.5f;
+	camera.focusDistance = length(eye - vec3(0,0,-15));
 
 	scene.camera = camera;
 
@@ -285,14 +285,33 @@ void Display::buildScene() {
 	}
 
 
-	Material* modelMaterial = new LambertMaterial(vec3(0.8f, 0.8f, 0.8f));// , 1.3f);
-	//Material* modelMaterial = new GlossyMaterial(vec3(1, 1, 1), 0.06f);// , 1.3f);
-	//Material* modelMaterial = new GlassMaterial(vec3(0.94, 0.94, 0.94), 0.08f, 1.4f);// , 1.3f);
+	//Material* modelMaterial = new LambertMaterial(vec3(0.8f, 0.8f, 0.8f));// , 1.3f);
+	Material* modelMaterial = new GlossyMaterial(vec3(0.3f, 0.3f, 0.3f), 0.6f);// , 1.3f);
+	//Material* modelMaterial = new GlassMaterial(vec3(0.94f, 0.94f, 0.94f), 0.02f, 1.55f);// , 1.3f);
 	mat4 modelMatrix = mat4();
 	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 20));
-	modelMatrix = glm::scale(modelMatrix, vec3(19, 19, 19));
+	modelMatrix = glm::scale(modelMatrix, vec3(18, 18, 18));
 	modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
 	scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
+
+	{
+		//Material* modelMaterial = new GlassMaterial(vec3(0.75f, 0.98f, 0.9f), 0.07f, 1.55f);// , 1.3f);
+		Material* modelMaterial = new GlassMaterial(vec3(1.0f, 0.84f, 0.77f), 0.07f, 1.55f);// , 1.3f);
+		mat4 modelMatrix = mat4();
+		modelMatrix = glm::translate(modelMatrix, vec3(+120, 0, 20));
+		modelMatrix = glm::scale(modelMatrix, vec3(17, 17, 17));
+		modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
+		scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
+	}
+
+	{
+		Material* modelMaterial = new LambertMaterial(vec3(0.9f, 0.9f, 0.9f));// , 1.3f);
+		mat4 modelMatrix = mat4();
+		modelMatrix = glm::translate(modelMatrix, vec3(-135, 0, 20));
+		modelMatrix = glm::scale(modelMatrix, vec3(17, 17, 17));
+		modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
+		scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
+	}
 
 	//{ Material* modelMaterial = new LambertMaterial(vec3(0.2, 0.2, 0.2));// , 1.3f);
 	//mat4 modelMatrix = mat4();
@@ -330,7 +349,7 @@ void Display::buildScene() {
 
 
 
-	TextureSkybox* skybox = new TextureSkybox(1.25f);
+	TextureSkybox* skybox = new TextureSkybox(1.8f);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posx.jpg").c_str(), TEXTURESKYBOX_posX);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posy.jpg").c_str(), TEXTURESKYBOX_posY);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posz.jpg").c_str(), TEXTURESKYBOX_posZ);

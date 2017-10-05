@@ -111,25 +111,40 @@ vec3 Scene::compute3(int index) {
 		nanort::TriangleIntersection<> isect = nanort::TriangleIntersection<>();
 		bool hit = accel.Traverse(ray, triangle_intersector, &isect);
 
+
+		/* 
+		#ifdef FOG_SCATTERING
+		if(fogScattering(cray, isect.t)) {
+			// vec3 hitPoint = cray.o + cray.d * (isect.t * 0.9999f);
+			//  accucolor += mask * scene->fogMaterial->emissive(prim, hitPoint, cray, uv);
+			//  mask *= scene->fogMaterial->compute(prim, hitPoint, cray, uv);
+
+			// prevents the material from computing fot scattering
+			hit = false;
+		}
+		#endif
+		*/
+
+
+		/* if we hit a primitive */
+		/* in case there is fog scattering, hit will be set to false */
 		if (hit) {
-			/* error bound */
+			                                  /* v error bound v */
 			vec3 hitPoint = cray.o + cray.d * (isect.t * 0.9999f);
 			vec2 uv(isect.u, isect.v);
 
 			Primitive* prim = primitives[isect.prim_id];
-
 			Material* material = prim->getMaterial();
-			accucolor += mask * material->emissive(prim, hitPoint, cray, uv);
 
+			accucolor += mask * material->emissive(prim, hitPoint, cray, uv);
 			mask *= material->compute(prim, hitPoint, cray, uv);
+	
+
 			//mask *= 2.0f; //fudge factor
 		}
 
-		// didn't reach light
-		//if (hit && b == BOUNCES - 1) {
-			//break;
-		//}
 
+		/* if we didn't, or we're at the max amount of bounces */
 		if (!hit || b == BOUNCES - 1) {
 			if (skybox != nullptr) {
 				accucolor += skybox->getColor(cray.d) * mask;

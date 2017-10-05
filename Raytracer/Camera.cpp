@@ -55,15 +55,31 @@ Ray Camera::getCameraRayFromIndex(int index) {
 
 	/* if DOF is active */
 	if (aperture > 0.0f) {
+		// "rotating" DOF
+		//vec3 w = normalize(dir);
+		//vec3 u = cross(vec3(0, 1, 0), w);
+		//vec3 v = cross(w, u);
+
+		// "non-rotating" DOF
 		vec3 w = normalize(dir);
-		vec3 u = cross(vec3(0, 1, 0), w);
-		vec3 v = cross(w, u);
+		vec3 u = cross(vec3(0, 1, 0), this->w);
+		vec3 v = cross(this->w, u);
 
-		u = u * (rnd() * 2.0f - 1.0f) * aperture;
-		v = v * (rnd() * 2.0f - 1.0f) * aperture;
+		/* normalization is required for a circular bokeh */
+		vec2 offset = vec2((rnd() * 2.0f - 1.0f), (rnd() * 2.0f - 1.0f));
+		offset = normalize(offset) * rnd() * aperture;
 
-		vec3 pointOnFocusPlane = w * focusDistance;
-		dir = pointOnFocusPlane - (u + v);
+		u = u * offset.x;
+		v = v * offset.y;
+
+		//vec3 pointOnFocusPlane = w * focusDistance;
+		vec3 pointOnFocusPlane = eye + dir * focusDistance;
+		// seems wrong
+		//dir = pointOnFocusPlane - (u + v);
+		//return Ray(eye + u + v, normalize(dir));
+	
+		// seems right
+		dir = pointOnFocusPlane - (eye + u + v);
 		return Ray(eye + u + v, normalize(dir));
 	}
 
