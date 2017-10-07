@@ -25,6 +25,7 @@
 #include "Glossy.h"
 #include "Glass.h"
 #include "Light.h"
+#include "Fog.h"
 
 #include "naiveBVH.h"
 
@@ -54,7 +55,7 @@ Display::Display(int _width, int _height) {
 	}
 
 
-
+	scene = Scene();
 	buildScene();
 
 	/* needs to be before any openGL call since we create the context here */
@@ -255,38 +256,24 @@ void Display::buildScene() {
 	vec3 lookAt = vec3(0.0f, 85.0f, 0.0f); 
 	Camera camera(width, height, eye, lookAt);
 
-	camera.aperture = 6.5f;
+	//camera.aperture = 6.5f;
 	camera.focusDistance = length(eye - vec3(0,0,-15));
 
 	scene.camera = camera;
+	// you can also assign a custom fogMaterialto scene.fogMaterial
+	scene.fogDensity = 0.0025f;
 
 
 
-	Sphere* sphere = new Sphere(vec3(20,40, 100), 20);
-	sphere->material = new LightMaterial(vec3(2,2,2));
-	//scene.addPrimitive(sphere);
-
-	{
-		Sphere* sphere = new Sphere(vec3(20, 10, 0), 5);
-		sphere->material = new LightMaterial(vec3(1.5, 1.5, 1.5));
-		//scene.addPrimitive(sphere);
-	}
-	
-	
 	for (int i = 0; i < 3; i++) {
 		Sphere* sphere = new Sphere(vec3(rnd() * 100.0f - 50.0f, rnd() * 15.0f + 5.0f, rnd() * 100.0f), 5);
 		sphere->material = new LambertMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
-
-	//	if (i % 7 == 0) {
-	//		sphere->material = new LightMaterial(vec3(0.3f + rnd(), 0.3f + rnd(), 0.3f + rnd()));
-	//	}
-
 		//scene.addPrimitive(sphere);
 	}
 
 
-	//Material* modelMaterial = new LambertMaterial(vec3(0.8f, 0.8f, 0.8f));// , 1.3f);
-	Material* modelMaterial = new GlossyMaterial(vec3(0.3f, 0.3f, 0.3f), 0.6f);// , 1.3f);
+	Material* modelMaterial = new LambertMaterial(vec3(0.8f, 0.8f, 0.8f));// , 1.3f);
+	//Material* modelMaterial = new GlossyMaterial(vec3(0.9f, 0.9f, 0.9f), 0.6f);// , 1.3f);
 	//Material* modelMaterial = new GlassMaterial(vec3(0.94f, 0.94f, 0.94f), 0.02f, 1.55f);// , 1.3f);
 	mat4 modelMatrix = mat4();
 	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 20));
@@ -294,62 +281,36 @@ void Display::buildScene() {
 	modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
 	scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
 
-	{
-		//Material* modelMaterial = new GlassMaterial(vec3(0.75f, 0.98f, 0.9f), 0.07f, 1.55f);// , 1.3f);
-		Material* modelMaterial = new GlassMaterial(vec3(1.0f, 0.84f, 0.77f), 0.07f, 1.55f);// , 1.3f);
-		mat4 modelMatrix = mat4();
-		modelMatrix = glm::translate(modelMatrix, vec3(+120, 0, 20));
-		modelMatrix = glm::scale(modelMatrix, vec3(17, 17, 17));
-		modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
-		scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
-	}
 
-	{
-		Material* modelMaterial = new LambertMaterial(vec3(0.9f, 0.9f, 0.9f));// , 1.3f);
-		mat4 modelMatrix = mat4();
-		modelMatrix = glm::translate(modelMatrix, vec3(-135, 0, 20));
-		modelMatrix = glm::scale(modelMatrix, vec3(17, 17, 17));
-		modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
-		scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
-	}
-
-	//{ Material* modelMaterial = new LambertMaterial(vec3(0.2, 0.2, 0.2));// , 1.3f);
-	//mat4 modelMatrix = mat4();
-	//modelMatrix = glm::translate(modelMatrix, vec3(0, 0, 0));
-	//modelMatrix = glm::scale(modelMatrix, vec3(100, 100, 100));
-	//modelMatrix = glm::translate(modelMatrix, vec3(0, 1, 0));
-	//scene.loadModel("C:\\Users\\Domenico\\desktop\\cub3.obj", modelMatrix, modelMaterial);
-	//}
-
-	/* creating a plane */
+	/* creating a lit plane */
 	float m = 2.0f;
 	mat4 plane_transform = mat4();
-	plane_transform = glm::translate(plane_transform, vec3(-99.8f, 40.0f, 0.0f));
-	plane_transform = glm::scale(plane_transform, vec3(65));
-	plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(1, 0, 0));
-	plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(0, 0, 1));
+	plane_transform = glm::translate(plane_transform, vec3(-90.0f, 198.5f, 120.0f));
+	plane_transform = glm::scale(plane_transform, vec3(60, 1, 140));
+	// plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(1, 0, 0));
+	// plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(0, 0, 1));
 	Geometry* plane = new PlaneGeometry(plane_transform);
-	LightMaterial* planeMat = new LightMaterial(vec3(8 * m, 1 * m, 8 * m));
-	planeMat->tm = new Texture2D("C:\\Users\\Domenico\\Desktop\\Crystal castle - plague.png", 1.95f);
+	LightMaterial* planeMat = new LightMaterial(vec3(5 * m, 4 * m, 4 * m));
+	//planeMat->tm = new Texture2D("C:\\Users\\Domenico\\Desktop\\Crystal castle - plague.png", 1.95f);
 	plane->setMaterial(planeMat);
-	//scene.add(plane);
+	scene.add(plane);
 
 
 
-	Geometry* cbox = new CornellBoxGeometry(vec3(0, 99, 20), vec3(100, 100, 100));
+	Geometry* cbox = new CornellBoxGeometry(vec3(0, 99, 20), vec3(100, 100, 400));
 	cbox->setMaterial(new LambertMaterial(vec3(0.2, 0.2, 0.2)));
 	//cbox->setMaterial(new GlossyMaterial(vec3(1.0), 0.0f));
-	//scene.add(cbox);
+	scene.add(cbox);
 
 
 
-	Geometry* groundplane = new PlaneGeometry(vec3(0, 0, 0), vec3(360.0f, 180.0f, 180.0f));
-	groundplane->setMaterial(new LambertMaterial(vec3(1.0f, 0.95f, 0.6f)));
-	scene.add(groundplane);
+	//Geometry* groundplane = new PlaneGeometry(vec3(0, 0, 0), vec3(360.0f, 180.0f, 180.0f));
+	//groundplane->setMaterial(new LambertMaterial(vec3(1.0f, 0.95f, 0.6f)));
+	//scene.add(groundplane);
 
 
 
-	TextureSkybox* skybox = new TextureSkybox(1.8f);
+	TextureSkybox* skybox = new TextureSkybox(0.13f);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posx.jpg").c_str(), TEXTURESKYBOX_posX);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posy.jpg").c_str(), TEXTURESKYBOX_posY);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posz.jpg").c_str(), TEXTURESKYBOX_posZ);
@@ -360,6 +321,14 @@ void Display::buildScene() {
 
 
 
+
+
+
+
+
+
+
+	/* init BVH */
 
 
 	for (int i = 0; i < scene.primitives.size(); i++) {
@@ -414,7 +383,7 @@ void Display::saveRender() {
 
 	t1.join();
 	t2.join();
-	//t3.join();
+	t3.join();
 	//t4.join();
 
 	/* save result maybe ? */

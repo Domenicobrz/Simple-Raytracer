@@ -5,11 +5,16 @@
 #include "common_math.h"
 #include "Camera.h"
 #include "Primitive.h"
+#include "Fog.h"
 #include "naiveBVH.h"
 #include "Material.h"
 #include "Geometry.h"
 #include "nanort_modified.h"
 #include "TextureSkybox.h"
+
+
+#define FOG_SCATTERING
+
 
 class Scene {
 public:
@@ -21,6 +26,9 @@ public:
 	vec3 compute3(int);
 
 	void setSkybox(TextureSkybox*);
+	bool fogScattering(Ray, float &);
+
+
 
 	void addPrimitive(Primitive*);
 	void loadModel(const char*, mat4 transform, Material* mat);
@@ -28,16 +36,24 @@ public:
 	// TODO: add needs to add both models and primitives
 	void add(Geometry*);
 
+
+
+
+
+
+
+
 	/* public members */
 	Camera camera;
+
 
 	std::vector<Primitive*> primitives;
 	naiveBVH bvh;
 
 
-
 	TextureSkybox* skybox;
-
+	FogMaterial* fogMaterial;
+	float fogDensity = 0.0f;
 
 
 	/* bvh test */

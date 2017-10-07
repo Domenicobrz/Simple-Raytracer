@@ -154,6 +154,7 @@
     <ClCompile Include="CubeGeometry.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Display.cpp" />
+    <ClCompile Include="Fog.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Glass.cpp" />
     <ClCompile Include="Glossy.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="CubeGeometry.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="Display.h" />
+    <ClInclude Include="Fog.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Glass.h" />
     <ClInclude Include="Glossy.h" />

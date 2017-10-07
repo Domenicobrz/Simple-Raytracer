@@ -10,8 +10,12 @@
 
 #include "Triangle.h"
 
-Scene::Scene() {
 
+
+
+
+Scene::Scene() {
+	fogMaterial = new FogMaterial();
 };
 
 vec3 Scene::compute2(int index) {
@@ -84,14 +88,13 @@ vec3 Scene::compute3(int index) {
 
 	const int BOUNCES = 10;
 
-	//if (index > (800 * 385 + 180) && index < (800 * 385 + 200)) {
-	////if (index > (800 * 310 + 245) && index < (800 * 310 + 265)) {
-	//	int debug = 0;
-	//	return vec3(0, 1, 0);
-	//}
-	//else {
-	//	//return vec3();
-	//}
+	if (index >= (600 * 436 + 221) && index < (600 * 436 + 235)) {
+		int debug = 0;
+		return vec3(0, 0, 1);
+	}
+	else {
+		//return vec3();
+	}
 
 	/* bounces forloop - filling the radiance array */
 	for (int b = 0; b < BOUNCES; b++) {
@@ -112,18 +115,20 @@ vec3 Scene::compute3(int index) {
 		bool hit = accel.Traverse(ray, triangle_intersector, &isect);
 
 
-		/* 
+		
 		#ifdef FOG_SCATTERING
 		if(fogScattering(cray, isect.t)) {
-			// vec3 hitPoint = cray.o + cray.d * (isect.t * 0.9999f);
-			//  accucolor += mask * scene->fogMaterial->emissive(prim, hitPoint, cray, uv);
-			//  mask *= scene->fogMaterial->compute(prim, hitPoint, cray, uv);
+			// fogScattering modified the t value at this point
+			vec3 hitPoint = cray.o + cray.d * (isect.t * 0.9999f);
 
-			// prevents the material from computing fot scattering
+			accucolor += mask * fogMaterial->emissive(nullptr, hitPoint, cray, vec2(0));
+			mask *= fogMaterial->compute(nullptr, hitPoint, cray, vec2(0));
+
+			// prevents the material from computing this light's bounce
 			hit = false;
 		}
 		#endif
-		*/
+		
 
 
 		/* if we hit a primitive */
@@ -219,6 +224,22 @@ void Scene::loadModel(const char* path, mat4 transform, Material* mat) {
 			this->addPrimitive(tri1);
 		}
 	}
+}
+
+bool Scene::fogScattering(Ray ray, float & t) {
+	if (fogDensity == 0.0f) return false;
+
+	float invD = 1.0f / fogDensity;
+	float probability = t / invD;
+
+	float r = rnd();
+
+	if (r < probability) {
+		t = t * rnd();
+		return true;
+	}
+
+	return false;
 }
 
 void Scene::add(Geometry* geom) {

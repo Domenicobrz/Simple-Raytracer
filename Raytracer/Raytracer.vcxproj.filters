@@ -105,6 +105,9 @@
     <ClCompile Include="TextureSkybox.cpp">
       <Filter>Texture</Filter>
     </ClCompile>
+    <ClCompile Include="Fog.cpp">
+      <Filter>BSDFs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="TextureSkybox.h">
       <Filter>Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Fog.h">
+      <Filter>BSDFs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
