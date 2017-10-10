@@ -26,7 +26,7 @@ public:
 	vec3 compute3(int);
 
 	void setSkybox(TextureSkybox*);
-	bool fogScattering(Ray, float &);
+	bool fogScattering(Ray, float &, bool);
 
 
 

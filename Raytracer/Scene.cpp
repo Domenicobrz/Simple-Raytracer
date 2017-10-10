@@ -88,7 +88,7 @@ vec3 Scene::compute3(int index) {
 
 	const int BOUNCES = 10;
 
-	if (index >= (600 * 436 + 221) && index < (600 * 436 + 235)) {
+	if (index >= (600 * 436 + 121) && index < (600 * 436 + 135)) {
 		int debug = 0;
 		return vec3(0, 0, 1);
 	}
@@ -113,11 +113,11 @@ vec3 Scene::compute3(int index) {
 		nanort::TriangleIntersector<> triangle_intersector(vertsv.data(), facesv.data(), sizeof(float) * 3);
 		nanort::TriangleIntersection<> isect = nanort::TriangleIntersection<>();
 		bool hit = accel.Traverse(ray, triangle_intersector, &isect);
-
+		bool hitfog = false;
 
 		
 		#ifdef FOG_SCATTERING
-		if(fogScattering(cray, isect.t)) {
+		if(fogScattering(cray, isect.t, hit)) {
 			// fogScattering modified the t value at this point
 			vec3 hitPoint = cray.o + cray.d * (isect.t * 0.9999f);
 
@@ -125,7 +125,7 @@ vec3 Scene::compute3(int index) {
 			mask *= fogMaterial->compute(nullptr, hitPoint, cray, vec2(0));
 
 			// prevents the material from computing this light's bounce
-			hit = false;
+			hitfog = true;
 		}
 		#endif
 		
@@ -133,7 +133,7 @@ vec3 Scene::compute3(int index) {
 
 		/* if we hit a primitive */
 		/* in case there is fog scattering, hit will be set to false */
-		if (hit) {
+		if (hit && !hitfog) {
 			                                  /* v error bound v */
 			vec3 hitPoint = cray.o + cray.d * (isect.t * 0.9999f);
 			vec2 uv(isect.u, isect.v);
@@ -149,8 +149,8 @@ vec3 Scene::compute3(int index) {
 		}
 
 
-		/* if we didn't, or we're at the max amount of bounces */
-		if (!hit || b == BOUNCES - 1) {
+		/* if we didn't a surface or a fog particle, or we're at the max amount of bounces */
+		if (  (!hit && !hitfog)          || b == BOUNCES - 1) {
 			if (skybox != nullptr) {
 				accucolor += skybox->getColor(cray.d) * mask;
 				break;
@@ -226,8 +226,12 @@ void Scene::loadModel(const char* path, mat4 transform, Material* mat) {
 	}
 }
 
-bool Scene::fogScattering(Ray ray, float & t) {
+bool Scene::fogScattering(Ray ray, float & t, bool hit) {
 	if (fogDensity == 0.0f) return false;
+
+	// if we didn't hit anything, roll fogScattering over the max probability distance
+	if (!hit) t = 1.0f / fogDensity;
+
 
 	float invD = 1.0f / fogDensity;
 	float probability = t / invD;
