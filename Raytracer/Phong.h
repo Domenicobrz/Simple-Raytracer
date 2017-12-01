@@ -15,7 +15,7 @@ class PhongMaterial : public Material {
 public:
 	PhongMaterial();
 	PhongMaterial(vec3);
-	PhongMaterial(vec3, float, float, float);
+	PhongMaterial(vec3, float kd, float ks, float shininess);
 	PhongMaterial(TextureManager*);
 
 	/* returns a color and changes the ray direction */

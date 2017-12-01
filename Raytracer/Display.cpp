@@ -273,22 +273,23 @@ void Display::buildScene() {
 	}
 
 
-	//Material* modelMaterial = new LambertMaterial(vec3(0.8f, 0.8f, 0.8f));// , 1.3f);
-	////Material* modelMaterial = new GlossyMaterial(vec3(0.9f, 0.9f, 0.9f), 0.6f);// , 1.3f);
-	////Material* modelMaterial = new GlassMaterial(vec3(0.94f, 0.94f, 0.94f), 0.02f, 1.55f);// , 1.3f);
-	//mat4 modelMatrix = mat4();
-	//modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 20));
-	//modelMatrix = glm::scale(modelMatrix, vec3(18, 18, 18));
-	//modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
-	//scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
-
-
-	Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.8f), 1, 0, 0);// , 1.3f);
+	Material* modelMaterial = new PhongMaterial(vec3(0.3f, 0.3f, 0.35f), 0, 1, 32);// , 1.3f);
+	//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
+	//Material* modelMaterial = new GlossyMaterial(vec3(0.9f, 0.9f, 0.9f), 0.6f);// , 1.3f);
+	//Material* modelMaterial = new GlassMaterial(vec3(0.94f, 0.94f, 0.94f), 0.02f, 1.55f);// , 1.3f);
 	mat4 modelMatrix = mat4();
-	modelMatrix = glm::translate(modelMatrix, vec3(0, 85, 20));
-	modelMatrix = glm::scale(modelMatrix, vec3(38, 38, 38));
-	modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0.6, 1, 0));
-	scene.loadModel("C:\\Users\\Domenico\\desktop\\sphere.obj", modelMatrix, modelMaterial);
+	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 20));
+	modelMatrix = glm::scale(modelMatrix, vec3(18, 18, 18));
+	modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
+	scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
+
+
+	//Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.8f), 1, 0, 0);// , 1.3f);
+	//mat4 modelMatrix = mat4();
+	//modelMatrix = glm::translate(modelMatrix, vec3(0, 85, 20));
+	//modelMatrix = glm::scale(modelMatrix, vec3(38, 38, 38));
+	//modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0.6, 1, 0));
+	//scene.loadModel("C:\\Users\\Domenico\\desktop\\sphere.obj", modelMatrix, modelMaterial);
 
 
 

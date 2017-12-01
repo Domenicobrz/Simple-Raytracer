@@ -26,14 +26,21 @@ vec3 PhongMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 
 		phi = 2 * M_PI * rnd();
 	}
 
-	// specular sample
+	// specular sample - check the reference to understand where these calculations are derived
 	if ((u >= kd) && (u < kd + ks)) {
+		// angle between normal and outgoing ray
+		theta = acos(dot(normal, -ray.d));
 
+		float alpha = acos(pow(rnd(), 1 / (shininess + 1)));
+		phi = 2.0f * M_PI * rnd();
+
+		// new angle of the incoming ray
+		theta += alpha;
 	}
 
 	// return zero contribution
 	if (u > (ks + kd)) {
-
+		return vec3(0, 0, 0);
 	}
 
 
