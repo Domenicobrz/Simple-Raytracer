@@ -4,6 +4,18 @@ Simple C++ Raytracer
 #### How to build
 - Work In Progress - 
 
+#### Features
+
+Importance sampling for:
+- Phong BRDF
+
+Depth Of Field
+
+Textured Light Sources
+
+Fog scattering
+
+
 ## Pictures rendered with this simple Raytracer
 
 Refractive BRDF
