@@ -108,6 +108,9 @@
     <ClCompile Include="Fog.cpp">
       <Filter>BSDFs</Filter>
     </ClCompile>
+    <ClCompile Include="Phong.cpp">
+      <Filter>BSDFs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -192,6 +195,9 @@
       <Filter>Texture</Filter>
     </ClInclude>
     <ClInclude Include="Fog.h">
+      <Filter>BSDFs</Filter>
+    </ClInclude>
+    <ClInclude Include="Phong.h">
       <Filter>BSDFs</Filter>
     </ClInclude>
   </ItemGroup>

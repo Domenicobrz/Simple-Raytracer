@@ -88,13 +88,13 @@ vec3 Scene::compute3(int index) {
 
 	const int BOUNCES = 10;
 
-	if (index >= (600 * 436 + 121) && index < (600 * 436 + 135)) {
-		int debug = 0;
-		return vec3(0, 0, 1);
-	}
-	else {
-		//return vec3();
-	}
+	//if (index >= (600 * 436 + 121) && index < (600 * 436 + 135)) {
+	//	int debug = 0;
+	//	return vec3(0, 0, 1);
+	//}
+	//else {
+	//	//return vec3();
+	//}
 
 	/* bounces forloop - filling the radiance array */
 	for (int b = 0; b < BOUNCES; b++) {

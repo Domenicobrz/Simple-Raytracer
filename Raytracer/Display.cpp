@@ -22,6 +22,7 @@
 
 #include "Material.h"
 #include "Lambert.h"
+#include "Phong.h"
 #include "Glossy.h"
 #include "Glass.h"
 #include "Light.h"
@@ -65,9 +66,9 @@ Display::Display(int _width, int _height) {
 
 
 
-	t1 = std::thread([=] { srand(675376); printf("%f - ", rnd()); runRenderThread(); });
-	t2 = std::thread([=] { srand(2357); printf("%f - ", rnd()); runRenderThread(); });
-	t3 = std::thread([=] { srand(11); printf("%f \n", rnd()); runRenderThread(); });
+	t1 = std::thread([=] { srand(43634); printf("%f - ", rnd()); runRenderThread(); });
+	t2 = std::thread([=] { srand(7644); printf("%f - ", rnd()); runRenderThread(); });
+	t3 = std::thread([=] { srand(9247); printf("%f \n", rnd()); runRenderThread(); });
 	//t4 = std::thread([=] { srand(892308);  printf("%f", rnd()); runRenderThread(); });
 }
 
@@ -252,7 +253,7 @@ void Display::buildScene() {
 
 	//vec3 eye = vec3(-90.0f, 40.0f, 109.0f);
 	//vec3 lookAt = vec3(0.0f, 50.0f, 70.0f);
-	vec3 eye = vec3(0.0f, 100.0f, -290.0f);
+	vec3 eye = vec3(0.0f, 100.0f, -240.0f);
 	vec3 lookAt = vec3(0.0f, 85.0f, 0.0f); 
 	Camera camera(width, height, eye, lookAt);
 
@@ -260,8 +261,8 @@ void Display::buildScene() {
 	camera.focusDistance = length(eye - vec3(0,0,-15));
 
 	scene.camera = camera;
-	// you can also assign a custom fogMaterialto scene.fogMaterial
-	scene.fogDensity = 0.003f;
+	// you can also assign a custom fogMaterial to scene.fogMaterial
+	// scene.fogDensity = 0.003f;
 
 
 
@@ -282,21 +283,21 @@ void Display::buildScene() {
 	//scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
 
 
-	Material* modelMaterial = new LambertMaterial(vec3(0.9f, 0.9f, 0.8f));// , 1.3f);
+	Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.8f), 1, 0, 0);// , 1.3f);
 	mat4 modelMatrix = mat4();
-	modelMatrix = glm::translate(modelMatrix, vec3(-105, 105, -20));
-	modelMatrix = glm::scale(modelMatrix, vec3(18, 18, 18));
+	modelMatrix = glm::translate(modelMatrix, vec3(0, 85, 20));
+	modelMatrix = glm::scale(modelMatrix, vec3(38, 38, 38));
 	modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0.6, 1, 0));
-	scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
+	scene.loadModel("C:\\Users\\Domenico\\desktop\\sphere.obj", modelMatrix, modelMaterial);
 
 
 
 
 	/* creating a lit plane */
-	float m = 6.0f;
+	float m = 3.0f;
 	mat4 plane_transform = mat4();
-	plane_transform = glm::translate(plane_transform, vec3(-70.0f, 198.5f, -10.0f));
-	plane_transform = glm::scale(plane_transform, vec3(60, 1, 40));
+	plane_transform = glm::translate(plane_transform, vec3(-30.0f, 198.5f, -10.0f));
+	plane_transform = glm::scale(plane_transform, vec3(58, 1, 58));
 	// plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(1, 0, 0));
 	// plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(0, 0, 1));
 	Geometry* plane = new PlaneGeometry(plane_transform);
@@ -320,15 +321,15 @@ void Display::buildScene() {
 
 
 
-	TextureSkybox* skybox = new TextureSkybox(0.13f);
+	/*TextureSkybox* skybox = new TextureSkybox(0.13f);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posx.jpg").c_str(), TEXTURESKYBOX_posX);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posy.jpg").c_str(), TEXTURESKYBOX_posY);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posz.jpg").c_str(), TEXTURESKYBOX_posZ);
 	skybox->loadTexture((AssetsPath + "cubemap1\\negx.jpg").c_str(), TEXTURESKYBOX_negX);
 	skybox->loadTexture((AssetsPath + "cubemap1\\negy.jpg").c_str(), TEXTURESKYBOX_negY);
 	skybox->loadTexture((AssetsPath + "cubemap1\\negz.jpg").c_str(), TEXTURESKYBOX_negZ);
-	scene.skybox = skybox;
-
+	scene.skybox = skybox;*/
+	scene.skybox = nullptr;
 
 
 
@@ -339,7 +340,6 @@ void Display::buildScene() {
 
 
 	/* init BVH */
-
 
 	for (int i = 0; i < scene.primitives.size(); i++) {
 		vec3 v0 = scene.primitives[i]->getV0();

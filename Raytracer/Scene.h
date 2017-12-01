@@ -13,7 +13,7 @@
 #include "TextureSkybox.h"
 
 
-#define FOG_SCATTERING
+//#define FOG_SCATTERING
 
 
 class Scene {
