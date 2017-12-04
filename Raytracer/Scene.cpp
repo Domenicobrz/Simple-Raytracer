@@ -188,8 +188,9 @@ void Scene::addPrimitive(Primitive* prim) {
 }
 
 void Scene::loadModel(const char* path, mat4 transform, Material* mat) {
-	Assimp::Importer import;
-	const aiScene *assscene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	Assimp::Importer import;                        // should remove face indexes and triangulate faces
+													// so we wont have to deal with vertices and index elements
+	const aiScene *assscene = import.ReadFile(path, aiProcess_Triangulate/* | aiProcess_FlipUVs*/);
 
 	if (!assscene || assscene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !assscene->mRootNode)
 	{
@@ -200,6 +201,7 @@ void Scene::loadModel(const char* path, mat4 transform, Material* mat) {
 	for (int i = 0; i < assscene->mNumMeshes; i++) {
 		aiMesh* mesh = assscene->mMeshes[i];
 
+		// iterating each triangle
 		for (int i = 0; i < mesh->mNumVertices / 3; i++) {
 			float x1 = mesh->mVertices[i * 3 + 0].x;
 			float y1 = mesh->mVertices[i * 3 + 0].y;
@@ -213,12 +215,27 @@ void Scene::loadModel(const char* path, mat4 transform, Material* mat) {
 			float y3 = mesh->mVertices[i * 3 + 2].y;
 			float z3 = mesh->mVertices[i * 3 + 2].z;
 
+			float uv0s, uv0t, uv1s, uv1t, uv2s, uv2t;
+			if (mesh->HasTextureCoords(0)) {
+				uv0s = mesh->mTextureCoords[0][i * 3 + 0].x;
+				uv0t = mesh->mTextureCoords[0][i * 3 + 0].y;
+
+				uv1s = mesh->mTextureCoords[0][i * 3 + 1].x;
+				uv1t = mesh->mTextureCoords[0][i * 3 + 1].y;
+
+				uv2s = mesh->mTextureCoords[0][i * 3 + 2].x;
+				uv2t = mesh->mTextureCoords[0][i * 3 + 2].y;
+			}
 
 			Triangle* tri1 = new Triangle(
 				vec3(transform * vec4(x1, y1, z1, 1)),
 				vec3(transform * vec4(x2, y2, z2, 1)),
-				vec3(transform * vec4(x3, y3, z3, 1))
+				vec3(transform * vec4(x3, y3, z3, 1)),
+				vec2(uv0s, uv0t),
+				vec2(uv1s, uv1t),
+				vec2(uv2s, uv2t)
 				);
+
 
 			tri1->material = mat;
 			this->addPrimitive(tri1);

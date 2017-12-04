@@ -66,9 +66,9 @@ Display::Display(int _width, int _height) {
 
 
 
-	t1 = std::thread([=] { srand(43634); printf("%f - ", rnd()); runRenderThread(); });
-	t2 = std::thread([=] { srand(7644); printf("%f - ", rnd()); runRenderThread(); });
-	t3 = std::thread([=] { srand(9247); printf("%f \n", rnd()); runRenderThread(); });
+	t1 = std::thread([=] { srand(5465445); printf("%f - ", rnd()); runRenderThread(); });
+	t2 = std::thread([=] { srand(29997); printf("%f - ", rnd()); runRenderThread(); });
+	//t3 = std::thread([=] { srand(212367); printf("%f \n", rnd()); runRenderThread(); });
 	//t4 = std::thread([=] { srand(892308);  printf("%f", rnd()); runRenderThread(); });
 }
 
@@ -253,8 +253,8 @@ void Display::buildScene() {
 
 	//vec3 eye = vec3(-90.0f, 40.0f, 109.0f);
 	//vec3 lookAt = vec3(0.0f, 50.0f, 70.0f);
-	vec3 eye = vec3(0.0f, 100.0f, -240.0f);
-	vec3 lookAt = vec3(0.0f, 85.0f, 0.0f); 
+	vec3 eye = vec3(0.0f, 330.0f, -320.0f);
+	vec3 lookAt = vec3(0.0f, 75.0f, 0.0f); 
 	Camera camera(width, height, eye, lookAt);
 
 	//camera.aperture = 6.5f;
@@ -273,15 +273,31 @@ void Display::buildScene() {
 	}
 
 
-	Material* modelMaterial = new PhongMaterial(vec3(0.3f, 0.3f, 0.35f), 0, 1, 32);// , 1.3f);
+	Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0, 1, 32);// , 1.3f);
 	//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
-	//Material* modelMaterial = new GlossyMaterial(vec3(0.9f, 0.9f, 0.9f), 0.6f);// , 1.3f);
+	//Material* modelMaterial = new GlossyMaterial(vec3(0.9f, 0.9f, 0.9f), 0.1f);// , 1.3f);
 	//Material* modelMaterial = new GlassMaterial(vec3(0.94f, 0.94f, 0.94f), 0.02f, 1.55f);// , 1.3f);
 	mat4 modelMatrix = mat4();
-	modelMatrix = glm::translate(modelMatrix, vec3(-6, 0, 20));
+	modelMatrix = glm::translate(modelMatrix, vec3(-40, 0, 20));
 	modelMatrix = glm::scale(modelMatrix, vec3(18, 18, 18));
 	modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
-	scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
+	//scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
+
+
+	{
+		Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0.8f, 0.2f, 32);
+		modelMaterial->tm = new Texture2D("C:\\Users\\Domenico\\desktop\\Diffuse.png");
+		//Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0.7, 0.3, 16);
+		//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
+		//Material* modelMaterial = new GlossyMaterial(vec3(0.9f, 0.9f, 0.9f), 0.1f);// , 1.3f);
+		//Material* modelMaterial = new GlassMaterial(vec3(0.94f, 0.94f, 0.94f), 0.02f, 1.55f);// , 1.3f);
+		mat4 modelMatrix = mat4();
+		modelMatrix = glm::translate(modelMatrix, vec3(10, -2, 80));
+		modelMatrix = glm::scale(modelMatrix, vec3(31, 31, 31));
+		modelMatrix = glm::rotate(modelMatrix, 0.94f, vec3(0, 1, 0));
+		scene.loadModel("C:\\Users\\Domenico\\desktop\\harrier3.obj", modelMatrix, modelMaterial);
+	}
+
 
 
 	//Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.8f), 1, 0, 0);// , 1.3f);
@@ -295,42 +311,57 @@ void Display::buildScene() {
 
 
 	/* creating a lit plane */
-	float m = 3.0f;
-	mat4 plane_transform = mat4();
-	plane_transform = glm::translate(plane_transform, vec3(-30.0f, 198.5f, -10.0f));
-	plane_transform = glm::scale(plane_transform, vec3(58, 1, 58));
-	// plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(1, 0, 0));
-	// plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(0, 0, 1));
-	Geometry* plane = new PlaneGeometry(plane_transform);
-	LightMaterial* planeMat = new LightMaterial(vec3(5 * m, 4 * m, 4 * m));
-	//planeMat->tm = new Texture2D("C:\\Users\\Domenico\\Desktop\\Crystal castle - plague.png", 1.95f);
-	plane->setMaterial(planeMat);
-	scene.add(plane);
+	//float m = 3.0f;
+	//mat4 plane_transform = mat4();
+	////plane_transform = glm::translate(plane_transform, vec3(-30.0f, 198.5f, -10.0f));
+	//plane_transform = glm::translate(plane_transform, vec3(0.0f, 115.0f, 250.0f));
+	//plane_transform = glm::rotate(plane_transform, ((float)AI_MATH_PI) / 2.0f, vec3(0, 0, 1));
+	//plane_transform = glm::rotate(plane_transform, -((float)AI_MATH_PI) / 2.0f, vec3(1, 0, 0));
+	//plane_transform = glm::scale(plane_transform, vec3(190, 1, 190 / 0.75414f));
+	////plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(1, 0, 0));
+	//// plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(0, 0, 1));
+	//Geometry* plane = new PlaneGeometry(plane_transform);
+	//LightMaterial* planeMat = new LightMaterial(vec3(5 * m, 4 * m, 4 * m));
+	//planeMat->tm = new Texture2D("C:\\Users\\Domenico\\Desktop\\groundemission.png", 3.5f);
+	//plane->setMaterial(planeMat);
+	//scene.add(plane);
 
 
 
 	Geometry* cbox = new CornellBoxGeometry(vec3(0, 99, 20), vec3(100, 100, 400));
 	cbox->setMaterial(new LambertMaterial(vec3(0.2, 0.2, 0.2)));
 	//cbox->setMaterial(new GlossyMaterial(vec3(1.0), 0.0f));
-	scene.add(cbox);
+	//scene.add(cbox);
 
 
 
-	//Geometry* groundplane = new PlaneGeometry(vec3(0, 0, 0), vec3(360.0f, 180.0f, 180.0f));
-	//groundplane->setMaterial(new LambertMaterial(vec3(1.0f, 0.95f, 0.6f)));
-	//scene.add(groundplane);
+
+	// infinite plane
+	{
+		mat4 plane_transform = mat4();
+		plane_transform = glm::translate(plane_transform, vec3(0.0f, -1.0f, 0.0f));
+		plane_transform = glm::scale(plane_transform, vec3(2900, 1, 2900.0f));
+		Geometry* plane = new PlaneGeometry(plane_transform);
+		GlossyMaterial* planeMat = new GlossyMaterial(vec3(0.7f, 0.7f, 0.7f), 0.4f);
+		plane->setMaterial(planeMat);
+		scene.add(plane);
+	}
 
 
 
-	/*TextureSkybox* skybox = new TextureSkybox(0.13f);
+
+
+
+
+	TextureSkybox* skybox = new TextureSkybox(2.5f);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posx.jpg").c_str(), TEXTURESKYBOX_posX);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posy.jpg").c_str(), TEXTURESKYBOX_posY);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posz.jpg").c_str(), TEXTURESKYBOX_posZ);
 	skybox->loadTexture((AssetsPath + "cubemap1\\negx.jpg").c_str(), TEXTURESKYBOX_negX);
 	skybox->loadTexture((AssetsPath + "cubemap1\\negy.jpg").c_str(), TEXTURESKYBOX_negY);
 	skybox->loadTexture((AssetsPath + "cubemap1\\negz.jpg").c_str(), TEXTURESKYBOX_negZ);
-	scene.skybox = skybox;*/
-	scene.skybox = nullptr;
+	scene.skybox = skybox;
+	//scene.skybox = nullptr;
 
 
 
@@ -394,7 +425,7 @@ void Display::saveRender() {
 
 	t1.join();
 	t2.join();
-	t3.join();
+	//t3.join();
 	//t4.join();
 
 	/* save result maybe ? */

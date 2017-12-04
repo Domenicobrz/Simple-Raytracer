@@ -65,9 +65,9 @@ vec3 Texture2D::getColor(vec3 coord, Primitive* prim) {
 
 
 
-	float r = (float)textureData[pixelIndex + 0]  / 255.0f;// * uv.x;
+	float b = (float)textureData[pixelIndex + 0]  / 255.0f;// * uv.x;
 	float g = (float)textureData[pixelIndex + 1]  / 255.0f;// * uv.x;
-	float b = (float)textureData[pixelIndex + 2]  / 255.0f;// * uv.x;
+	float r = (float)textureData[pixelIndex + 2]  / 255.0f;// * uv.x;
 
 	// openGL applies gamma correction so we take it into account here and inverse-correct our texture space
 	return vec3(pow(r, 2.2f), pow(g, 2.2f), pow(b, 2.2f)) * multiplier;

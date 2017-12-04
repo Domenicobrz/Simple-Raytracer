@@ -5,6 +5,10 @@ PhongMaterial::PhongMaterial(vec3 color) : Material(color) { };
 PhongMaterial::PhongMaterial(vec3 color, float kd, float ks, float shininess) : Material(color), ks(ks), kd(kd), shininess(shininess) { };
 PhongMaterial::PhongMaterial(TextureManager* tm) : Material(tm) { };
 
+int pass() {
+	return 0;
+}
+
 vec3 PhongMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 uv) {
 
 	vec3 normal = primitive->normalAtPoint(hitPoint);
@@ -62,9 +66,15 @@ vec3 PhongMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 
 	rotmatrix[1] = scy;
 	rotmatrix[2] = scz;
 
+	vec3 newdir = rotmatrix * vec3(ssx, ssy, ssz);
+
+	// isnan() check to avoid dead pixels
+	if (isnan(newdir.x) || isnan(newdir.y) || isnan(newdir.z)) {
+		newdir = vec3(0, 1, 0);
+	}
 
 	ray.o = hitPoint;
-	ray.d = normalize(rotmatrix * vec3(ssx, ssy, ssz));
+	ray.d = normalize(newdir);
 
 
 	vec3 mask = getColor(vec3(uv, 0.0f), primitive) * dot(normal, ray.d);

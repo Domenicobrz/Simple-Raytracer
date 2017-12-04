@@ -15,5 +15,7 @@ public:
 	virtual vec3 emissive(Primitive* prim, vec3 hitPoint, Ray& ray, vec2 uv);
 
 	vec3 color;
-	TextureManager* tm;
+	TextureManager* tm; // treated as albedo
+	TextureManager* shininess; // could be used in Phong-BRDF 
+	TextureManager* temissive; // could be used in Light-BRDF  -  be sure to override current implementation with tm if you choose this path
 };
