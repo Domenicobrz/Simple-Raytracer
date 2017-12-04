@@ -353,7 +353,7 @@ void Display::buildScene() {
 
 
 
-	TextureSkybox* skybox = new TextureSkybox(2.5f);
+	TextureSkybox* skybox = new TextureSkybox(2.25f);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posx.jpg").c_str(), TEXTURESKYBOX_posX);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posy.jpg").c_str(), TEXTURESKYBOX_posY);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posz.jpg").c_str(), TEXTURESKYBOX_posZ);
