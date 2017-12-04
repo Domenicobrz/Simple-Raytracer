@@ -3,7 +3,6 @@
 PhongMaterial::PhongMaterial() : Material() { };
 PhongMaterial::PhongMaterial(vec3 color) : Material(color) { };
 PhongMaterial::PhongMaterial(vec3 color, float kd, float ks, float shininess) : Material(color), ks(ks), kd(kd), shininess(shininess) { };
-PhongMaterial::PhongMaterial(TextureManager* tm) : Material(tm) { };
 
 int pass() {
 	return 0;
@@ -13,6 +12,23 @@ vec3 PhongMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 
 
 	vec3 normal = primitive->normalAtPoint(hitPoint);
 	if (dot(normal, ray.d) > 0) normal = -normal;
+
+
+
+	// sample a shininess texture if we have it
+	float _kd = kd;
+	float _ks = ks;
+	float _shininess = shininess;
+
+	if (specular != nullptr) {
+		vec3 shininessFromTexture = getShininess(vec3(uv, 0.0f), primitive);
+		_kd = 1.0f - shininessFromTexture.r;
+		_ks = 1.0f - _kd;
+	}
+
+
+
+
 
 	// draw a random uniform variable to decide whether this is going to be a diffuse (u < kd) 
 	// or specular (kd <= u < kd + ks) sample.
@@ -24,18 +40,19 @@ vec3 PhongMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 
 	float theta = 0.0f;
 	float phi = 0.0f;
 
+
 	// diffuse sample
-	if (u < kd) {
+	if (u < _kd) {
 		theta = acos(sqrt(rnd()));
 		phi = 2 * M_PI * rnd();
 	}
 
 	// specular sample - check the reference to understand where these calculations are derived
-	if ((u >= kd) && (u < kd + ks)) {
+	if ((u >= _kd) && (u < _kd + _ks)) {
 		// angle between normal and outgoing ray
 		theta = acos(dot(normal, -ray.d));
 
-		float alpha = acos(pow(rnd(), 1 / (shininess + 1)));
+		float alpha = acos(pow(rnd(), 1 / (_shininess + 1)));
 		phi = 2.0f * M_PI * rnd();
 
 		// new angle of the incoming ray
@@ -43,7 +60,7 @@ vec3 PhongMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 
 	}
 
 	// return zero contribution
-	if (u > (ks + kd)) {
+	if (u > (_ks + _kd)) {
 		return vec3(0, 0, 0);
 	}
 

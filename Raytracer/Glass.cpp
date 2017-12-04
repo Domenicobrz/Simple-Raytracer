@@ -4,9 +4,6 @@ GlassMaterial::GlassMaterial() : Material() { }
 GlassMaterial::GlassMaterial(vec3 color, float factor, float refractionIndex) : Material(color), factor(factor),
 																								 refractionIndex(refractionIndex) {
 }
-GlassMaterial::GlassMaterial(TextureManager* tm, float factor, float refractionIndex) : Material(tm), factor(factor),
-																								      refractionIndex(refractionIndex) {
-}
 
 vec3 GlassMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 uv) {
 	vec3 normal = primitive->normalAtPoint(hitPoint);	

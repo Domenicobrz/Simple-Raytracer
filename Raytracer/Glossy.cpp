@@ -2,7 +2,6 @@
 
 GlossyMaterial::GlossyMaterial() : Material(), factor(1.0) { }
 GlossyMaterial::GlossyMaterial(vec3 color, float factor) : Material(color), factor(factor) { }
-GlossyMaterial::GlossyMaterial(TextureManager* tm, float factor) : Material(tm), factor(factor) { }
 
 
 vec3 GlossyMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 uv) {

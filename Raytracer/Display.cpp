@@ -68,7 +68,7 @@ Display::Display(int _width, int _height) {
 
 	t1 = std::thread([=] { srand(5465445); printf("%f - ", rnd()); runRenderThread(); });
 	t2 = std::thread([=] { srand(29997); printf("%f - ", rnd()); runRenderThread(); });
-	//t3 = std::thread([=] { srand(212367); printf("%f \n", rnd()); runRenderThread(); });
+	t3 = std::thread([=] { srand(212367); printf("%f \n", rnd()); runRenderThread(); });
 	//t4 = std::thread([=] { srand(892308);  printf("%f", rnd()); runRenderThread(); });
 }
 
@@ -285,12 +285,14 @@ void Display::buildScene() {
 
 
 	{
-		Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0.8f, 0.2f, 32);
-		modelMaterial->tm = new Texture2D("C:\\Users\\Domenico\\desktop\\Diffuse.png");
+		//Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0.5f, 0.5f, 256000.0f);
 		//Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0.7, 0.3, 16);
 		//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
-		//Material* modelMaterial = new GlossyMaterial(vec3(0.9f, 0.9f, 0.9f), 0.1f);// , 1.3f);
-		//Material* modelMaterial = new GlassMaterial(vec3(0.94f, 0.94f, 0.94f), 0.02f, 1.55f);// , 1.3f);
+		//Material* modelMaterial = new GlossyMaterial(vec3(0.95f, 0.95f, 0.95f), 0.01f);// , 1.3f);
+		Material* modelMaterial = new GlassMaterial(vec3(1.0f, 1.0f, 1.0f), 0.02f, 1.4f);// , 1.3f);
+		modelMaterial->tm = new Texture2D("C:\\Users\\Domenico\\desktop\\Diffuse.png", 1.65f);
+		modelMaterial->specular = new Texture2D("C:\\Users\\Domenico\\desktop\\Specular2.png", 1.0f);
+		modelMaterial->temissive = new Texture2D("C:\\Users\\Domenico\\desktop\\Emissive.png", 5.5f);
 		mat4 modelMatrix = mat4();
 		modelMatrix = glm::translate(modelMatrix, vec3(10, -2, 80));
 		modelMatrix = glm::scale(modelMatrix, vec3(31, 31, 31));
@@ -353,7 +355,7 @@ void Display::buildScene() {
 
 
 
-	TextureSkybox* skybox = new TextureSkybox(2.25f);
+	TextureSkybox* skybox = new TextureSkybox(0.2f);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posx.jpg").c_str(), TEXTURESKYBOX_posX);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posy.jpg").c_str(), TEXTURESKYBOX_posY);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posz.jpg").c_str(), TEXTURESKYBOX_posZ);
@@ -372,7 +374,6 @@ void Display::buildScene() {
 
 
 	/* init BVH */
-
 	for (int i = 0; i < scene.primitives.size(); i++) {
 		vec3 v0 = scene.primitives[i]->getV0();
 		vec3 v1 = scene.primitives[i]->getV1();
@@ -425,7 +426,7 @@ void Display::saveRender() {
 
 	t1.join();
 	t2.join();
-	//t3.join();
+	t3.join();
 	//t4.join();
 
 	/* save result maybe ? */

@@ -16,8 +16,8 @@
 #define FREEIMAGE_COLORORDER_RGB 1
 #include <FreeImage.h>
 
-const int WIDTH  = 800;
-const int HEIGHT = 600;
+const int WIDTH  = 900;
+const int HEIGHT = 650;
 
 Display* displayProgram;
 

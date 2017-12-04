@@ -141,7 +141,7 @@ vec3 Scene::compute3(int index) {
 			Primitive* prim = primitives[isect.prim_id];
 			Material* material = prim->getMaterial();
 
-			accucolor += mask * material->emissive(prim, hitPoint, cray, uv);
+			accucolor += mask * material->getEmissive(prim, hitPoint, cray, uv);
 			mask *= material->compute(prim, hitPoint, cray, uv);
 	
 

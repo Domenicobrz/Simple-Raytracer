@@ -9,7 +9,6 @@ class LambertMaterial : public Material {
 public:
 	LambertMaterial();
 	LambertMaterial(vec3);
-	LambertMaterial(TextureManager*);
 
 	/* returns a color and changes the ray direction */
 	vec3 compute(Primitive*, vec3, Ray&, vec2);

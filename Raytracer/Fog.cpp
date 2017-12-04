@@ -2,7 +2,6 @@
 
 FogMaterial::FogMaterial() : Material() { };
 FogMaterial::FogMaterial(vec3 color) : Material(color) { };
-FogMaterial::FogMaterial(TextureManager* tm) : Material(tm) { };
 
 vec3 FogMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 uv) {
 
@@ -45,8 +44,4 @@ bool FogMaterial::refract(vec3 v, vec3 n, float ni_over_nt, vec3 & refracted) {
 	}
 
 	return false;
-}
-
-vec3 FogMaterial::emissive(Primitive* prim, vec3 hitPoint, Ray& ray, vec2 uv) {
-	return vec3(0.0f);
 }

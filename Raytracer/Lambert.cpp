@@ -2,7 +2,6 @@
 
 LambertMaterial::LambertMaterial() : Material() { }; 
 LambertMaterial::LambertMaterial(vec3 color) : Material(color) { };
-LambertMaterial::LambertMaterial(TextureManager* tm) : Material(tm) { };
 
 vec3 LambertMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 uv) {
 	

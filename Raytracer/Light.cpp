@@ -1,8 +1,7 @@
 #include "Light.h"
 
 LightMaterial::LightMaterial() : Material() { };
-LightMaterial::LightMaterial(vec3 color) : Material(color) { };
-LightMaterial::LightMaterial(TextureManager* tm) : Material(tm) { };
+LightMaterial::LightMaterial(vec3 emissive) : Material(vec3(0.0f), emissive) { };
 
 vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 uv) {
 
@@ -37,8 +36,4 @@ vec3 LightMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 
 
 	//return vec3(1.0);
 	return mask;
-}
-
-vec3 LightMaterial::emissive(Primitive* prim, vec3 hitPoint, Ray& ray, vec2 uv) {
-	return getColor(vec3(uv, 0.0f), prim);
 }
