@@ -111,6 +111,9 @@
     <ClCompile Include="Phong.cpp">
       <Filter>BSDFs</Filter>
     </ClCompile>
+    <ClCompile Include="SAPLambert.cpp">
+      <Filter>BSDFs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -198,6 +201,9 @@
       <Filter>BSDFs</Filter>
     </ClInclude>
     <ClInclude Include="Phong.h">
+      <Filter>BSDFs</Filter>
+    </ClInclude>
+    <ClInclude Include="SAPLambert.h">
       <Filter>BSDFs</Filter>
     </ClInclude>
   </ItemGroup>

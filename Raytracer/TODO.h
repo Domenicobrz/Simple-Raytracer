@@ -21,6 +21,8 @@
 // BUGS:
 // since the seed for Random is always the same at start, when we save a scene and start rendering it again later, it uses the same 
 // random numbers used in the previous scene, so the result we get in the end is identical to the first one and the integration is incorrect
+// in the PHONG BRDF floating points error may occur in the code which converts the spherical coordinate system to world coordinates,
+//     since the cross product may result close to infinity
 
 
 // change the  "return mask;"   in BRDFs with  "return absorbtion * angleDispersion;

@@ -153,6 +153,7 @@ vec3 Scene::compute3(int index) {
 		if (  (!hit && !hitfog)          || b == BOUNCES - 1) {
 			if (skybox != nullptr) {
 				accucolor += skybox->getColor(cray.d) * mask;
+				//accucolor += vec3(1.0f) * mask;  furnace test
 				break;
 			}
 

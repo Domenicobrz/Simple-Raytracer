@@ -103,6 +103,7 @@ vec3 TextureSkybox::getColor(vec3 direction) {
 
 
 	float power = 2.2f;
+	//float power = 1.0f;
 	
 	r = pow(r, power);
 	g = pow(g, power);

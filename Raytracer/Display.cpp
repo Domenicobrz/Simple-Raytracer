@@ -251,10 +251,10 @@ void Display::runRenderThread() {
 
 void Display::buildScene() {
 
-	//vec3 eye = vec3(-90.0f, 40.0f, 109.0f);
-	//vec3 lookAt = vec3(0.0f, 50.0f, 70.0f);
-	vec3 eye = vec3(0.0f, 330.0f, -320.0f);
-	vec3 lookAt = vec3(0.0f, 75.0f, 0.0f); 
+	/*vec3 eye = vec3(0.0f, 330.0f, -320.0f);
+	vec3 lookAt = vec3(0.0f, 75.0f, 0.0f);*/ 
+	vec3 eye = vec3(0.0f, 150.0f, -360.0f);
+	vec3 lookAt = vec3(0.0f, 75.0f, 0.0f);
 	Camera camera(width, height, eye, lookAt);
 
 	//camera.aperture = 6.5f;
@@ -273,7 +273,7 @@ void Display::buildScene() {
 	}
 
 
-	Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0, 1, 32);// , 1.3f);
+	Material* modelMaterial = new PhongMaterial(vec3(1.0f, 0.3f, 0.45f), 1, 0, 32);// , 1.3f);
 	//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
 	//Material* modelMaterial = new GlossyMaterial(vec3(0.9f, 0.9f, 0.9f), 0.1f);// , 1.3f);
 	//Material* modelMaterial = new GlassMaterial(vec3(0.94f, 0.94f, 0.94f), 0.02f, 1.55f);// , 1.3f);
@@ -285,14 +285,14 @@ void Display::buildScene() {
 
 
 	{
-		//Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0.5f, 0.5f, 256000.0f);
+		Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0.8f, 0.2f, 64.0f);
 		//Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0.7, 0.3, 16);
 		//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
-		//Material* modelMaterial = new GlossyMaterial(vec3(0.95f, 0.95f, 0.95f), 0.01f);// , 1.3f);
-		Material* modelMaterial = new GlassMaterial(vec3(1.0f, 1.0f, 1.0f), 0.02f, 1.4f);// , 1.3f);
-		modelMaterial->tm = new Texture2D("C:\\Users\\Domenico\\desktop\\Diffuse.png", 1.65f);
-		modelMaterial->specular = new Texture2D("C:\\Users\\Domenico\\desktop\\Specular2.png", 1.0f);
-		modelMaterial->temissive = new Texture2D("C:\\Users\\Domenico\\desktop\\Emissive.png", 5.5f);
+		//Material* modelMaterial = new GlossyMaterial(vec3(0.95f, 0.95f, 0.95f), 0.5f);// , 1.3f);
+		//Material* modelMaterial = new GlassMaterial(vec3(1.0f, 1.0f, 1.0f), 0.02f, 1.4f);// , 1.3f);
+		modelMaterial->tm = new Texture2D("C:\\Users\\Domenico\\desktop\\Diffuse.png", 1.0f);
+		//modelMaterial->specular = new Texture2D("C:\\Users\\Domenico\\desktop\\Specular2.png", 1.0f);
+		//modelMaterial->temissive = new Texture2D("C:\\Users\\Domenico\\desktop\\Emissive.png", 0.55f);
 		mat4 modelMatrix = mat4();
 		modelMatrix = glm::translate(modelMatrix, vec3(10, -2, 80));
 		modelMatrix = glm::scale(modelMatrix, vec3(31, 31, 31));
@@ -344,7 +344,9 @@ void Display::buildScene() {
 		plane_transform = glm::translate(plane_transform, vec3(0.0f, -1.0f, 0.0f));
 		plane_transform = glm::scale(plane_transform, vec3(2900, 1, 2900.0f));
 		Geometry* plane = new PlaneGeometry(plane_transform);
-		GlossyMaterial* planeMat = new GlossyMaterial(vec3(0.7f, 0.7f, 0.7f), 0.4f);
+		//GlossyMaterial* planeMat = new GlossyMaterial(vec3(0.7f, 0.7f, 0.7f), 0.4f);
+		Material* planeMat = new PhongMaterial(vec3(0.7f, 0.7f, 0.7f), 1.0f, 0.0f, 64.0f);
+
 		plane->setMaterial(planeMat);
 		scene.add(plane);
 	}
@@ -355,7 +357,7 @@ void Display::buildScene() {
 
 
 
-	TextureSkybox* skybox = new TextureSkybox(0.2f);
+	TextureSkybox* skybox = new TextureSkybox(1.0f);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posx.jpg").c_str(), TEXTURESKYBOX_posX);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posy.jpg").c_str(), TEXTURESKYBOX_posY);
 	skybox->loadTexture((AssetsPath + "cubemap1\\posz.jpg").c_str(), TEXTURESKYBOX_posZ);

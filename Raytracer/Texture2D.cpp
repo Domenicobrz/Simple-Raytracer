@@ -71,6 +71,7 @@ vec3 Texture2D::getColor(vec3 coord, Primitive* prim) {
 
 	// openGL applies gamma correction so we take it into account here and inverse-correct our texture space
 	return vec3(pow(r, 2.2f), pow(g, 2.2f), pow(b, 2.2f)) * multiplier;
+	//return vec3(pow(r, 1.0f), pow(g, 1.0f), pow(b, 1.0f)) * multiplier;
 };
 
 vec3 Texture2D::getColor(void* params_struct) {
