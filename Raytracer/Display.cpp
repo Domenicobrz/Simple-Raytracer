@@ -23,6 +23,7 @@
 #include "Material.h"
 #include "Lambert.h"
 #include "Phong.h"
+#include "SAPLambert.h"
 #include "Glossy.h"
 #include "Glass.h"
 #include "Light.h"
@@ -253,7 +254,7 @@ void Display::buildScene() {
 
 	/*vec3 eye = vec3(0.0f, 330.0f, -320.0f);
 	vec3 lookAt = vec3(0.0f, 75.0f, 0.0f);*/ 
-	vec3 eye = vec3(0.0f, 150.0f, -360.0f);
+	vec3 eye = vec3(0.0f, 150.0f, -330.0f);
 	vec3 lookAt = vec3(0.0f, 75.0f, 0.0f);
 	Camera camera(width, height, eye, lookAt);
 
@@ -273,15 +274,15 @@ void Display::buildScene() {
 	}
 
 
-	Material* modelMaterial = new PhongMaterial(vec3(1.0f, 0.3f, 0.45f), 1, 0, 32);// , 1.3f);
+	Material* modelMaterial = new SAPLambertMaterial(vec3(1.0f, 0.3f, 0.45f));// , 1.3f);
 	//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
 	//Material* modelMaterial = new GlossyMaterial(vec3(0.9f, 0.9f, 0.9f), 0.1f);// , 1.3f);
 	//Material* modelMaterial = new GlassMaterial(vec3(0.94f, 0.94f, 0.94f), 0.02f, 1.55f);// , 1.3f);
 	mat4 modelMatrix = mat4();
-	modelMatrix = glm::translate(modelMatrix, vec3(-40, 0, 20));
+	modelMatrix = glm::translate(modelMatrix, vec3(-20, 0, 20));
 	modelMatrix = glm::scale(modelMatrix, vec3(18, 18, 18));
 	modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
-	//scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
+	scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
 
 
 	{
@@ -297,7 +298,7 @@ void Display::buildScene() {
 		modelMatrix = glm::translate(modelMatrix, vec3(10, -2, 80));
 		modelMatrix = glm::scale(modelMatrix, vec3(31, 31, 31));
 		modelMatrix = glm::rotate(modelMatrix, 0.94f, vec3(0, 1, 0));
-		scene.loadModel("C:\\Users\\Domenico\\desktop\\harrier3.obj", modelMatrix, modelMaterial);
+		//scene.loadModel("C:\\Users\\Domenico\\desktop\\harrier3.obj", modelMatrix, modelMaterial);
 	}
 
 

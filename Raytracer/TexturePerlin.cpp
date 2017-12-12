@@ -8,7 +8,7 @@ TexturePerlin::TexturePerlin(float multiplier) : TextureManager(), multiplier(mu
 	// offset3 = rnd() * 45000;
 };
 
-vec3 TexturePerlin::getColor(vec3 coord, Primitive* prim) {
+vec3 TexturePerlin::getColor(vec3 coord, Primitive* prim, bool gammaCorrect) {
 	// TODO: this function is now broken. coord doesn't represent anymore the position in space of this point but the triangle's
 	// uvs. Transform the uvs to a position in space
 	float r = pow(glm::perlin(coord * 0.075f + vec3(3462, 363, 224))  * 0.5f + 0.5f, 4.0);

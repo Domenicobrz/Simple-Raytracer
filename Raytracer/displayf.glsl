@@ -8,6 +8,6 @@ uniform int uSamples;
 out vec4 Color;
 
 void main(){
-	Color = vec4(sqrt(texture(uDisplayTexture, vCoord).xyz / float(uSamples)), 1);	/* gamma corrected */
+	Color = vec4(pow(texture(uDisplayTexture, vCoord).xyz / float(uSamples), vec3(1.0 / 2.2)),  1);	/* gamma corrected */
 	//Color = vec4(texture(uDisplayTexture, vCoord).xyz / float(uSamples), 1);
 }
