@@ -13,6 +13,7 @@
 #include "TextureManager.h"
 #include "TextureSkybox.h"
 #include "Texture2D.h"
+#include "TextureMarble.h"
 
 #include "CubeGeometry.h"
 #include "PlaneGeometry.h"
@@ -51,9 +52,12 @@ Display::Display(int _width, int _height) {
 	if (Database::database_exist(Render.databasePath)) {
 		loadRender();
 	} else {
-		RandomData = new float[_width * _height * 4];
+		//RandomData = new float[_width * _height * 4];
+		for (int i = 0; i < 1000 * 800 * 4; i++) {
+			RandomData[i] = 0;
+		}
 		SampledData = new float[_width * _height * 4];
-		memset(RandomData, 0, _width * _height * 4 * sizeof(float));
+		//memset(RandomData, 0, _width * _height * 4 * sizeof(float));
 	}
 
 
@@ -274,31 +278,36 @@ void Display::buildScene() {
 	}
 
 
-	Material* modelMaterial = new SAPLambertMaterial(vec3(1.0f, 0.3f, 0.45f));// , 1.3f);
+	//Material* modelMaterial = new SAPLambertMaterial(vec3(1,1,1));// , 1.3f);
+	Material* modelMaterial = new PhongMaterial(vec3(0.95f, 0.95f, 0.95f), 0.2f, 0.8f, 48.0f);
+	//modelMaterial->tm = new TextureMarble(0.3f);
+	//modelMaterial->procTextureFromPointPosition = true;
 	//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
 	//Material* modelMaterial = new GlossyMaterial(vec3(0.9f, 0.9f, 0.9f), 0.1f);// , 1.3f);
 	//Material* modelMaterial = new GlassMaterial(vec3(0.94f, 0.94f, 0.94f), 0.02f, 1.55f);// , 1.3f);
 	mat4 modelMatrix = mat4();
-	modelMatrix = glm::translate(modelMatrix, vec3(-20, 0, 20));
+	modelMatrix = glm::translate(modelMatrix, vec3(-70, 0, 20));
 	modelMatrix = glm::scale(modelMatrix, vec3(18, 18, 18));
 	modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
-	scene.loadModel("C:\\Users\\Domenico\\desktop\\archangel.obj", modelMatrix, modelMaterial);
+	scene.loadModel("D:\\Projects\\Raytracer\\Assets\\models\\archangel.obj", modelMatrix, modelMaterial);
 
 
 	{
-		Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0.8f, 0.2f, 64.0f);
+		Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0.9f, 0.1f, 64.0f);
+		modelMaterial->tm = new TextureMarble(0.3f, vec3(1, 1, 1), vec3(1, 0.2, 0.2));
+		modelMaterial->procTextureFromPointPosition = true;
 		//Material* modelMaterial = new PhongMaterial(vec3(0.9f, 0.9f, 0.9f), 0.7, 0.3, 16);
 		//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
 		//Material* modelMaterial = new GlossyMaterial(vec3(0.95f, 0.95f, 0.95f), 0.5f);// , 1.3f);
 		//Material* modelMaterial = new GlassMaterial(vec3(1.0f, 1.0f, 1.0f), 0.02f, 1.4f);// , 1.3f);
-		modelMaterial->tm = new Texture2D("C:\\Users\\Domenico\\desktop\\Diffuse.png", 1.0f);
+		//modelMaterial->tm = new Texture2D("C:\\Users\\Domenico\\desktop\\Diffuse.png", 1.0f);
 		//modelMaterial->specular = new Texture2D("C:\\Users\\Domenico\\desktop\\Specular2.png", 1.0f);
 		//modelMaterial->temissive = new Texture2D("C:\\Users\\Domenico\\desktop\\Emissive.png", 0.55f);
 		mat4 modelMatrix = mat4();
-		modelMatrix = glm::translate(modelMatrix, vec3(10, -2, 80));
-		modelMatrix = glm::scale(modelMatrix, vec3(31, 31, 31));
-		modelMatrix = glm::rotate(modelMatrix, 0.94f, vec3(0, 1, 0));
-		//scene.loadModel("C:\\Users\\Domenico\\desktop\\harrier3.obj", modelMatrix, modelMaterial);
+		modelMatrix = glm::translate(modelMatrix, vec3(45, -2, 10));
+		modelMatrix = glm::scale(modelMatrix, vec3(22, 22, 22));
+		modelMatrix = glm::rotate(modelMatrix, 0.74f, vec3(0, 1, 0));
+		scene.loadModel("D:\\Projects\\Raytracer\\Assets\\models\\harrier3.obj", modelMatrix, modelMaterial);
 	}
 
 
@@ -308,7 +317,7 @@ void Display::buildScene() {
 	//modelMatrix = glm::translate(modelMatrix, vec3(0, 85, 20));
 	//modelMatrix = glm::scale(modelMatrix, vec3(38, 38, 38));
 	//modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0.6, 1, 0));
-	//scene.loadModel("C:\\Users\\Domenico\\desktop\\sphere.obj", modelMatrix, modelMaterial);
+	//scene.loadModel(D:\\Projects\\Raytracer\\Assets\\models\\sphere.obj", modelMatrix, modelMaterial);
 
 
 
@@ -444,7 +453,7 @@ void Display::loadRender() {
 	height = options.height;
 	samples = options.samples;
 
-	RandomData = new float[width * height * 4];
+	//RandomData = new float[width * height * 4];
 	SampledData = new float[width * height * 4];
 
 	Render.loadRenderBlob(RandomData);

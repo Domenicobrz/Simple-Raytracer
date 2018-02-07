@@ -216,7 +216,7 @@ void Scene::loadModel(const char* path, mat4 transform, Material* mat) {
 			float y3 = mesh->mVertices[i * 3 + 2].y;
 			float z3 = mesh->mVertices[i * 3 + 2].z;
 
-			float uv0s, uv0t, uv1s, uv1t, uv2s, uv2t;
+			float uv0s = 0, uv0t = 0, uv1s = 0, uv1t = 0, uv2s = 0, uv2t = 0;
 			if (mesh->HasTextureCoords(0)) {
 				uv0s = mesh->mTextureCoords[0][i * 3 + 0].x;
 				uv0t = mesh->mTextureCoords[0][i * 3 + 0].y;

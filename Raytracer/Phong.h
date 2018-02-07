@@ -20,7 +20,9 @@ public:
 	/* returns a color and changes the ray direction */
 	vec3 compute(Primitive*, vec3, Ray&, vec2);
 
-	//vec3 color;
+
+
+
 
 	// (ks + kd)   needs to be  <= 1
 private:

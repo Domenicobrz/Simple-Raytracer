@@ -20,4 +20,6 @@ public:
 	TextureManager* tm; // treated as albedo
 	TextureManager* specular; // could be used in Phong-BRDF 
 	TextureManager* temissive; // could be used in Light-BRDF  -  be sure to override current implementation with tm if you choose this path
+
+	bool procTextureFromPointPosition;
 };
