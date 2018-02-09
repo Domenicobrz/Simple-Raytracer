@@ -25,4 +25,12 @@
 //     since the cross product may result close to infinity
 
 
+
+// Colore del materiale : kd * col
+// perchè kd ? perchè ci permette di abbassare la riflettanza dell'albedo senza dover cambiare il colore
+// 
+// es.buona fortuna ad abbassare di 0.8 la riflettanza di : (234, 177, 14)
+
+
+
 // change the  "return mask;"   in BRDFs with  "return absorbtion * angleDispersion;

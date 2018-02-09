@@ -19,11 +19,11 @@ vec3 PhongMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 
 	float _ks = ks;
 	float _shininess = shininess;
 
-	//if (specular != nullptr) {
-	//	vec3 shininessFromTexture = getShininess(vec3(uv, 0.0f), primitive);
-	//	_kd = 1.0f - shininessFromTexture.r;
-	//	_ks = 1.0f - _kd;
-	//}
+	if (specular != nullptr) {
+		vec3 shininessFromTexture = getShininess(vec3(uv, 0.0f), primitive);
+		_kd = 1.0f - shininessFromTexture.r;
+		_ks = 1.0f - _kd;
+	}
 
 
 	// draw a random uniform variable to decide whether this is going to be a diffuse (u < kd) 
@@ -39,10 +39,10 @@ vec3 PhongMaterial::compute(Primitive* primitive, vec3 hitPoint, Ray& ray, vec2 
 
 	// diffuse sample
 	if (u < _kd) {
-		phi = 2.0f * M_PI * rnd();
-		theta = acos(sqrt(rnd()));
-		pdf = (1.0f / M_PI) * cos(theta);
-		brdf += (1.0f / M_PI) * _kd;
+		phi   =  2.0f * M_PI * rnd();
+		theta =  acos(sqrt(rnd()));
+		pdf   =  (1.0f / M_PI) * cos(theta);
+		brdf  += (1.0f / M_PI) * _kd;
 	}
 
 	// specular sample - check the reference to understand where these calculations are derived

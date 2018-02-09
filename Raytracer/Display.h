@@ -23,7 +23,7 @@ public:
 	int width;
 	int height;
 	int samples = 0;
-	float RandomData[1000 * 800 * 4];
+	float* RandomData;
 	Database Render;
 
 

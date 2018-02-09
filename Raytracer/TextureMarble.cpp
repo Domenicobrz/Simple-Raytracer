@@ -30,6 +30,7 @@ vec3 TextureMarble::getColor(vec3 coord, Primitive* prim, bool gammaCorrect) {
 	float t2 = coord.z * multiplier;
 	float mixer  = (sin(t  + p1 * 2.0f + cos(coord.y * multiplier * 0.5f + p2 * 2.0f) * 2.5f) * 0.5f + 0.5f) * (p2 * 0.5f + 0.5f);
 	mixer = pow(mixer, 0.3f);
+	if (mixer > 1.0f) mixer = 1.0f;
 
 	vec3 color = mixer * color1 + (1.0f - mixer) * color2;
 	return color;
