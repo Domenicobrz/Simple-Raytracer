@@ -32,3 +32,7 @@ vec3 Material::getEmissive(Primitive* prim, vec3 hitPoint, Ray& ray, vec2 uv) {
 	}
 	return emissive;
 }
+
+vec3 Material::HalfwayVector(vec3 wo, vec3 wi) {
+	return normalize(wo + wi);
+}

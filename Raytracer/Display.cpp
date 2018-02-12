@@ -26,6 +26,7 @@
 #include "Phong.h"
 #include "SAPLambert.h"
 #include "Glossy.h"
+#include "Cook-Torrance.h"
 #include "Glass.h"
 #include "Light.h"
 #include "Fog.h"
@@ -275,8 +276,8 @@ void Display::buildScene() {
 	}
 
 
-	//Material* modelMaterial = new SAPLambertMaterial(vec3(1,1,1));// , 1.3f);
-	Material* modelMaterial = new PhongMaterial(vec3(0.95f, 0.95f, 0.95f), 0.2f, 0.8f, 48.0f);
+	Material* modelMaterial = new CookTorranceMaterial(vec3(1,1,1), 0.01f, 0.99f, 0.01f); // , 1.3f);
+	//Material* modelMaterial = new PhongMaterial(vec3(0.95f, 0.95f, 0.95f), 0.2f, 0.8f, 48.0f);
 	//modelMaterial->tm = new TextureMarble(0.3f);
 	//modelMaterial->procTextureFromPointPosition = true;
 	//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
@@ -286,7 +287,22 @@ void Display::buildScene() {
 	modelMatrix = glm::translate(modelMatrix, vec3(-70, 0, 20));
 	modelMatrix = glm::scale(modelMatrix, vec3(18, 18, 18));
 	modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
-	//scene.loadModel("D:\\Projects\\Raytracer\\Assets\\models\\archangel.obj", modelMatrix, modelMaterial);
+	scene.loadModel("D:\\Projects\\Raytracer\\Assets\\models\\archangel.obj", modelMatrix, modelMaterial);
+
+	{
+		//Material* modelMaterial = new CookTorranceMaterial(vec3(1, 1, 1), 0.01f, 0.99f, 0.01f); // , 1.3f);
+		Material* modelMaterial = new PhongMaterial(vec3(0.95f, 0.95f, 0.95f), 0.05f, 0.95f, 48.0f);
+		//modelMaterial->tm = new TextureMarble(0.3f);
+		//modelMaterial->procTextureFromPointPosition = true;
+		//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
+		//Material* modelMaterial = new GlossyMaterial(vec3(0.9f, 0.9f, 0.9f), 0.1f);// , 1.3f);
+		//Material* modelMaterial = new GlassMaterial(vec3(0.94f, 0.94f, 0.94f), 0.02f, 1.55f);// , 1.3f);
+		mat4 modelMatrix = mat4();
+		modelMatrix = glm::translate(modelMatrix, vec3(40, 0, 20));
+		modelMatrix = glm::scale(modelMatrix, vec3(18, 18, 18));
+		modelMatrix = glm::rotate(modelMatrix, 3.1415f, vec3(0, 1, 0));
+		scene.loadModel("D:\\Projects\\Raytracer\\Assets\\models\\archangel.obj", modelMatrix, modelMaterial);
+	}
 
 
 	{
@@ -304,7 +320,7 @@ void Display::buildScene() {
 		modelMatrix = glm::translate(modelMatrix, vec3(45, -2, 10));
 		modelMatrix = glm::scale(modelMatrix, vec3(22, 22, 22));
 		modelMatrix = glm::rotate(modelMatrix, 0.74f, vec3(0, 1, 0));
-		scene.loadModel("D:\\Projects\\Raytracer\\Assets\\models\\harrier3.obj", modelMatrix, modelMaterial);
+		//scene.loadModel("D:\\Projects\\Raytracer\\Assets\\models\\harrier3.obj", modelMatrix, modelMaterial);
 	}
 
 

@@ -14,6 +14,7 @@ public:
 	virtual vec3 getColor(vec3 uvs, Primitive* prim);
 	virtual vec3 getShininess(vec3 uvs, Primitive* prim);
 	virtual vec3 getEmissive(Primitive* prim, vec3 hitPoint, Ray& ray, vec2 uv);
+	vec3 HalfwayVector(vec3 wo, vec3 wi);
 
 	vec3 color;
 	vec3 emissive;
