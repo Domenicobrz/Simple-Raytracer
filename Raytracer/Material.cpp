@@ -36,3 +36,7 @@ vec3 Material::getEmissive(Primitive* prim, vec3 hitPoint, Ray& ray, vec2 uv) {
 vec3 Material::HalfwayVector(vec3 wo, vec3 wi) {
 	return normalize(wo + wi);
 }
+
+float Material::clampDot(vec3 wo, vec3 wi) {
+	return clamp(dot(wo, wi), 0.0f, 1.0f);
+}

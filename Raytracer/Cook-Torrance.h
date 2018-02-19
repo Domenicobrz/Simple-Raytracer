@@ -15,10 +15,12 @@ public:
 
 	/* returns a color and changes the ray direction */
 	vec3 compute(Primitive*, vec3, Ray&, vec2);
-	float chiGGX(float v);
-	float GGX_Distribution(vec3 n, vec3 h, float alpha);
-	float GGX_PartialGeometryTerm(vec3 v, vec3 n, vec3 h, float alpha);
-	float CookTorranceMaterial::FresnelTerm(float theta);
+	float Distribution(vec3 n, vec3 h, float alpha);
+	float Geometry(vec3 wo, vec3 wi, vec3 n, vec3 h);
+	float Fresnel(vec3 wi, vec3 h, float costheta);
+	vec3 FresnelColor(vec3 wi, vec3 h, float costheta);
+	float partialFresnel(vec3 wi, vec3 h, float costheta, float n, float k);
+
 
 private:
 	float ks;
