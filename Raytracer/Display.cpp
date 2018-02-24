@@ -27,6 +27,7 @@
 #include "SAPLambert.h"
 #include "Glossy.h"
 #include "Cook-Torrance.h"
+#include "Oren-Nayar.h"
 #include "Glass.h"
 #include "Light.h"
 #include "Fog.h"
@@ -276,7 +277,8 @@ void Display::buildScene() {
 	}
 
 
-	Material* modelMaterial = new CookTorranceMaterial(vec3(0.95f,0.95f,0.95f), 0.05f, 0.95f, 0.1f); // , 1.3f);
+	//Material* modelMaterial = new CookTorranceMaterial(vec3(0.95f,0.95f,0.95f), 0.05f, 0.95f, 0.1f); // , 1.3f);
+	Material* modelMaterial = new OrenNayarMaterial(vec3(0.95f,0.65f,0.55f), 0.1f); // , 1.3f);
 	//Material* modelMaterial = new PhongMaterial(vec3(0.95f, 0.95f, 0.95f), 0.2f, 0.8f, 48.0f);
 	//modelMaterial->tm = new TextureMarble(0.3f);
 	//modelMaterial->procTextureFromPointPosition = true;
@@ -291,7 +293,7 @@ void Display::buildScene() {
 
 	{
 		//Material* modelMaterial = new CookTorranceMaterial(vec3(1, 1, 1), 0.01f, 0.99f, 0.01f); // , 1.3f);
-		Material* modelMaterial = new PhongMaterial(vec3(0.95f, 0.95f, 0.95f), 0.05f, 0.95f, 4.0f);
+		Material* modelMaterial = new LambertMaterial(vec3(0.95f, 0.65f, 0.55f));
 		//modelMaterial->tm = new TextureMarble(0.3f);
 		//modelMaterial->procTextureFromPointPosition = true;
 		//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);

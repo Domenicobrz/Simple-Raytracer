@@ -120,6 +120,9 @@
     <ClCompile Include="Cook-Torrance.cpp">
       <Filter>BSDFs</Filter>
     </ClCompile>
+    <ClCompile Include="Oren-Nayar.cpp">
+      <Filter>BSDFs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Display.h">
@@ -216,6 +219,9 @@
       <Filter>Texture</Filter>
     </ClInclude>
     <ClInclude Include="Cook-Torrance.h">
+      <Filter>BSDFs</Filter>
+    </ClInclude>
+    <ClInclude Include="Oren-Nayar.h">
       <Filter>BSDFs</Filter>
     </ClInclude>
   </ItemGroup>

@@ -163,6 +163,7 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="naiveBVH.cpp" />
+    <ClCompile Include="Oren-Nayar.cpp" />
     <ClCompile Include="Phong.cpp" />
     <ClCompile Include="PlaneGeometry.cpp" />
     <ClCompile Include="Primitive.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="naiveBVH.h" />
+    <ClInclude Include="Oren-Nayar.h" />
     <ClInclude Include="Phong.h" />
     <ClInclude Include="PlaneGeometry.h" />
     <ClInclude Include="Primitive.h" />
