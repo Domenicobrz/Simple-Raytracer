@@ -197,7 +197,7 @@ float OrenNayarFormula(vec3 wo, vec3 wi) {
 	float A = 1.f - (sigma2 / (2.f * (sigma2 + 0.33f)));
 	float B = 0.45f * sigma2 / (sigma2 + 0.09f);
 
-
+	 
 	float sinThetaI = SinTheta(wi);
 	float sinThetaO = SinTheta(wo);
 
