@@ -278,7 +278,7 @@ void Display::buildScene() {
 
 
 	//Material* modelMaterial = new CookTorranceMaterial(vec3(0.95f,0.95f,0.95f), 0.05f, 0.95f, 0.1f); // , 1.3f);
-	Material* modelMaterial = new OrenNayarMaterial(vec3(0.95f,0.65f,0.55f), 0.1f); // , 1.3f);
+	Material* modelMaterial = new OrenNayarMaterial(vec3(0.99f, 153.0f / 255.0f, 204.0f / 255.0f), 0.1f); // , 1.3f);
 	//Material* modelMaterial = new PhongMaterial(vec3(0.95f, 0.95f, 0.95f), 0.2f, 0.8f, 48.0f);
 	//modelMaterial->tm = new TextureMarble(0.3f);
 	//modelMaterial->procTextureFromPointPosition = true;
@@ -293,7 +293,7 @@ void Display::buildScene() {
 
 	{
 		//Material* modelMaterial = new CookTorranceMaterial(vec3(1, 1, 1), 0.01f, 0.99f, 0.01f); // , 1.3f);
-		Material* modelMaterial = new LambertMaterial(vec3(0.95f, 0.65f, 0.55f));
+		Material* modelMaterial = new LambertMaterial(vec3(0.99f, 153.0f / 255.0f, 204.0f / 255.0f));
 		//modelMaterial->tm = new TextureMarble(0.3f);
 		//modelMaterial->procTextureFromPointPosition = true;
 		//Material* modelMaterial = new LambertMaterial(vec3(0.3f, 0.3f, 0.35f));// , 1.3f);
@@ -340,18 +340,48 @@ void Display::buildScene() {
 	/* creating a lit plane */
 	//float m = 3.0f;
 	//mat4 plane_transform = mat4();
-	////plane_transform = glm::translate(plane_transform, vec3(-30.0f, 198.5f, -10.0f));
+	//////plane_transform = glm::translate(plane_transform, vec3(-30.0f, 198.5f, -10.0f));
 	//plane_transform = glm::translate(plane_transform, vec3(0.0f, 115.0f, 250.0f));
 	//plane_transform = glm::rotate(plane_transform, ((float)AI_MATH_PI) / 2.0f, vec3(0, 0, 1));
 	//plane_transform = glm::rotate(plane_transform, -((float)AI_MATH_PI) / 2.0f, vec3(1, 0, 0));
 	//plane_transform = glm::scale(plane_transform, vec3(190, 1, 190 / 0.75414f));
-	////plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(1, 0, 0));
-	//// plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(0, 0, 1));
+	//////plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(1, 0, 0));
+	////// plane_transform = glm::rotate(plane_transform, -(float)AI_MATH_PI / 2.0f, vec3(0, 0, 1));
 	//Geometry* plane = new PlaneGeometry(plane_transform);
 	//LightMaterial* planeMat = new LightMaterial(vec3(5 * m, 4 * m, 4 * m));
-	//planeMat->tm = new Texture2D("C:\\Users\\Domenico\\Desktop\\groundemission.png", 3.5f);
+	////planeMat->tm = new Texture2D("C:\\Users\\Domenico\\Desktop\\groundemission.png", 3.5f);
 	//plane->setMaterial(planeMat);
 	//scene.add(plane);
+	
+	{
+		float m = 3.0f;
+		mat4 plane_transform = mat4();
+		plane_transform = glm::translate(plane_transform, vec3(70.0f, 45.0f, -250.0f));
+		plane_transform = glm::rotate(plane_transform, ((float)AI_MATH_PI) / 2.0f, vec3(1, 0, 0));
+		//plane_transform = glm::rotate(plane_transform, -((float)AI_MATH_PI) / 2.0f, vec3(1, 0, 0));
+		plane_transform = glm::scale(plane_transform, vec3(50, 1, 60));
+		Geometry* plane = new PlaneGeometry(plane_transform);
+		LightMaterial* planeMat = new LightMaterial(vec3(1 * m, 2 * m, 5 * m));
+		plane->setMaterial(planeMat);
+		scene.add(plane);
+	}
+	
+	{
+		float m = 3.0f;
+		mat4 plane_transform = mat4();
+		plane_transform = glm::translate(plane_transform, vec3(-120.0f, 45.0f, -250.0f));
+		plane_transform = glm::rotate(plane_transform, ((float)AI_MATH_PI) / 2.0f, vec3(1, 0, 0));
+		//plane_transform = glm::rotate(plane_transform, -((float)AI_MATH_PI) / 2.0f, vec3(1, 0, 0));
+		plane_transform = glm::scale(plane_transform, vec3(50, 1, 60));
+		Geometry* plane = new PlaneGeometry(plane_transform);
+		LightMaterial* planeMat = new LightMaterial(vec3(5 * m, 1 * m, 1 * m));
+		plane->setMaterial(planeMat);
+		scene.add(plane);
+	}
+
+
+
+
 
 
 
@@ -389,8 +419,8 @@ void Display::buildScene() {
 	skybox->loadTexture((AssetsPath + "cubemap1\\negx.jpg").c_str(), TEXTURESKYBOX_negX);
 	skybox->loadTexture((AssetsPath + "cubemap1\\negy.jpg").c_str(), TEXTURESKYBOX_negY);
 	skybox->loadTexture((AssetsPath + "cubemap1\\negz.jpg").c_str(), TEXTURESKYBOX_negZ);
-	scene.skybox = skybox;
-	//scene.skybox = nullptr;
+	//scene.skybox = skybox;
+	scene.skybox = nullptr;
 
 
 
