@@ -1,6 +1,9 @@
 
 Simple C++ Raytracer
 ======
+<p align="center">
+	<img src="/Raytracer/renders/33.png" style="max-width:100%;" width="650"/>
+</p>
 
 ## Features
 
@@ -24,24 +27,28 @@ Simple C++ Raytracer
 ## Pictures rendered with this simple Raytracer
 
 **Oren-Nayar reflectance model VS perfect lambertian material**
-
-<img src="/Raytracer/renders/33.png" style="width: 80%; margin:auto;"/>
-
+<p align="center">
+    <img src="/Raytracer/renders/33.png" style="max-width:100%;" width="850"/>
+</p>
 **Phong BRDF importance sampling & albedo textures**
-
-<img src="/Raytracer/renders/29_final.png" style="width: 80%; margin:auto;"/>
+<p align="center">
+    <img src="/Raytracer/renders/29_final.png" style="max-width:100%;" width="850"/>
+</p>
 
 **Refractive BRDF**
-
-<img src="/Raytracer/renders/23_2.png" style="width: 80%; margin:auto;"/>
+<p align="center">
+    <img src="/Raytracer/renders/23_2.png" style="max-width:100%;" width="850"/>
+</p>
 
 **Depth of Field**
-
-<img src="/Raytracer/renders/17_f.png" style="width: 80%; margin:auto;"/>
+<p align="center">
+    <img src="/Raytracer/renders/17_f.png" style="max-width:100%;" width="850"/>
+</p>
 
 **Lambertian Spheres**
-
-<img src="/Raytracer/renders/12_f.png" style="width: 80%; margin:auto;"/>
+<p align="center">
+    <img src="/Raytracer/renders/12_f.png" style="max-width:100%;" width="850"/>
+</p>
 
 ## How to build
 **Work In Progress** - This project requires sqlite, assimp and FreeImage
