@@ -28,7 +28,11 @@ Simple C++ Raytracer
 ## Pictures rendered with this simple Path Tracer
 
 <p align="center">
-<img src="/Raytracer/renders/33.png" style="max-width:100%;" width="800"/><br><img src="/Raytracer/renders/29_final.png" style="max-width:100%;" width="400"/><img src="/Raytracer/renders/23_2.png" style="max-width:100%;" width="400"/><br><img src="/Raytracer/renders/17_f.png" style="max-width:100%;" width="400"/><img src="/Raytracer/renders/12_f.png" style="max-width:100%;" width="400"/>
+<img src="/Raytracer/renders/33.png" style="max-width:100%;" width="800"/><br>
+<img src="/Raytracer/renders/p4.png" style="max-width:100%;" width="400"/>
+<img src="/Raytracer/renders/p3.png" style="max-width:100%;" width="400"/><br>
+<img src="/Raytracer/renders/p2.png" style="max-width:100%;" width="400"/>
+<img src="/Raytracer/renders/p1.png" style="max-width:100%;" width="400"/>
 </p>
 
 
