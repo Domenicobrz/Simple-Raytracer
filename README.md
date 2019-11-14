@@ -10,14 +10,14 @@ Simple C++ Raytracer
 #### BRDFs
 1. Modified Phong BRDF
 2. Oren-Nayar Reflectance Model
-3. Glossy and Glass BRDFs (though these are not yet physically accurate)
+3. Glossy and Glass BRDFs 
 #### Textures
 1. Albedo / emissive / specular textures for models
 2. Textured Light Sources
 3. Procedural Textures (marble noise, perlin) 
 #### Misc
 1. Depth Of Field
-2. Fog scattering (though it needs a rewrite)
+2. Fog scattering 
 3. Save your renders in an intermediate format and resume rendering later (from sqlite)
 #### Models and Geometry
 1. Uses Assimp to load and store models in memory
